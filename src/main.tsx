@@ -8,13 +8,38 @@ import "./index.css";
 //Router
 // Import the generated route tree
 import { routeTree } from "./routeTree.gen";
+import { AuthContextProvider, UserAuth } from "./components/auth/AuthContext";
 // Create a new router instance
-const router = createRouter({ routeTree });
+const router = createRouter({
+  routeTree,
+  context: {
+    auth: undefined!, // This will be set after we wrap the app in an AuthProvider
+  },
+});
 // Register the router instance for type safety
 declare module "@tanstack/react-router" {
   interface Register {
     router: typeof router;
   }
+}
+
+function InnerApp() {
+  const auth = UserAuth();
+  return (
+    <>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} context={{ auth }} />
+      </QueryClientProvider>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <AuthContextProvider>
+      <InnerApp />
+    </AuthContextProvider>
+  );
 }
 
 //Query
@@ -26,9 +51,7 @@ if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <StrictMode>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
+      <App />
     </StrictMode>
   );
 }

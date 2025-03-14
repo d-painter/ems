@@ -1,45 +1,55 @@
-import { auth } from "@/components/user";
+import { UserAuth } from "@/components/auth/AuthContext";
 import {
   createFileRoute,
   Link,
   Outlet,
-  redirect,
+  useNavigate,
 } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/(app)")({
-  beforeLoad: async ({ location }) => {
-    if (!auth.isLoggedIn) {
-      throw redirect({
-        to: "/login",
-        search: {
-          // Use the current location to power a redirect after login
-          // (Do not use `router.state.resolvedLocation` as it can
-          // potentially lag behind the actual current location)
-          redirect: location.href,
-        },
-      });
-    }
-  },
-  component: RouteComponent,
+
+  component: AppRoute,
 });
 
-function RouteComponent() {
+function AppRoute() {
+  const { signOut, signIn, session } = UserAuth();
+  const navigate = useNavigate();
+
+  if (!session) {
+    navigate({ to: "/login" });
+  }
+
+  async function handleLoginButton() {
+    if (session) {
+      await signOut();
+      navigate({ to: "/" });
+    } else {
+      await signIn("dunc@a.com", "password");
+    }
+  }
+
   return (
     <>
       <div className="p-2 relative flex flex-row w-full gap-2">
         <div className="flex flex-row w-full gap-2 items-center">
           <Link to="/" className="[&.active]:font-bold">
             Home
-          </Link>{" "}
+          </Link>
           <Link to="/about" className="[&.active]:font-bold">
             About
           </Link>
           <div className="w-fit bg-amber-200 h-fit px-4">
-            logged in: {JSON.stringify(auth.isLoggedIn)}
+            logged in: {session ? "yes" : "no"}
+          </div>
+          <div className="w-fit bg-amber-200 h-fit px-4">
+            logged in as: {session?.user?.email ? session.user.email : "-"}
           </div>
         </div>
-        <button className="p-4 bg-amber-800 rounded-xl">
-          {auth.isLoggedIn ? "LOGOUT" : "LOGIN"}
+        <button
+          onClick={() => handleLoginButton()}
+          className="p-4 bg-amber-800 rounded-xl"
+        >
+          {session ? "LOGOUT" : "LOGIN"}
         </button>
       </div>
       <hr />

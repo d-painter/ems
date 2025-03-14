@@ -1,3 +1,4 @@
+import { UserAuth } from "@/components/auth/AuthContext";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/(app)/")({
@@ -5,5 +6,12 @@ export const Route = createFileRoute("/(app)/")({
 });
 
 function RouteComponent() {
-  return <div>Hello "/(app)/"!</div>;
+  const { session } = UserAuth();
+  return (
+    <>
+      <div>Hello "/(app)/"!</div>;
+      <hr/>
+      <div>{JSON.stringify(session && session.user.email)}</div>
+    </>
+  );
 }
