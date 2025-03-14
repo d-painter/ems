@@ -12,8 +12,8 @@ function SignupPage() {
   const [error, setError] = useState<AuthError | null>(null);
 
   const handleSignUp = async () => {
-    const email = "dunc@a.com";
-    const password = "password";
+    let email = ""
+    let password=""
     try {
       const { error } = await signUpNewUser(email, password);
       if (error) {

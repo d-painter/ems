@@ -7,12 +7,11 @@ import {
 } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/(app)")({
-
   component: AppRoute,
 });
 
 function AppRoute() {
-  const { signOut, signIn, session } = UserAuth();
+  const { signOut, session } = UserAuth();
   const navigate = useNavigate();
 
   if (!session) {
@@ -24,7 +23,8 @@ function AppRoute() {
       await signOut();
       navigate({ to: "/" });
     } else {
-      await signIn("dunc@a.com", "password");
+      //TODO: sort
+      alert("no session");
     }
   }
 
