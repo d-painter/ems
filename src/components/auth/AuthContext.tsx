@@ -18,7 +18,7 @@ export interface AuthContext {
   signIn: (
     email: string,
     password: string
-  ) => Promise<{ success: boolean } | undefined> | null;
+  ) => Promise<{ success: boolean, error?:AuthError } | undefined> | null;
   signOut: () => Promise<void>;
 }
 
@@ -52,7 +52,7 @@ export function AuthContextProvider({
       });
 
       if (error) {
-        return { success: false, error: error.message };
+        return { success: false, error: error };
       }
       return { success: true, data };
     } catch (error) {
