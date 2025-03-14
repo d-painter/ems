@@ -18,6 +18,8 @@ function LoginPage() {
     e.preventDefault();
     await signIn(formState.email, formState.password);
     navigate({ to: "/" });
+
+    //TODO: handle return errors
   }
 
   return (

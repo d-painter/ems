@@ -16,6 +16,7 @@ function AppRoute() {
 
   if (!session) {
     navigate({ to: "/login" });
+    return
   }
 
   async function handleLoginButton() {
