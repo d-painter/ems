@@ -15,7 +15,7 @@ function AppRoute() {
   const navigate = useNavigate();
 
   if (!session) {
-    navigate({ to: "/" });
+    navigate({ to: "/login" });
     return
   }
 
