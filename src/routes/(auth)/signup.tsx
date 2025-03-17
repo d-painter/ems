@@ -12,8 +12,8 @@ function SignupPage() {
   const [error, setError] = useState<AuthError | null>(null);
 
   const handleSignUp = async () => {
-    let email = ""
-    let password=""
+    let email = "";
+    let password = "";
     try {
       const { error } = await signUpNewUser(email, password);
       if (error) {
@@ -29,7 +29,7 @@ function SignupPage() {
       <div>Hello signup</div>
       <button
         onClick={() => handleSignUp()}
-        className="bg-red-300 rounded-xl p-4 m-6"
+        className="bg-destructive rounded-xl p-4 m-6"
       >
         Signup
       </button>
@@ -38,7 +38,7 @@ function SignupPage() {
       {JSON.stringify(error)}
 
       {error && (
-        <div className=" flex flex-col items-center justify-center w-fit h-fit bg-red-500 p-4">
+        <div className=" flex flex-col items-center justify-center w-fit h-fit bg-destructive p-4">
           <p>SIGNUP ERROR</p>
           <p>{error.code}</p>
         </div>
