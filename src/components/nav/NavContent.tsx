@@ -12,7 +12,7 @@ export default function NavContent({ closeMobileNav }: NavContentProps) {
   ];
 
   return (
-    <div className="flex flex-col text-2xl [&_*]:hover:border-l-4 [&_*]:border-l-4 [&_*]:border-transparent [&_*]:hover:border-l-primary [&_*]:pl-2">
+    <div className="flex flex-col text-2xl gap-2 [&_*]:hover:border-l-4 [&_*]:border-l-4 [&_*]:border-transparent [&_*]:hover:border-l-primary [&_*]:pl-2">
       <Link
         to={"/"}
         className="[&.active]:font-bold [&.active]:border-l-primary"

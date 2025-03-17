@@ -16,14 +16,16 @@ export default function TopNav() {
       </div>
 
       {/* profile component  */}
-      <div className="ml-auto items-center gap-1 hidden md:block ">
+      <div className="ml-auto items-center gap-1 hidden md:flex ">
         <UserCircleSVG />
         <p className="text-lg">{session?.user?.email}</p>
         <Button
-          onClick={async () => {
-            await signOut();
-            navigate({ to: "/" });
-          }}
+          onClick={
+            void (async () => {
+              await signOut();
+              void navigate({ to: "/" });
+            })
+          }
         >
           Log out
         </Button>

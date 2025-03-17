@@ -26,7 +26,7 @@ function LoginPage() {
     if (!res?.success) {
       setError(res?.error?.message as string);
     } else {
-      navigate({ to: "/" });
+      void navigate({ to: "/" });
     }
   }
 
@@ -47,7 +47,9 @@ function LoginPage() {
           <CardContent>
             <form
               className="flex flex-col justify-center gap-4"
-              onSubmit={(e) => handleSubmit(e)}
+              onSubmit={
+                void (async (e: FormEvent<HTMLFormElement>) => handleSubmit(e))
+              }
             >
               <div className="grid w-full max-w-sm items-center gap-1.5">
                 <Label htmlFor="email">Email</Label>

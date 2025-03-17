@@ -45,10 +45,12 @@ export default function MobileSideBar() {
               <div className="flex flex-col gap-2">
                 <p className="text-xl">{session?.user.email}</p>
                 <Button
-                  onClick={async () => {
-                    await signOut();
-                    navigate({ to: "/" });
-                  }}
+                  onClick={
+                    void (async () => {
+                      await signOut();
+                      void navigate({ to: "/" });
+                    })
+                  }
                   className="w-full"
                 >
                   Log out
