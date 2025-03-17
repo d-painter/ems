@@ -2,8 +2,7 @@ import { UserAuth } from "@/components/auth/AuthContext";
 import SideNav from "@/components/nav/SideNav";
 import TopNav from "@/components/nav/TopNav";
 import { createFileRoute, Outlet, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
-import { createPortal } from "react-dom";
+import { useEffect } from "react";
 
 export const Route = createFileRoute("/(app)")({
   component: AppRoute,
@@ -13,12 +12,17 @@ function AppRoute() {
   const { session } = UserAuth();
   const navigate = useNavigate();
 
-  const [showMobileNav, setShowMobileNav] = useState(false)
+  // Check if session exists and redirect to login if not
+  useEffect(() => {
+    if (!session) {
+      void navigate({ to: "/login" });
+    }
+  }, [session, navigate]);
 
   if (!session) {
-    navigate({ to: "/login" });
-    return;
+    return null; 
   }
+
   return (
     <div className="flex flex-row h-dvh w-full">
       <SideNav />
@@ -26,7 +30,6 @@ function AppRoute() {
         <TopNav />
         <Outlet />
       </div>
-
     </div>
   );
 }
