@@ -24,11 +24,9 @@ function LoginPage() {
     e.preventDefault();
     const res = await signIn(formState.email, formState.password);
     if (!res?.success) {
-      console.log(res);
-
       setError(res?.error?.message as string);
     } else {
-      navigate({ to: "/" });
+      void navigate({ to: "/" });
     }
   }
 
@@ -49,12 +47,14 @@ function LoginPage() {
           <CardContent>
             <form
               className="flex flex-col justify-center gap-4"
-              onSubmit={(e) => handleSubmit(e)}
+              onSubmit={
+                void (async (e: FormEvent<HTMLFormElement>) => handleSubmit(e))
+              }
             >
               <div className="grid w-full max-w-sm items-center gap-1.5">
                 <Label htmlFor="email">Email</Label>
                 <Input
-                  className={`${error && "border-red-600"}`}
+                  className={`${error && "border-destructive"}`}
                   type="email"
                   placeholder="email"
                   name="email"
@@ -69,7 +69,7 @@ function LoginPage() {
               <div className="grid w-full max-w-sm items-center gap-1.5">
                 <Label htmlFor="password">Password</Label>
                 <Input
-                  className={`${error && "border-red-600"}`}
+                  className={`${error && "border-destructive"}`}
                   type="password"
                   placeholder="password"
                   name="password"
@@ -82,7 +82,7 @@ function LoginPage() {
                 />
               </div>
 
-              <p className="text-sm text-red-400 min-h-5">
+              <p className="text-sm text-destructive min-h-5">
                 {error && JSON.stringify(error)}
               </p>
 
