@@ -1,27 +1,16 @@
 import NavContent from "@/components/nav/NavContent";
 import SideNav from "@/components/nav/SideNav";
-import { fetchProjects } from "@/services/queries/projectQueries";
+import {
+  useAllProjects,
+} from "@/services/queries/projectQueries";
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-
 export const Route = createFileRoute("/(app)/")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
 
-  const [projects, setProjects] = useState([])
-
-  async function getProjects() {
-    const res = await fetchProjects()
-    
-  }
-
-  useEffect(() => {
-
-    getProjects()
-  },[])
-
+  const projectsQuery = useAllProjects();
 
   return (
     <>
@@ -31,9 +20,11 @@ function RouteComponent() {
         </div>
       </SideNav>
       <div>HOME DASHBOARD</div>
-      <div>{projects && projects.map((p) => (
-        <p>{JSON.stringify(p)}</p>
-      ))}</div>
+      <div>
+        {projectsQuery.isPending && <p>Loading...</p>}
+        {projectsQuery.data?.data?.map((d) => (<p>{JSON.stringify(d)}</p>))}
+        {projectsQuery.isError && <p>{JSON.stringify(projectsQuery.error.message)}</p>}
+      </div>
     </>
   );
 }

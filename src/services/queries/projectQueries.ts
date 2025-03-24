@@ -1,25 +1,24 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase as supabaseClient } from "../supabase/supabaseClient";
-import { Database } from "../supabase/supabaseTypes";
-import { PostgrestError } from "@supabase/supabase-js";
+import { Tables } from "../supabase/supabaseTypes";
 
 const supabase = supabaseClient;
 
-export async function fetchProjects(): Promise<Database[] | PostgrestError> {
+export async function fetchProjects(): Promise<{
+  data: Tables<"projects">[] | null;
+}> {
   const { data, error } = await supabase
     .from("projects")
     .select()
     .order("project_id");
-  console.log(data);
-
-  if (data) {
-    return data;
+  if (error) {
+    throw error;
+  } else {
+    return { data };
   }
-
-  return error;
 }
 
-export function useProjects() {
+export function useAllProjects() {
   return useQuery({
     queryKey: ["allProjects"],
     queryFn: fetchProjects,
