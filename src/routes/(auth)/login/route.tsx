@@ -27,7 +27,7 @@ function LoginPage() {
     if (!res?.success) {
       setError(res?.error?.message as string);
     } else {
-      void navigate({ to: "/" });
+      await navigate({ to: "/" });
     }
   }
 
