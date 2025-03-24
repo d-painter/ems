@@ -10,12 +10,10 @@ export default function SideNav() {
     <div className="w-52 hidden md:block bg-blue-300 p-4">
       <div className="absolute bottom-0 p-4 left-0 w-48">
         <Button
-          onClick={
-            void (async () => {
-              await signOut();
-              void navigate({ to: "/" });
-            })
-          }
+          onClick={() => {
+            void signOut();
+            void navigate({ to: "/" });
+          }}
           className="w-full"
         >
           Log out

@@ -8,7 +8,7 @@ import { useNavigate } from "@tanstack/react-router";
 import NavContent from "./NavContent";
 
 export default function MobileSideBar() {
-  const [showMobileNav, setShowMobileNav] = useState(true);
+  const [showMobileNav, setShowMobileNav] = useState(false);
   const { signOut, session } = UserAuth();
   const navigate = useNavigate();
 
@@ -46,10 +46,10 @@ export default function MobileSideBar() {
                 <p className="text-xl">{session?.user.email}</p>
                 <Button
                   onClick={
-                    void (async () => {
-                      await signOut();
-                      void navigate({ to: "/" });
-                    })
+                     () => {
+                       void signOut();
+                       void navigate({ to: "/" });
+                    }
                   }
                   className="w-full"
                 >

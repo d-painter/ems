@@ -23,6 +23,7 @@ function LoginPage() {
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const res = await signIn(formState.email, formState.password);
+
     if (!res?.success) {
       setError(res?.error?.message as string);
     } else {
@@ -47,9 +48,7 @@ function LoginPage() {
           <CardContent>
             <form
               className="flex flex-col justify-center gap-4"
-              onSubmit={
-                void (async (e: FormEvent<HTMLFormElement>) => handleSubmit(e))
-              }
+              onSubmit={(e: FormEvent<HTMLFormElement>) => void handleSubmit(e)}
             >
               <div className="grid w-full max-w-sm items-center gap-1.5">
                 <Label htmlFor="email">Email</Label>
