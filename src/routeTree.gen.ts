@@ -18,7 +18,6 @@ import { Route as authLoginRouteImport } from './routes/(auth)/login/route'
 import { Route as appSuppliersRouteImport } from './routes/(app)/suppliers/route'
 import { Route as appProjectsRouteImport } from './routes/(app)/projects/route'
 import { Route as appPartsRouteImport } from './routes/(app)/parts/route'
-import { Route as appAboutRouteImport } from './routes/(app)/about/route'
 
 // Create/Update Routes
 
@@ -63,12 +62,6 @@ const appPartsRouteRoute = appPartsRouteImport.update({
   getParentRoute: () => appRouteRoute,
 } as any)
 
-const appAboutRouteRoute = appAboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => appRouteRoute,
-} as any)
-
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -79,13 +72,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof appRouteImport
       parentRoute: typeof rootRoute
-    }
-    '/(app)/about': {
-      id: '/(app)/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof appAboutRouteImport
-      parentRoute: typeof appRouteImport
     }
     '/(app)/parts': {
       id: '/(app)/parts'
@@ -135,7 +121,6 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface appRouteRouteChildren {
-  appAboutRouteRoute: typeof appAboutRouteRoute
   appPartsRouteRoute: typeof appPartsRouteRoute
   appProjectsRouteRoute: typeof appProjectsRouteRoute
   appSuppliersRouteRoute: typeof appSuppliersRouteRoute
@@ -143,7 +128,6 @@ interface appRouteRouteChildren {
 }
 
 const appRouteRouteChildren: appRouteRouteChildren = {
-  appAboutRouteRoute: appAboutRouteRoute,
   appPartsRouteRoute: appPartsRouteRoute,
   appProjectsRouteRoute: appProjectsRouteRoute,
   appSuppliersRouteRoute: appSuppliersRouteRoute,
@@ -156,7 +140,6 @@ const appRouteRouteWithChildren = appRouteRoute._addFileChildren(
 
 export interface FileRoutesByFullPath {
   '/': typeof appIndexRoute
-  '/about': typeof appAboutRouteRoute
   '/parts': typeof appPartsRouteRoute
   '/projects': typeof appProjectsRouteRoute
   '/suppliers': typeof appSuppliersRouteRoute
@@ -165,7 +148,6 @@ export interface FileRoutesByFullPath {
 }
 
 export interface FileRoutesByTo {
-  '/about': typeof appAboutRouteRoute
   '/parts': typeof appPartsRouteRoute
   '/projects': typeof appProjectsRouteRoute
   '/suppliers': typeof appSuppliersRouteRoute
@@ -177,7 +159,6 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/(app)': typeof appRouteRouteWithChildren
-  '/(app)/about': typeof appAboutRouteRoute
   '/(app)/parts': typeof appPartsRouteRoute
   '/(app)/projects': typeof appProjectsRouteRoute
   '/(app)/suppliers': typeof appSuppliersRouteRoute
@@ -188,27 +169,12 @@ export interface FileRoutesById {
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/about'
-    | '/parts'
-    | '/projects'
-    | '/suppliers'
-    | '/login'
-    | '/signup'
+  fullPaths: '/' | '/parts' | '/projects' | '/suppliers' | '/login' | '/signup'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/about'
-    | '/parts'
-    | '/projects'
-    | '/suppliers'
-    | '/login'
-    | '/signup'
-    | '/'
+  to: '/parts' | '/projects' | '/suppliers' | '/login' | '/signup' | '/'
   id:
     | '__root__'
     | '/(app)'
-    | '/(app)/about'
     | '/(app)/parts'
     | '/(app)/projects'
     | '/(app)/suppliers'
@@ -248,16 +214,11 @@ export const routeTree = rootRoute
     "/(app)": {
       "filePath": "(app)/route.tsx",
       "children": [
-        "/(app)/about",
         "/(app)/parts",
         "/(app)/projects",
         "/(app)/suppliers",
         "/(app)/"
       ]
-    },
-    "/(app)/about": {
-      "filePath": "(app)/about/route.tsx",
-      "parent": "/(app)"
     },
     "/(app)/parts": {
       "filePath": "(app)/parts/route.tsx",

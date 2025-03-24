@@ -17,7 +17,7 @@ export default function TopNav() {
         <HomeSVG />
       </Link>
 
-      {/* profile component  */}
+      {/*TODO: profile component  */}
       <div className="ml-auto items-center gap-1 hidden md:flex ">
         <UserCircleSVG />
         <p className="text-lg">{session?.user?.email}</p>
