@@ -1,18 +1,20 @@
+import { UserAuth } from "@/components/auth/AuthContext";
 import TopNav from "@/components/nav/TopNav";
-import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { createFileRoute, Outlet, useNavigate } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/(app)")({
-  beforeLoad: ({ context }) => {
-    console.log("auth", context.auth.session);
-
-    if (!context.auth.session) {
-      return redirect({ to: "/login" });
-    }
-  },
-  component: AppRoute,
+   component: AppRoute,
 });
 
 function AppRoute() {
+  const { session } = UserAuth();
+  const navigate = useNavigate();
+
+  if (!session) {
+    void navigate({ to: "/login" });
+    return
+  }
+
   return (
     <div className="flex flex-col h-dvh w-full">
       <TopNav />
