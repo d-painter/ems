@@ -1,10 +1,10 @@
 import { Link } from "@tanstack/react-router";
 
 type NavContentProps = {
-  closeMobileNav: () => void;
+  closeMobileNav?: () => void;
 };
 
-export default function NavContent({ closeMobileNav }: NavContentProps) {
+export default function NavContent({ closeMobileNav = ()=> null }: NavContentProps) {
   const routes = [
     { title: "Projects", to: "/projects" },
     { title: "Parts", to: "/parts" },

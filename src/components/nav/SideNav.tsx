@@ -1,24 +1,9 @@
-import { useNavigate } from "@tanstack/react-router";
-import { Button } from "../ui/button";
-import { UserAuth } from "../auth/AuthContext";
+import { ReactNode } from "react";
 
-export default function SideNav() {
-  const { signOut } = UserAuth();
-  const navigate = useNavigate();
-
+export default function SideNav({ children }: { children: ReactNode }) {
   return (
-    <div className="w-52 hidden md:block bg-blue-300 p-4">
-      <div className="absolute bottom-0 p-4 left-0 w-48">
-        <Button
-          onClick={() => {
-            void signOut();
-            void navigate({ to: "/" });
-          }}
-          className="w-full"
-        >
-          Log out
-        </Button>
-      </div>
+    <div className="w-48 h-full hidden md:flex-col md:flex p-4 bg-red-200">
+      {children}
     </div>
   );
 }

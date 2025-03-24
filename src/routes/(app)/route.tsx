@@ -1,5 +1,4 @@
 import { UserAuth } from "@/components/auth/AuthContext";
-import SideNav from "@/components/nav/SideNav";
 import TopNav from "@/components/nav/TopNav";
 import { createFileRoute, Outlet, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
@@ -20,14 +19,13 @@ function AppRoute() {
   }, [session, navigate]);
 
   if (!session) {
-    return null; 
+    return null;
   }
 
   return (
-    <div className="flex flex-row h-dvh w-full">
-      <SideNav />
-      <div className="flex flex-col w-full h-full">
-        <TopNav />
+    <div className="flex flex-col h-dvh w-full">
+      <TopNav />
+      <div className="w-full h-full flex flex-row bg-amber-100">
         <Outlet />
       </div>
     </div>

@@ -1,4 +1,6 @@
+import { Link } from "@tanstack/react-router";
 import { UserAuth } from "../auth/AuthContext";
+import HomeSVG from "../icons/HomeSVG";
 import UserCircleSVG from "../icons/UserCircleSVG";
 
 import MobileSideBar from "./MobileSideBar";
@@ -11,6 +13,9 @@ export default function TopNav() {
       <div className="md:hidden">
         <MobileSideBar />
       </div>
+      <Link to="/" className="hidden md:block">
+        <HomeSVG />
+      </Link>
 
       {/* profile component  */}
       <div className="ml-auto items-center gap-1 hidden md:flex ">
