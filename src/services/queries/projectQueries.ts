@@ -4,9 +4,7 @@ import { Tables } from "../supabase/supabaseTypes";
 
 const supabase = supabaseClient;
 
-export async function fetchProjects(): Promise<{
-  data: Tables<"projects">[] | null;
-}> {
+export async function fetchProjects(): Promise<Tables<"projects">[] | null> {
   const { data, error } = await supabase
     .from("projects")
     .select()
@@ -14,7 +12,7 @@ export async function fetchProjects(): Promise<{
   if (error) {
     throw error;
   } else {
-    return { data };
+    return data;
   }
 }
 

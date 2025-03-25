@@ -16,9 +16,9 @@ function AppRoute() {
   }
 
   return (
-    <div className="flex flex-col h-dvh w-full">
+    <div className="flex flex-col h-full w-full">
       <TopNav />
-      <div className="w-full h-full flex flex-row bg-amber-100">
+      <div className="w-full h-full overflow-hidden flex flex-row">
         <Outlet />
       </div>
     </div>

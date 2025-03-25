@@ -11,7 +11,7 @@ function ProjectsLayoutComponent() {
       <SideNav>
         <h1 className="my-auto">Content1</h1>
       </SideNav>
-      <div>Projects Page</div>
+      <div className="w-full h-full bg-amber-300">Projects Page</div>
     </>
   );
 }
