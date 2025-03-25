@@ -32,13 +32,17 @@ export default function ProjectTable({ ...props }: ProjectTableProps) {
           </DataTableHead>
           <DataTableBody>
             {error ? (
-              <tr>
-                <td>Error loading data</td>
-              </tr>
+              <DtContentRow>
+                <DtData>Error loading data</DtData>
+              </DtContentRow>
             ) : !data ? (
-              <tr>
-                <td>Loading...</td>
-              </tr>
+              <DtContentRow>
+                <DtData>Loading...</DtData>
+              </DtContentRow>
+            ) : data.length === 0 ? (
+              <DtContentRow>
+                <DtData>No projects.</DtData>
+              </DtContentRow>
             ) : (
               data.map((d) => (
                 <DtContentRow key={d.id}>
