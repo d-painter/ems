@@ -3,8 +3,8 @@ import {
   Link,
   Outlet,
 } from "@tanstack/react-router";
-import { TanStackRouterDevtools } from "@tanstack/router-devtools";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+//import { TanStackRouterDevtools } from "@tanstack/router-devtools";
+//import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AuthContext } from "@/components/auth/AuthContext";
 
 interface MyRouterContext {
@@ -15,9 +15,9 @@ interface MyRouterContext {
 export const Route = createRootRouteWithContext<MyRouterContext>()({
   notFoundComponent: () => {
     return (
-      <div className="h-full w-full text-center flex flex-col items-center gap-4 justify-center">
+      <div className="w-full text-center flex flex-col items-center gap-4 justify-center">
         <div>
-          <h1 className="h-full text-3xl">404 NOT FOUND</h1>
+          <h1 className="text-3xl">404 NOT FOUND</h1>
         </div>
         <Link to="/" className="underline">
           home
@@ -28,8 +28,8 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
   component: () => (
     <>
       <Outlet />
-      {process.env.NODE_ENV !== "production" && <TanStackRouterDevtools />}
-      {process.env.NODE_ENV !== "production" && <ReactQueryDevtools />}
+      {/* {process.env.NODE_ENV !== "production" && <TanStackRouterDevtools />}
+      {process.env.NODE_ENV !== "production" && <ReactQueryDevtools />} */}
     </>
   ),
 });
