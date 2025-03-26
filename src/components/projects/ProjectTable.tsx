@@ -9,6 +9,7 @@ import {
   DtHeader,
   DtHeaderRow,
 } from "../ui/DataTable";
+import { Link } from "@tanstack/react-router";
 
 type ProjectTableProps = {
   data: Tables<"projects">[] | null | undefined;
@@ -46,7 +47,7 @@ export default function ProjectTable({ ...props }: ProjectTableProps) {
             ) : (
               data.map((d) => (
                 <DtContentRow key={d.id}>
-                  <DtData>{d.project_id}</DtData>
+                  <DtData><Link className="hover:underline" to="/projects/$projectId" params={{projectId:d.project_id}}>{d.project_id}</Link></DtData>
                   <DtData>{d.project_title}</DtData>
                   <DtData>{d.project_description}</DtData>
                 </DtContentRow>

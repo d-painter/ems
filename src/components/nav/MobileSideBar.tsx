@@ -1,20 +1,24 @@
 import { createPortal } from "react-dom";
 import BurgerMenuSVG from "../icons/BurgerMenuSVG";
-import { useState } from "react";
+import { ReactNode } from "react";
 import CloseSVG from "../icons/CloseSVG";
 import { Button } from "../ui/button";
 import { UserAuth } from "../auth/AuthContext";
 import { useNavigate } from "@tanstack/react-router";
-import NavContent from "./NavContent";
 
-export default function MobileSideBar() {
-  const [showMobileNav, setShowMobileNav] = useState(false);
+type MobileSideBarProps = {
+  openMobileNav: () => void;
+  closeMobileNav: () => void;
+  children: ReactNode;
+  showMobileNav: boolean;
+};
+
+export default function MobileSideBar({ ...props }: MobileSideBarProps) {
+  const { openMobileNav, closeMobileNav, children, showMobileNav } = {
+    ...props,
+  };
   const { signOut, session } = UserAuth();
   const navigate = useNavigate();
-
-  function closeMobileNav(): void {
-    setShowMobileNav(false);
-  }
 
   async function logout() {
     await signOut();
@@ -23,10 +27,7 @@ export default function MobileSideBar() {
 
   return (
     <>
-      <button
-        className="flex items-center"
-        onClick={() => setShowMobileNav(true)}
-      >
+      <button className="flex items-center" onClick={() => openMobileNav()}>
         <BurgerMenuSVG />
       </button>
       {showMobileNav &&
@@ -42,9 +43,7 @@ export default function MobileSideBar() {
               </div>
 
               {/* Content */}
-              <>
-                <NavContent closeMobileNav={closeMobileNav} />
-              </>
+              {children}
 
               {/* Footer */}
               <div className="flex flex-col gap-2">
