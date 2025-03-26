@@ -13,7 +13,7 @@ function RouteComponent() {
       <SideNav>
           <NavContentProjects projectId={projectId}/>
       </SideNav>
-      <div className="w-full h-full bg-amber-400">
+      <div className="w-full h-full">
       <Outlet/>
       </div>
     </>
