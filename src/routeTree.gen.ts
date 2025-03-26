@@ -16,8 +16,13 @@ import { Route as appIndexImport } from './routes/(app)/index'
 import { Route as authSignupImport } from './routes/(auth)/signup'
 import { Route as authLoginRouteImport } from './routes/(auth)/login/route'
 import { Route as appSuppliersRouteImport } from './routes/(app)/suppliers/route'
-import { Route as appProjectsRouteImport } from './routes/(app)/projects/route'
 import { Route as appPartsRouteImport } from './routes/(app)/parts/route'
+import { Route as appProjectsIndexImport } from './routes/(app)/projects/index'
+import { Route as appProjectsProjectIdRouteImport } from './routes/(app)/projects/$projectId/route'
+import { Route as appProjectsProjectIdIndexImport } from './routes/(app)/projects/$projectId/index'
+import { Route as appProjectsProjectIdPartsRouteImport } from './routes/(app)/projects/$projectId/parts/route'
+import { Route as appProjectsProjectIdEngRelsRouteImport } from './routes/(app)/projects/$projectId/eng-rels/route'
+import { Route as appProjectsProjectIdAdrRouteImport } from './routes/(app)/projects/$projectId/adr/route'
 
 // Create/Update Routes
 
@@ -50,17 +55,50 @@ const appSuppliersRouteRoute = appSuppliersRouteImport.update({
   getParentRoute: () => appRouteRoute,
 } as any)
 
-const appProjectsRouteRoute = appProjectsRouteImport.update({
-  id: '/projects',
-  path: '/projects',
-  getParentRoute: () => appRouteRoute,
-} as any)
-
 const appPartsRouteRoute = appPartsRouteImport.update({
   id: '/parts',
   path: '/parts',
   getParentRoute: () => appRouteRoute,
 } as any)
+
+const appProjectsIndexRoute = appProjectsIndexImport.update({
+  id: '/projects/',
+  path: '/projects/',
+  getParentRoute: () => appRouteRoute,
+} as any)
+
+const appProjectsProjectIdRouteRoute = appProjectsProjectIdRouteImport.update({
+  id: '/projects/$projectId',
+  path: '/projects/$projectId',
+  getParentRoute: () => appRouteRoute,
+} as any)
+
+const appProjectsProjectIdIndexRoute = appProjectsProjectIdIndexImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => appProjectsProjectIdRouteRoute,
+} as any)
+
+const appProjectsProjectIdPartsRouteRoute =
+  appProjectsProjectIdPartsRouteImport.update({
+    id: '/parts',
+    path: '/parts',
+    getParentRoute: () => appProjectsProjectIdRouteRoute,
+  } as any)
+
+const appProjectsProjectIdEngRelsRouteRoute =
+  appProjectsProjectIdEngRelsRouteImport.update({
+    id: '/eng-rels',
+    path: '/eng-rels',
+    getParentRoute: () => appProjectsProjectIdRouteRoute,
+  } as any)
+
+const appProjectsProjectIdAdrRouteRoute =
+  appProjectsProjectIdAdrRouteImport.update({
+    id: '/adr',
+    path: '/adr',
+    getParentRoute: () => appProjectsProjectIdRouteRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -78,13 +116,6 @@ declare module '@tanstack/react-router' {
       path: '/parts'
       fullPath: '/parts'
       preLoaderRoute: typeof appPartsRouteImport
-      parentRoute: typeof appRouteImport
-    }
-    '/(app)/projects': {
-      id: '/(app)/projects'
-      path: '/projects'
-      fullPath: '/projects'
-      preLoaderRoute: typeof appProjectsRouteImport
       parentRoute: typeof appRouteImport
     }
     '/(app)/suppliers': {
@@ -115,23 +146,88 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appIndexImport
       parentRoute: typeof appRouteImport
     }
+    '/(app)/projects/$projectId': {
+      id: '/(app)/projects/$projectId'
+      path: '/projects/$projectId'
+      fullPath: '/projects/$projectId'
+      preLoaderRoute: typeof appProjectsProjectIdRouteImport
+      parentRoute: typeof appRouteImport
+    }
+    '/(app)/projects/': {
+      id: '/(app)/projects/'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof appProjectsIndexImport
+      parentRoute: typeof appRouteImport
+    }
+    '/(app)/projects/$projectId/adr': {
+      id: '/(app)/projects/$projectId/adr'
+      path: '/adr'
+      fullPath: '/projects/$projectId/adr'
+      preLoaderRoute: typeof appProjectsProjectIdAdrRouteImport
+      parentRoute: typeof appProjectsProjectIdRouteImport
+    }
+    '/(app)/projects/$projectId/eng-rels': {
+      id: '/(app)/projects/$projectId/eng-rels'
+      path: '/eng-rels'
+      fullPath: '/projects/$projectId/eng-rels'
+      preLoaderRoute: typeof appProjectsProjectIdEngRelsRouteImport
+      parentRoute: typeof appProjectsProjectIdRouteImport
+    }
+    '/(app)/projects/$projectId/parts': {
+      id: '/(app)/projects/$projectId/parts'
+      path: '/parts'
+      fullPath: '/projects/$projectId/parts'
+      preLoaderRoute: typeof appProjectsProjectIdPartsRouteImport
+      parentRoute: typeof appProjectsProjectIdRouteImport
+    }
+    '/(app)/projects/$projectId/': {
+      id: '/(app)/projects/$projectId/'
+      path: '/'
+      fullPath: '/projects/$projectId/'
+      preLoaderRoute: typeof appProjectsProjectIdIndexImport
+      parentRoute: typeof appProjectsProjectIdRouteImport
+    }
   }
 }
 
 // Create and export the route tree
 
+interface appProjectsProjectIdRouteRouteChildren {
+  appProjectsProjectIdAdrRouteRoute: typeof appProjectsProjectIdAdrRouteRoute
+  appProjectsProjectIdEngRelsRouteRoute: typeof appProjectsProjectIdEngRelsRouteRoute
+  appProjectsProjectIdPartsRouteRoute: typeof appProjectsProjectIdPartsRouteRoute
+  appProjectsProjectIdIndexRoute: typeof appProjectsProjectIdIndexRoute
+}
+
+const appProjectsProjectIdRouteRouteChildren: appProjectsProjectIdRouteRouteChildren =
+  {
+    appProjectsProjectIdAdrRouteRoute: appProjectsProjectIdAdrRouteRoute,
+    appProjectsProjectIdEngRelsRouteRoute:
+      appProjectsProjectIdEngRelsRouteRoute,
+    appProjectsProjectIdPartsRouteRoute: appProjectsProjectIdPartsRouteRoute,
+    appProjectsProjectIdIndexRoute: appProjectsProjectIdIndexRoute,
+  }
+
+const appProjectsProjectIdRouteRouteWithChildren =
+  appProjectsProjectIdRouteRoute._addFileChildren(
+    appProjectsProjectIdRouteRouteChildren,
+  )
+
 interface appRouteRouteChildren {
   appPartsRouteRoute: typeof appPartsRouteRoute
-  appProjectsRouteRoute: typeof appProjectsRouteRoute
   appSuppliersRouteRoute: typeof appSuppliersRouteRoute
   appIndexRoute: typeof appIndexRoute
+  appProjectsProjectIdRouteRoute: typeof appProjectsProjectIdRouteRouteWithChildren
+  appProjectsIndexRoute: typeof appProjectsIndexRoute
 }
 
 const appRouteRouteChildren: appRouteRouteChildren = {
   appPartsRouteRoute: appPartsRouteRoute,
-  appProjectsRouteRoute: appProjectsRouteRoute,
   appSuppliersRouteRoute: appSuppliersRouteRoute,
   appIndexRoute: appIndexRoute,
+  appProjectsProjectIdRouteRoute: appProjectsProjectIdRouteRouteWithChildren,
+  appProjectsIndexRoute: appProjectsIndexRoute,
 }
 
 const appRouteRouteWithChildren = appRouteRoute._addFileChildren(
@@ -141,46 +237,86 @@ const appRouteRouteWithChildren = appRouteRoute._addFileChildren(
 export interface FileRoutesByFullPath {
   '/': typeof appIndexRoute
   '/parts': typeof appPartsRouteRoute
-  '/projects': typeof appProjectsRouteRoute
   '/suppliers': typeof appSuppliersRouteRoute
   '/login': typeof authLoginRouteRoute
   '/signup': typeof authSignupRoute
+  '/projects/$projectId': typeof appProjectsProjectIdRouteRouteWithChildren
+  '/projects': typeof appProjectsIndexRoute
+  '/projects/$projectId/adr': typeof appProjectsProjectIdAdrRouteRoute
+  '/projects/$projectId/eng-rels': typeof appProjectsProjectIdEngRelsRouteRoute
+  '/projects/$projectId/parts': typeof appProjectsProjectIdPartsRouteRoute
+  '/projects/$projectId/': typeof appProjectsProjectIdIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/parts': typeof appPartsRouteRoute
-  '/projects': typeof appProjectsRouteRoute
   '/suppliers': typeof appSuppliersRouteRoute
   '/login': typeof authLoginRouteRoute
   '/signup': typeof authSignupRoute
   '/': typeof appIndexRoute
+  '/projects': typeof appProjectsIndexRoute
+  '/projects/$projectId/adr': typeof appProjectsProjectIdAdrRouteRoute
+  '/projects/$projectId/eng-rels': typeof appProjectsProjectIdEngRelsRouteRoute
+  '/projects/$projectId/parts': typeof appProjectsProjectIdPartsRouteRoute
+  '/projects/$projectId': typeof appProjectsProjectIdIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/(app)': typeof appRouteRouteWithChildren
   '/(app)/parts': typeof appPartsRouteRoute
-  '/(app)/projects': typeof appProjectsRouteRoute
   '/(app)/suppliers': typeof appSuppliersRouteRoute
   '/(auth)/login': typeof authLoginRouteRoute
   '/(auth)/signup': typeof authSignupRoute
   '/(app)/': typeof appIndexRoute
+  '/(app)/projects/$projectId': typeof appProjectsProjectIdRouteRouteWithChildren
+  '/(app)/projects/': typeof appProjectsIndexRoute
+  '/(app)/projects/$projectId/adr': typeof appProjectsProjectIdAdrRouteRoute
+  '/(app)/projects/$projectId/eng-rels': typeof appProjectsProjectIdEngRelsRouteRoute
+  '/(app)/projects/$projectId/parts': typeof appProjectsProjectIdPartsRouteRoute
+  '/(app)/projects/$projectId/': typeof appProjectsProjectIdIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/parts' | '/projects' | '/suppliers' | '/login' | '/signup'
+  fullPaths:
+    | '/'
+    | '/parts'
+    | '/suppliers'
+    | '/login'
+    | '/signup'
+    | '/projects/$projectId'
+    | '/projects'
+    | '/projects/$projectId/adr'
+    | '/projects/$projectId/eng-rels'
+    | '/projects/$projectId/parts'
+    | '/projects/$projectId/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/parts' | '/projects' | '/suppliers' | '/login' | '/signup' | '/'
+  to:
+    | '/parts'
+    | '/suppliers'
+    | '/login'
+    | '/signup'
+    | '/'
+    | '/projects'
+    | '/projects/$projectId/adr'
+    | '/projects/$projectId/eng-rels'
+    | '/projects/$projectId/parts'
+    | '/projects/$projectId'
   id:
     | '__root__'
     | '/(app)'
     | '/(app)/parts'
-    | '/(app)/projects'
     | '/(app)/suppliers'
     | '/(auth)/login'
     | '/(auth)/signup'
     | '/(app)/'
+    | '/(app)/projects/$projectId'
+    | '/(app)/projects/'
+    | '/(app)/projects/$projectId/adr'
+    | '/(app)/projects/$projectId/eng-rels'
+    | '/(app)/projects/$projectId/parts'
+    | '/(app)/projects/$projectId/'
   fileRoutesById: FileRoutesById
 }
 
@@ -215,17 +351,14 @@ export const routeTree = rootRoute
       "filePath": "(app)/route.tsx",
       "children": [
         "/(app)/parts",
-        "/(app)/projects",
         "/(app)/suppliers",
-        "/(app)/"
+        "/(app)/",
+        "/(app)/projects/$projectId",
+        "/(app)/projects/"
       ]
     },
     "/(app)/parts": {
       "filePath": "(app)/parts/route.tsx",
-      "parent": "/(app)"
-    },
-    "/(app)/projects": {
-      "filePath": "(app)/projects/route.tsx",
       "parent": "/(app)"
     },
     "/(app)/suppliers": {
@@ -241,6 +374,36 @@ export const routeTree = rootRoute
     "/(app)/": {
       "filePath": "(app)/index.tsx",
       "parent": "/(app)"
+    },
+    "/(app)/projects/$projectId": {
+      "filePath": "(app)/projects/$projectId/route.tsx",
+      "parent": "/(app)",
+      "children": [
+        "/(app)/projects/$projectId/adr",
+        "/(app)/projects/$projectId/eng-rels",
+        "/(app)/projects/$projectId/parts",
+        "/(app)/projects/$projectId/"
+      ]
+    },
+    "/(app)/projects/": {
+      "filePath": "(app)/projects/index.tsx",
+      "parent": "/(app)"
+    },
+    "/(app)/projects/$projectId/adr": {
+      "filePath": "(app)/projects/$projectId/adr/route.tsx",
+      "parent": "/(app)/projects/$projectId"
+    },
+    "/(app)/projects/$projectId/eng-rels": {
+      "filePath": "(app)/projects/$projectId/eng-rels/route.tsx",
+      "parent": "/(app)/projects/$projectId"
+    },
+    "/(app)/projects/$projectId/parts": {
+      "filePath": "(app)/projects/$projectId/parts/route.tsx",
+      "parent": "/(app)/projects/$projectId"
+    },
+    "/(app)/projects/$projectId/": {
+      "filePath": "(app)/projects/$projectId/index.tsx",
+      "parent": "/(app)/projects/$projectId"
     }
   }
 }
