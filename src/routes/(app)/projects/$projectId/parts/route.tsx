@@ -34,11 +34,7 @@ function RouteComponent() {
   let parts: AllProjectPartTableRows[] | null = [];
   const subSystems: string[] = [];
 
-  console.log("subSystem", subSystem, data);
-
   data.map((d) => {
-    console.log(subSystem, JSON.stringify(d));
-
     if (d.part_number === 9000) {
       subSystems.push(`${d.sub_system} - ${d.description}`);
     }
@@ -52,8 +48,6 @@ function RouteComponent() {
       }
     }
   });
-
-  console.log("main", main);
 
   return (
     <div className="w-full h-full p-2 md:p-6">
@@ -73,12 +67,12 @@ function RouteComponent() {
       </div>
 
       {/* table */}
-        <PartsTable
-          main={main}
-          assemblies={assemblies}
-          parts={parts}
-          isPending={isPending}
-        />
+      <PartsTable
+        main={main}
+        assemblies={assemblies}
+        parts={parts}
+        isPending={isPending}
+      />
 
       <>{error && <p>{error.message}</p>}</>
     </div>
