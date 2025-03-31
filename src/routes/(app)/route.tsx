@@ -18,13 +18,14 @@ function AppRoute() {
   const { session } = UserAuth();
   const navigate = useNavigate();
   const params: UrlParams = Route.useParams();
+  const [showMobileNav, setShowMobileNav] = useState(false);
+
 
   if (!session) {
     void navigate({ to: "/login" });
-    return;
+    return null;
   }
 
-  const [showMobileNav, setShowMobileNav] = useState(false);
 
   function openMobileNav() {
     setShowMobileNav(true);

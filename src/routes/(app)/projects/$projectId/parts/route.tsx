@@ -1,5 +1,4 @@
 import PartsTable from "@/components/projects/PartsTable";
-import { Card } from "@/components/ui/card";
 import {
   Select,
   SelectContent,
@@ -30,8 +29,8 @@ function RouteComponent() {
   }
 
   let main = {} as AllProjectPartTableRows;
-  let assemblies: AllProjectPartTableRows[] | null = [];
-  let parts: AllProjectPartTableRows[] | null = [];
+  const assemblies: AllProjectPartTableRows[] | null = [];
+  const parts: AllProjectPartTableRows[] | null = [];
   const subSystems: string[] = [];
 
   data.map((d) => {

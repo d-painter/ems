@@ -12,7 +12,7 @@ export async function fetchProjects(): Promise<Tables<"projects">[] | null> {
   if (error) {
     throw error;
   } else {
-    return data;
+    return data as Tables<"projects">[] | null;
   }
 }
 
