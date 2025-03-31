@@ -6,6 +6,7 @@ import {
 //import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 //import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AuthContext } from "@/components/auth/AuthContext";
+import { Toaster } from "@/components/ui/sonner";
 
 interface MyRouterContext {
   // The ReturnType of your useAuth hook or the value of your AuthContext
@@ -28,6 +29,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
   component: () => (
     <>
       <Outlet />
+      <Toaster richColors />
       {/* {process.env.NODE_ENV !== "production" && <TanStackRouterDevtools />}
       {process.env.NODE_ENV !== "production" && <ReactQueryDevtools />} */}
     </>
