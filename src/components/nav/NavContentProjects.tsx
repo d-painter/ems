@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 
 type NavContentProps = {
   closeMobileNav?: () => void;
-  projectId?: string | null;
+  projectId: string;
 };
 
 export default function NavContentProjects({ ...props }: NavContentProps) {

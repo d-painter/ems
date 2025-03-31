@@ -8,8 +8,8 @@ export const Route = createFileRoute("/(app)/projects/$projectId/adr")({
 function RouteComponent() {
   return (
     <div className="w-full h-full flex justify-center mt-2 text-sm md:p-6">
-      <div className="part-number w-[90%] md:w-[600px] flex flex-col gap-2">
-        <Card className="p-2">
+      <div className="part-number w-[90%] md:w-[500px] lg:w-[600px] flex flex-col gap-2">
+        <Card className="p-2 md:p-6">
           <h1>TOPIC 1</h1>
           <div className="flex flex-row justify-between">
             <div>
@@ -21,7 +21,7 @@ function RouteComponent() {
             </div>
           </div>
         </Card>
-        <Card className="p-2">
+        <Card className="p-2 md:p-6">
           <h1>TOPIC 2</h1>
           <div className="flex flex-row justify-between">
             <div>
@@ -33,7 +33,7 @@ function RouteComponent() {
             </div>
           </div>
         </Card>
-        <Card className="p-2">
+        <Card className="p-2 md:p-6">
           <h1>TOPIC 3</h1>
           <div className="flex flex-row justify-between">
             <div>

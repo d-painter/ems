@@ -10,10 +10,14 @@ export const Route = createFileRoute("/(app)")({
   component: AppRoute,
 });
 
+type UrlParams = {
+  projectId: string;
+};
+
 function AppRoute() {
   const { session } = UserAuth();
   const navigate = useNavigate();
-  const params = Route.useParams();
+  const params: UrlParams = Route.useParams();
 
   if (!session) {
     void navigate({ to: "/login" });
@@ -30,13 +34,13 @@ function AppRoute() {
   }
 
   function getNavContent() {
-    if (params === undefined) {
-      return "routes";
-    }
-
-    let paramKeys = Object.keys(params);
-    if (paramKeys.includes("projectId")) {
-      return <NavContentProjects closeMobileNav={closeMobileNav}/>;
+    if (params.projectId) {
+      return (
+        <NavContentProjects
+          closeMobileNav={closeMobileNav}
+          projectId={params.projectId}
+        />
+      );
     } else {
       return <NavContent closeMobileNav={closeMobileNav} />;
     }

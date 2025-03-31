@@ -8,13 +8,15 @@ export const Route = createFileRoute("/(app)/projects/$projectId")({
 
 function RouteComponent() {
   const { projectId } = Route.useParams();
+  
+
   return (
     <>
       <SideNav>
-          <NavContentProjects projectId={projectId}/>
+        <NavContentProjects projectId={projectId} />
       </SideNav>
       <div className="w-full h-full">
-      <Outlet/>
+        <Outlet />
       </div>
     </>
   );

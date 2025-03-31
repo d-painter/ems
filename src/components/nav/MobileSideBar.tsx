@@ -47,7 +47,7 @@ export default function MobileSideBar({ ...props }: MobileSideBarProps) {
 
               {/* Footer */}
               <div className="flex flex-col gap-2">
-                <p className="text-xl">{session?.user.email}</p>
+                <p>{session?.user.email}</p>
                 <Button onClick={() => void logout()} className="w-full">
                   Log out
                 </Button>
