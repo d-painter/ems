@@ -10,8 +10,7 @@ import {
   DtHeaderRow,
 } from "../ui/DataTable";
 import { Link } from "@tanstack/react-router";
-import { Button } from "../ui/button";
-import { useAddNewProject } from "@/services/queries/projectQueries";
+import AddProjectDialog from "./AddProjectDialog";
 
 type ProjectTableProps = {
   data: Tables<"projects">[] | null | undefined;
@@ -21,27 +20,12 @@ type ProjectTableProps = {
 export default function ProjectTable({ ...props }: ProjectTableProps) {
   const { data, error } = props;
 
-  const addNewProjectMutation = useAddNewProject();
-
-  const newProject = {
-    owner_id: "94e826c2-78f3-4ce2-9ed9-d517c48eaaaa",
-    project_description: "Test Desc",
-    project_id: "P015",
-    project_title: "P005 Title",
-  };
-
-
   return (
     <Card className="w-[95%] p-6">
       <CardTitle className="pl-2">
         <div className="flex flex-row gap-4 items-center">
           PROJECTS
-          <Button
-            size={"sm"}
-            onClick={() => addNewProjectMutation.mutateAsync(newProject)}
-          >
-            Add Project
-          </Button>
+          <AddProjectDialog />
         </div>
       </CardTitle>
       <CardContent className="rounded-lg border p-0">

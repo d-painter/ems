@@ -11,6 +11,7 @@ import {
   useProjectParts,
 } from "@/services/queries/partsQueries";
 import { createFileRoute } from "@tanstack/react-router";
+import { Loader2 } from "lucide-react";
 import { useState } from "react";
 
 export const Route = createFileRoute("/(app)/projects/$projectId/parts")({
@@ -22,10 +23,22 @@ const re = /^9(?!0*$)\d+$/;
 
 function RouteComponent() {
   const { projectId } = Route.useParams();
-  const { data, error, isPending } = useProjectParts(projectId);
+  const { data, error } = useProjectParts(projectId);
   const [subSystem, setSubSystem] = useState("A");
+
+  if (error) {
+    return (
+      <div className="flex flex-col w-full items-center justify-center h-full">
+        Error
+      </div>
+    );
+  }
   if (!data) {
-    return <p>loading</p>;
+    return (
+      <div className="flex flex-col w-full items-center justify-center h-full">
+        <Loader2 className="animate-spin stroke-primary" />{" "}
+      </div>
+    );
   }
 
   let main = {} as AllProjectPartTableRows;
@@ -52,12 +65,16 @@ function RouteComponent() {
     <div className="w-full h-full p-2 md:p-6">
       <div className="flex flex-row items-center gap-2">
         <Select onValueChange={(e) => setSubSystem(e.split(" - ")[0])}>
-          <SelectTrigger className="bg-background !text-foreground w-64">
+          <SelectTrigger className="text-xs md:text-md text-foreground w-64">
             <SelectValue placeholder={subSystems[0]} />
           </SelectTrigger>
           <SelectContent>
             {subSystems.map((c) => (
-              <SelectItem key={c} value={c} className="!truncate">
+              <SelectItem
+                key={c}
+                value={c}
+                className="!truncate text-xs md:text-md"
+              >
                 {c}
               </SelectItem>
             ))}
@@ -70,10 +87,7 @@ function RouteComponent() {
         main={main}
         assemblies={assemblies}
         parts={parts}
-        isPending={isPending}
       />
-
-      <>{error && <p>{error.message}</p>}</>
     </div>
   );
 }

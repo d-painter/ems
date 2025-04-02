@@ -33,7 +33,7 @@ export function useAddNewProject() {
       console.error(error);
       toast.error(error.message);
     },
-    onSuccess: async  (_, variables, __) => {
+    onSuccess: async  (_, variables) => {
       toast.success(
         `${variables.project_id}-${variables.project_description} added.`
       );
@@ -42,7 +42,7 @@ export function useAddNewProject() {
   });
 }
 
-type NewProjectProps = Omit<Tables<"projects">, "id">;
+type NewProjectProps = Omit<Tables<"projects">, "id"| "owner_id">;
 
 async function addNewProject(project: NewProjectProps) {
   

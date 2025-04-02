@@ -13,11 +13,10 @@ type PartsTableProps = {
   main: AllProjectPartTableRows;
   assemblies: AllProjectPartTableRows[] | null;
   parts: AllProjectPartTableRows[] | null;
-  isPending: boolean;
 };
 
 export default function PartsTable({ ...props }: PartsTableProps) {
-  const { main, assemblies, parts } = { ...props };
+  const { main, assemblies, parts,  } = { ...props };
 
   return (
     <>
