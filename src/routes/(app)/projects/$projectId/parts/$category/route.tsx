@@ -14,7 +14,6 @@ import {
 } from "@/services/queries/partsQueries";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Loader2 } from "lucide-react";
-import { toast } from "sonner";
 
 export const Route = createFileRoute(
   "/(app)/projects/$projectId/parts/$category"
@@ -44,13 +43,6 @@ function RouteComponent() {
     );
   }
   const uniqueCategories = getUniqueCategories(data);
-  if (!uniqueCategories.includes(category)) {
-    toast.error(`Category "${category}" does not exist. Redirecting...`);
-    void navigate({
-      to: "/projects/$projectId/parts/$category",
-      params: { projectId: projectId, category: "A" },
-    });
-  }
 
   let main = {} as AllProjectPartTableRows;
   const assemblies: AllProjectPartTableRows[] | null = [];
@@ -74,18 +66,22 @@ function RouteComponent() {
 
   const showAddCategoryButton = !uniqueCategories.includes("Z");
 
+  async function handleCategoryChange(e:string) {
+    const newCategory = e.split(" - ")[0];
+    if (newCategory !== category) {
+      await navigate({
+        to: "/projects/$projectId/parts/$category",
+        params: { projectId: projectId, category: newCategory },
+      });
+    }
+  }
+
+  
+
   return (
     <div className="w-full h-full p-2 md:p-6">
       <div className="flex flex-row items-center gap-2">
-        <Select
-          onValueChange={
-            async (e) =>
-              await navigate({
-                to: "/projects/$projectId/parts/$category",
-                params: { projectId: projectId, category: e.split(" - ")[0] },
-              })
-          }
-        >
+        <Select onValueChange={async (e) => await handleCategoryChange(e)}>
           <SelectTrigger className="text-xs md:text-md text-foreground w-64 [&_span]:text-foreground">
             <SelectValue
               placeholder={subSystems[0]}
