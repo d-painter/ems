@@ -20,11 +20,6 @@ function RouteComponent() {
       <div className="flex w-full flex-col gap-6 items-center overflow-y-auto pt-6">
         <div className="flex w-full flex-col gap-6 items-center lg:w-3xl pb-20">
           <ProjectTable data={projectData} error={error} />
-          {/* <ProjectTable data={projectData} error={error} />
-          <ProjectTable data={projectData} error={error} />
-          <ProjectTable data={projectData} error={error} />
-          <ProjectTable data={projectData} error={error} />
-          <ProjectTable data={projectData} error={error} /> */}
         </div>
       </div>
     </>

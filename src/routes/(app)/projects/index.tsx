@@ -14,13 +14,13 @@ function ProjectPage() {
   return (
     <>
       <SideNav>
-        <div>
+        <div className="my-auto">
           <NavContent />
         </div>
       </SideNav>
-      <div className="relative flex w-full flex-col gap-6 items-center pt-6 ">
-        <div className="relative flex w-full flex-col gap-6 items-center lg:w-3xl pb-20 overflow-y-scroll overflow-hidden">
-          <ProjectTable data={projectData} error={error} />
+      <div className="relative flex w-full flex-col gap-6 items-center pt-6 overflow-y-auto overflow-hidden ">
+        <div className="relative flex w-full flex-col gap-6 items-center lg:w-3xl pb-20 ">
+        <ProjectTable data={projectData} error={error} />
         </div>
       </div>
     </>

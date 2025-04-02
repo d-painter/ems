@@ -85,7 +85,7 @@ export default function AddProjectDialog() {
         </Button>
       </DialogTrigger>
 
-      <DialogContent>
+      <DialogContent className="max-sm:top-0 max-sm:translate-y-4">
         <DialogHeader>
           <DialogTitle>Create a new project</DialogTitle>
         </DialogHeader>
@@ -115,9 +115,14 @@ export default function AddProjectDialog() {
               onChange={(e) => handleChange(e)}
             />
           </div>
-          <DialogFooter>
-            <div></div>
-            <Button variant="secondary" type="button" onClick={()=> setOpen(false)}>Cancel</Button>
+          <DialogFooter className="max-sm:flex max-sm:flex-row max-sm:ml-auto">
+            <Button
+              variant="secondary"
+              type="button"
+              onClick={() => setOpen(false)}
+            >
+              Cancel
+            </Button>
             <Button
               type="submit"
               disabled={
