@@ -12,11 +12,13 @@ import {
   AllProjectPartTableRows,
   useProjectParts,
 } from "@/services/queries/partsQueries";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Loader2 } from "lucide-react";
-import { useState } from "react";
+import { toast } from "sonner";
 
-export const Route = createFileRoute("/(app)/projects/$projectId/parts/$category")({
+export const Route = createFileRoute(
+  "/(app)/projects/$projectId/parts/$category"
+)({
   component: RouteComponent,
 });
 
@@ -24,10 +26,9 @@ export const Route = createFileRoute("/(app)/projects/$projectId/parts/$category
 const re = /^9(?!0*$)\d+$/;
 
 function RouteComponent() {
-  const { projectId } = Route.useParams();
+  const { projectId, category } = Route.useParams();
   const { data, error } = useProjectParts(projectId);
-  const [subSystem, setSubSystem] = useState("A");
-
+  const navigate = useNavigate();
   if (error) {
     return (
       <div className="flex flex-col w-full items-center justify-center h-full">
@@ -42,6 +43,14 @@ function RouteComponent() {
       </div>
     );
   }
+  const uniqueCategories = getUniqueCategories(data);
+  if (!uniqueCategories.includes(category)) {
+    toast.error(`Category "${category}" does not exist. Redirecting...`);
+    navigate({
+      to: "/projects/$projectId/parts/$category",
+      params: { projectId: projectId, category: "A" },
+    });
+  }
 
   let main = {} as AllProjectPartTableRows;
   const assemblies: AllProjectPartTableRows[] | null = [];
@@ -52,7 +61,7 @@ function RouteComponent() {
     if (d.part_number === 9000) {
       subSystems.push(`${d.sub_system} - ${d.description}`);
     }
-    if (d.sub_system === subSystem) {
+    if (d.sub_system === category) {
       if (d.part_number === 9000) {
         main = d;
       } else if (re.test(String(d.part_number))) {
@@ -63,13 +72,19 @@ function RouteComponent() {
     }
   });
 
-  const uniqueCategories = getUniqueCategories(data);
   const showAddCategoryButton = !uniqueCategories.includes("Z");
 
   return (
     <div className="w-full h-full p-2 md:p-6">
       <div className="flex flex-row items-center gap-2">
-        <Select onValueChange={(e) => setSubSystem(e.split(" - ")[0])}>
+        <Select
+          onValueChange={(e) =>
+            navigate({
+              to: "/projects/$projectId/parts/$category",
+              params: { projectId: projectId, category: e.split(" - ")[0] },
+            })
+          }
+        >
           <SelectTrigger className="text-xs md:text-md text-foreground w-64 [&_span]:text-foreground">
             <SelectValue
               placeholder={subSystems[0]}
