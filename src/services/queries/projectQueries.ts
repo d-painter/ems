@@ -5,6 +5,8 @@ import { toast } from "sonner";
 
 const supabase = supabaseClient;
 
+// Queries
+// Get all projects
 async function fetchProjects(): Promise<Tables<"projects">[] | null> {
   const { data, error } = await supabase
     .from("projects")
@@ -24,16 +26,17 @@ export function useAllProjects() {
   });
 }
 
+// Mutations
+// Add new project
 export function useAddNewProject() {
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: addNewProject,
     onError: (error) => {
       console.error(error);
       toast.error(error.message);
     },
-    onSuccess: async  (_, variables) => {
+    onSuccess: async (_, variables) => {
       toast.success(
         `${variables.project_id}-${variables.project_description} added.`
       );
@@ -42,10 +45,9 @@ export function useAddNewProject() {
   });
 }
 
-type NewProjectProps = Omit<Tables<"projects">, "id"| "owner_id">;
+type NewProjectProps = Omit<Tables<"projects">, "id" | "owner_id">;
 
 async function addNewProject(project: NewProjectProps) {
-  
   const { error } = await supabase.from("projects").insert(project);
   if (error) {
     throw error;

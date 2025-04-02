@@ -16,7 +16,7 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
 import { DialogDescription } from "@radix-ui/react-dialog";
-import getNextProjectNumber from "@/services/queries/db/projectFunctions";
+import getNextProjectNumber from "@/services/db/projectFunctions";
 import { toast } from "sonner";
 
 export type ProjectFormStateProps = {

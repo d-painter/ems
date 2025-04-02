@@ -3,10 +3,13 @@ import { Link } from "@tanstack/react-router";
 type NavContentProps = {
   closeMobileNav?: () => void;
   projectId: string;
+  category:string
 };
 
 export default function NavContentProjects({ ...props }: NavContentProps) {
-  const { closeMobileNav = () => null, projectId } = { ...props };
+  const { closeMobileNav = () => null, projectId, category } = { ...props };
+
+  
   const projectsRoutes = [
     {
       title: "Dashboard",
@@ -22,7 +25,7 @@ export default function NavContentProjects({ ...props }: NavContentProps) {
     },
     {
       title: "Parts",
-      to: `/projects/${projectId}/parts`,
+      to: `/projects/${projectId}/parts/${category}`,
     },
     
   ];

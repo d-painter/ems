@@ -3,29 +3,28 @@ import MobileSideBar from "@/components/nav/MobileSideBar";
 import NavContent from "@/components/nav/NavContent";
 import NavContentProjects from "@/components/nav/NavContentProjects";
 import TopNav from "@/components/nav/TopNav";
-import { createFileRoute, Outlet, useNavigate } from "@tanstack/react-router";
+import {
+  createFileRoute,
+  Outlet,
+  useNavigate,
+  useParams,
+} from "@tanstack/react-router";
 import { useState } from "react";
 
 export const Route = createFileRoute("/(app)")({
   component: AppRoute,
 });
 
-type UrlParams = {
-  projectId: string;
-};
-
 function AppRoute() {
   const { session } = UserAuth();
   const navigate = useNavigate();
-  const params: UrlParams = Route.useParams();
+  const params = useParams({ strict: false });
   const [showMobileNav, setShowMobileNav] = useState(false);
-
 
   if (!session) {
     void navigate({ to: "/login" });
     return null;
   }
-
 
   function openMobileNav() {
     setShowMobileNav(true);
@@ -40,6 +39,7 @@ function AppRoute() {
         <NavContentProjects
           closeMobileNav={closeMobileNav}
           projectId={params.projectId}
+          category={params.category ?? ""}
         />
       );
     } else {
