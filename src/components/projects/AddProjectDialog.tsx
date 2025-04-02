@@ -74,18 +74,12 @@ export default function AddProjectDialog() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button
-          variant={"ghost"}
-          size={"xs"}
-          onClick={() => setOpen(true)}
-
-          //onClick={() => addNewProjectMutation.mutateAsync(newProject)}
-        >
+        <Button variant={"ghost"} size={"xs"} onClick={() => setOpen(true)}>
           Add Project
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="max-sm:top-0 max-sm:translate-y-4">
+      <DialogContent className="max-sm:top-0 max-sm:translate-y-4 overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Create a new project</DialogTitle>
         </DialogHeader>

@@ -18,9 +18,17 @@ function ProjectPage() {
           <NavContent />
         </div>
       </SideNav>
-      <div className="relative flex w-full flex-col gap-6 items-center pt-6 overflow-y-auto overflow-hidden ">
+      <div className="relative flex w-full flex-col gap-6 items-center pt-6 overflow-y-auto ">
         <div className="relative flex w-full flex-col gap-6 items-center lg:w-3xl pb-20 ">
         <ProjectTable data={projectData} error={error} />
+        <ProjectTable data={projectData} error={error} />
+        <ProjectTable data={projectData} error={error} />
+        <ProjectTable data={projectData} error={error} />
+        <ProjectTable data={projectData} error={error} />
+        <ProjectTable data={projectData} error={error} />
+        <ProjectTable data={projectData} error={error} />
+        <ProjectTable data={projectData} error={error} />
+
         </div>
       </div>
     </>
