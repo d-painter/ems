@@ -48,7 +48,6 @@ async function addNewProject(project: NewProjectProps) {
   
   const { error } = await supabase.from("projects").insert(project);
   if (error) {
-    console.log(error);
     throw error;
   }
 }

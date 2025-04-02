@@ -4,7 +4,6 @@ export default async function getNextProjectNumber(
   data: Tables<"projects">[] | null | undefined
 ) {
   if (!data?.length) {
-    console.log("no projects");
     return "P001";
   }
 
