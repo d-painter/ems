@@ -44,6 +44,8 @@ export function useAddNewParts() {
 }
 
 async function addNewParts(parts: Omit<AllProjectPartTableRows, "owner_id">) {
+  console.log(parts);
+  
   const { data, error } = await supabase
     .from("part_numbers")
     .insert([{ some_column: "someValue" }])

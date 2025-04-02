@@ -16,14 +16,18 @@ export default function AddCategoryButton({
         throw error;
       }
       const res = getNextSubCategory(data);
-    } catch (error) {}
+      console.log(res);
+      
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (
     <Button
       variant="ghost"
       size="xs"
-      onClick={async () => await addNewCategory()}
+      onClick={void (async () => await addNewCategory())}
     >
       Add Category
     </Button>

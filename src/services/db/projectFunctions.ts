@@ -1,6 +1,6 @@
 import { Tables } from "@/services/supabase/supabaseTypes";
 
-export default async function getNextProjectNumber(
+export default function getNextProjectNumber(
   data: Tables<"projects">[] | null | undefined
 ) {
   if (!data?.length) {

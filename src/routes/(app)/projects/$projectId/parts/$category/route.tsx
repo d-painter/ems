@@ -46,7 +46,7 @@ function RouteComponent() {
   const uniqueCategories = getUniqueCategories(data);
   if (!uniqueCategories.includes(category)) {
     toast.error(`Category "${category}" does not exist. Redirecting...`);
-    navigate({
+    void navigate({
       to: "/projects/$projectId/parts/$category",
       params: { projectId: projectId, category: "A" },
     });
@@ -78,11 +78,12 @@ function RouteComponent() {
     <div className="w-full h-full p-2 md:p-6">
       <div className="flex flex-row items-center gap-2">
         <Select
-          onValueChange={(e) =>
-            navigate({
-              to: "/projects/$projectId/parts/$category",
-              params: { projectId: projectId, category: e.split(" - ")[0] },
-            })
+          onValueChange={
+            async (e) =>
+              await navigate({
+                to: "/projects/$projectId/parts/$category",
+                params: { projectId: projectId, category: e.split(" - ")[0] },
+              })
           }
         >
           <SelectTrigger className="text-xs md:text-md text-foreground w-64 [&_span]:text-foreground">

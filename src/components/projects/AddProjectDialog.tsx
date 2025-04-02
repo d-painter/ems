@@ -50,8 +50,8 @@ export default function AddProjectDialog() {
       if (error) {
         throw error;
       }
-      const newProjectId = await getNextProjectNumber(refreshData);
-      addNewProjectMutation.mutateAsync({
+      const newProjectId = getNextProjectNumber(refreshData);
+      await addNewProjectMutation.mutateAsync({
         project_description: formState.projectDescription,
         project_id: newProjectId,
         project_title: formState.projectTitle,
@@ -86,7 +86,7 @@ export default function AddProjectDialog() {
         <DialogDescription />
         <form
           className="flex flex-col gap-4"
-          onSubmit={async (e) => await createNewProject(e)}
+          onSubmit={void (async (e: FormEvent<HTMLFormElement>) => await createNewProject(e))}
         >
           <div className="flex flex-col gap-2">
             <Label htmlFor="projectTitle">Project Title</Label>
