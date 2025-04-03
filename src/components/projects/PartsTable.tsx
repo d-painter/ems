@@ -44,7 +44,7 @@ export default function PartsTable({ ...props }: PartsTableProps) {
           </TableRow>
           {!assemblies?.length ? (
             <TableRow className="border-b-transparent">
-              <TableCell>No Assemblies </TableCell>
+              <TableCell colSpan={100}>No Assemblies </TableCell>
             </TableRow>
           ) : (
             assemblies.map((d, i) => <PartsTableRow part={d} key={i} />)
@@ -57,7 +57,7 @@ export default function PartsTable({ ...props }: PartsTableProps) {
           </TableRow>
           {!parts?.length ? (
             <TableRow>
-              <TableCell>No Parts</TableCell>
+              <TableCell colSpan={100}>No Parts</TableCell>
             </TableRow>
           ) : (
             parts?.map((d, i) => <PartsTableRow part={d} key={i} />)

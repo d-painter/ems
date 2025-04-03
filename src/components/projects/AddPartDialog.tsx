@@ -133,13 +133,6 @@ export default function AddPartDialog({ ...props }: AddPartsDialogProps) {
               }
             />
           </div>
-          <div className="w-full bg-blue-200">
-            <div>
-              {JSON.stringify(isHanded)}
-              <br />
-              {JSON.stringify(formState)}
-            </div>
-          </div>
           <DialogFooter className="max-sm:flex max-sm:flex-row max-sm:ml-auto">
             <Button
               variant="secondary"
