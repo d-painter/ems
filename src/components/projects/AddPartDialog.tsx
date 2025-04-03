@@ -47,8 +47,6 @@ export default function AddPartDialog({ ...props }: AddPartsDialogProps) {
         throw new Error("no data");
       }
       const newPartNum = getNextPartNumber({ data, partType, subSystem });
-      console.log("newNum return", newPartNum);
-
       if (!isHanded) {
         await addNewPartsMutation.mutateAsync([
           {
