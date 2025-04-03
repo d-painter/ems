@@ -74,7 +74,6 @@ export function useUpdatePart() {
       throw error;
     },
     onSuccess: async () => {
-      toast.success("Part updated.");
       await queryClient.invalidateQueries({ queryKey: ["allProjectParts"] });
     },
   });

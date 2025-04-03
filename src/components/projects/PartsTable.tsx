@@ -8,6 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
+import AddPartDialog from "./AddPartDialog";
 
 type PartsTableProps = {
   main: AllProjectPartTableRows;
@@ -24,29 +25,35 @@ export default function PartsTable({ ...props }: PartsTableProps) {
         <TableHeader>
           <TableRow className="text-left">
             <TableHead className="text-left">Part Number</TableHead>
-            <TableHead className="!max-w-3">Description</TableHead>
-            <TableHead className="hidden md:table-cell md:align-middle">
+            <TableHead>Description</TableHead>
+            <TableHead className="max-sm:hidden">
               Created By
             </TableHead>
-            <TableHead>Created Date</TableHead>
+            <TableHead className="max-sm:hidden">Created Date</TableHead>
             <TableHead className="!max-w-16 !text-center">Edit</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {main && <PartsTableRow part={main} />}
 
-          <TableRow className="hover:bg-transparent">
-            <TableCell colSpan={100}>ASSEMBLIES</TableCell>
+          <TableRow className="hover:bg-transparent border-b border-b-primary">
+            <TableCell className="!text-xs pt-6">ASSEMBLIES</TableCell>
+            <TableCell colSpan={100} className="pt-6">
+              <AddPartDialog partType="assembly" main={main} />
+            </TableCell>
           </TableRow>
           {!assemblies?.length ? (
-            <TableRow>
-              <TableCell>No Assemblies</TableCell>
+            <TableRow className="border-b-transparent">
+              <TableCell>No Assemblies </TableCell>
             </TableRow>
           ) : (
             assemblies.map((d, i) => <PartsTableRow part={d} key={i} />)
           )}
-          <TableRow className="hover:bg-transparent">
-            <TableCell colSpan={100}>PARTS</TableCell>
+          <TableRow className="hover:bg-transparent border-b border-b-primary">
+            <TableCell className="!text-xs pt-6">PARTS</TableCell>
+            <TableCell colSpan={100} className="pt-6">
+              <AddPartDialog partType="part" main={main} />
+            </TableCell>
           </TableRow>
           {!parts?.length ? (
             <TableRow>

@@ -15,16 +15,16 @@ export default function PartsTableRow({
   const isT = () => p.sub_system === "T" && p.part_number === 9000;
   return (
     <TableRow>
-      <TableCell className="w-10">
+      <TableCell className="pl-4">
         {p.project_id}-{p.sub_system}-{formatPartNumber(p.part_number)}
       </TableCell>
       <TableCell className="min-w-24 !max-w-36 !truncate">
         {p.description}
       </TableCell>
-      <TableCell className="hidden md:table-cell md:align-middle">
-        Created By
+      <TableCell className="max-sm:hidden">Created By</TableCell>
+      <TableCell className="max-sm:hidden">
+        {createdDate.toLocaleDateString()}
       </TableCell>
-      <TableCell>{createdDate.toLocaleDateString()}</TableCell>
       <TableCell className="!max-w-16 md:max-w-8 p-0 text-center">
         <EditPartDialog id={p.id} description={p.description} isT={isT()} />
       </TableCell>

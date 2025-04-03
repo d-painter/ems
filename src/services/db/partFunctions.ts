@@ -50,3 +50,35 @@ export function getNextSubCategory(
 export function getUniqueCategories(data: AllProjectPartTableRows[]) {
   return [...new Set(data.map((d) => d.sub_system))];
 }
+
+type GetNextPartNumberParams = {
+  data: AllProjectPartTableRows[];
+  partType: string;
+  subSystem: string;
+};
+export function getNextPartNumber({
+  data,
+  partType,
+  subSystem,
+}: GetNextPartNumberParams) {
+  const filteredPartNumbers = data
+    .filter((d) => d.sub_system === subSystem)
+    .map((d) => d.part_number);
+
+  // Filter for assembly or part type
+  let filteredTypeNumbers: number[] = [];
+  if (partType === "assembly") {
+    filteredTypeNumbers = filteredPartNumbers
+      .filter((n) => n > 8999 && n % 2 !== 0)
+      .sort();
+  } else {
+    filteredTypeNumbers = filteredPartNumbers
+      .filter((n) => n < 9000 && n % 2 !== 0)
+      .sort();
+  }
+  if(!filteredTypeNumbers?.length){
+    throw new Error("no filtered numbers")
+  }
+  const newNum = filteredTypeNumbers.pop()!+2
+  return newNum
+}
