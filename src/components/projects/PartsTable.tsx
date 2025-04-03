@@ -16,24 +16,20 @@ type PartsTableProps = {
 };
 
 export default function PartsTable({ ...props }: PartsTableProps) {
-  const { main, assemblies, parts,  } = { ...props };
+  const { main, assemblies, parts } = { ...props };
 
   return (
     <>
       <Table>
         <TableHeader>
-          <TableRow className="[&_th]:text-left text-left">
+          <TableRow className="text-left">
             <TableHead className="text-left">Part Number</TableHead>
             <TableHead className="!max-w-3">Description</TableHead>
             <TableHead className="hidden md:table-cell md:align-middle">
               Created By
             </TableHead>
-            <TableHead className="hidden md:table-cell md:align-middle">
-              Created Date
-            </TableHead>
-            <TableHead>View</TableHead>
-            <TableHead>Edit</TableHead>
-            <TableHead>Delete</TableHead>
+            <TableHead>Created Date</TableHead>
+            <TableHead className="!max-w-16 !text-center">Edit</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>

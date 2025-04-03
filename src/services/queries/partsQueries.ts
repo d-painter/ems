@@ -64,3 +64,38 @@ async function addNewParts(
   }
   return data as Tables<"part_numbers">[];
 }
+
+//Update Part
+export function useUpdatePart() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: updatePart,
+    onError: (error) => {
+      throw error;
+    },
+    onSuccess: async () => {
+      toast.success("Part updated.");
+      await queryClient.invalidateQueries({ queryKey: ["allProjectParts"] });
+    },
+  });
+}
+
+type UpdatePartParams = {
+  columnToMatch: string;
+  matchValue: number;
+  updates: { [key: string]: string | number };
+};
+
+async function updatePart({ ...params }: UpdatePartParams) {
+  const { columnToMatch, matchValue, updates } = { ...params };
+  const { data, error } = await supabase
+    .from("part_numbers")
+    .update(updates)
+    .eq(columnToMatch, matchValue)
+    .select();
+
+  if (error) {
+    throw error;
+  }
+  return data as Tables<"part_numbers">[];
+}

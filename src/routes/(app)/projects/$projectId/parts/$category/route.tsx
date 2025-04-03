@@ -92,30 +92,32 @@ function RouteComponent() {
   };
 
   return (
-    <div className="w-full h-full p-2 md:p-6">
-      <div className="flex flex-row items-center gap-2">
-        <Select onValueChange={(e) => void handleCategoryChange(e)}>
-          <SelectTrigger className="text-xs md:text-md text-foreground w-64 [&_span]:text-foreground">
-            <SelectValue
-              placeholder={selectPlaceHolder()}
-              className="text-xs md:text-md w-64"
-            />
-          </SelectTrigger>
-          <SelectContent>
-            {subSystems.sort().map((c) => (
-              <SelectItem
-                key={c}
-                value={c}
-                className="!truncate text-xs md:text-md"
-              >
-                {c}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        {showAddCategoryButton && <AddCategoryDialog projectId={projectId} />}
+    <div className="w-full h-full p-2 md:p-6 flex flex-col items-center">
+      <div className="w-full max-w-3xl">
+        <div className="flex flex-row items-center gap-2">
+          <Select onValueChange={(e) => void handleCategoryChange(e)}>
+            <SelectTrigger className="text-xs md:text-md text-foreground w-64 [&_span]:text-foreground">
+              <SelectValue
+                placeholder={selectPlaceHolder()}
+                className="text-xs md:text-md w-64"
+              />
+            </SelectTrigger>
+            <SelectContent>
+              {subSystems.sort().map((c) => (
+                <SelectItem
+                  key={c}
+                  value={c}
+                  className="!truncate text-xs md:text-md"
+                >
+                  {c}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          {showAddCategoryButton && <AddCategoryDialog projectId={projectId} />}
+        </div>
+        <PartsTable main={main} assemblies={assemblies} parts={parts} />
       </div>
-      <PartsTable main={main} assemblies={assemblies} parts={parts} />
     </div>
   );
 }

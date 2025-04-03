@@ -1,6 +1,6 @@
 import { AllProjectPartTableRows } from "@/services/queries/partsQueries";
-import { EyeIcon, Pen, Trash } from "lucide-react";
 import { TableCell, TableRow } from "../ui/table";
+import EditPartDialog from "./EditPartDialog";
 
 export default function PartsTableRow({
   part: p,
@@ -12,27 +12,21 @@ export default function PartsTableRow({
   }
 
   const createdDate = new Date(p.created_date!);
-
+  const isT = () => p.sub_system === "T" && p.part_number === 9000;
   return (
     <TableRow>
-      <TableCell className="w-10 md:w-max">
+      <TableCell className="w-10">
         {p.project_id}-{p.sub_system}-{formatPartNumber(p.part_number)}
       </TableCell>
-      <TableCell>{p.description}</TableCell>
+      <TableCell className="min-w-24 !max-w-36 !truncate">
+        {p.description}
+      </TableCell>
       <TableCell className="hidden md:table-cell md:align-middle">
         Created By
       </TableCell>
-      <TableCell className="hidden md:table-cell md:align-middle">
-        {createdDate.toLocaleDateString()}
-      </TableCell>
-      <TableCell>
-        <EyeIcon className="size-5" />
-      </TableCell>
-      <TableCell>
-        <Pen className="size-5" />
-      </TableCell>
-      <TableCell>
-        <Trash className="size-5" />
+      <TableCell>{createdDate.toLocaleDateString()}</TableCell>
+      <TableCell className="!max-w-16 md:max-w-8 p-0 text-center">
+        <EditPartDialog id={p.id} description={p.description} isT={isT()} />
       </TableCell>
     </TableRow>
   );
