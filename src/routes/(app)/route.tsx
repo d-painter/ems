@@ -5,8 +5,8 @@ import NavContentProjects from "@/components/nav/NavContentProjects";
 import TopNav from "@/components/nav/TopNav";
 import {
   createFileRoute,
+  Navigate,
   Outlet,
-  useNavigate,
   useParams,
 } from "@tanstack/react-router";
 import { useState } from "react";
@@ -17,14 +17,8 @@ export const Route = createFileRoute("/(app)")({
 
 function AppRoute() {
   const { session } = UserAuth();
-  const navigate = useNavigate();
   const params = useParams({ strict: false });
   const [showMobileNav, setShowMobileNav] = useState(false);
-
-  if (!session) {
-    void navigate({ to: "/login" });
-    return null;
-  }
 
   function openMobileNav() {
     setShowMobileNav(true);
@@ -48,6 +42,10 @@ function AppRoute() {
   }
 
   const navContent = getNavContent();
+
+  if (!session) {
+    return <Navigate to="/login" />;
+  }
 
   return (
     <div className="flex flex-col h-full w-full">
