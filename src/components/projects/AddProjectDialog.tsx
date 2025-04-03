@@ -18,6 +18,7 @@ import { Textarea } from "../ui/textarea";
 import { DialogDescription } from "@radix-ui/react-dialog";
 import getNextProjectNumber from "@/services/db/projectFunctions";
 import { toast } from "sonner";
+import { useAddNewParts } from "@/services/queries/partsQueries";
 
 export type ProjectFormStateProps = {
   projectTitle: string;
@@ -39,6 +40,7 @@ export default function AddProjectDialog() {
   }
 
   const addNewProjectMutation = useAddNewProject();
+  const addNewPartsMutation = useAddNewParts();
   const { refetch } = useAllProjects();
 
   async function createNewProject(e: FormEvent<HTMLFormElement>) {
@@ -56,9 +58,20 @@ export default function AddProjectDialog() {
         project_id: newProjectId,
         project_title: formState.projectTitle,
       });
-
-      //TODO: Add A and T parts
-
+      await addNewPartsMutation.mutateAsync([
+        {
+          project_id: newProjectId,
+          description: "DESCRIPTION",
+          part_number: 9000,
+          sub_system: "A",
+        },
+        {
+          project_id: newProjectId,
+          description: "TOOLING, JIGS AND FIXTURES",
+          part_number: 9000,
+          sub_system: "T",
+        },
+      ]);
       setFormState({ projectTitle: "", projectDescription: "" });
       setOpen(false);
     } catch (error) {
@@ -86,7 +99,7 @@ export default function AddProjectDialog() {
         <DialogDescription />
         <form
           className="flex flex-col gap-4"
-          onSubmit={void (async (e: FormEvent<HTMLFormElement>) => await createNewProject(e))}
+          onSubmit={(e: FormEvent<HTMLFormElement>) => void createNewProject(e)}
         >
           <div className="flex flex-col gap-2">
             <Label htmlFor="projectTitle">Project Title</Label>

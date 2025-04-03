@@ -48,8 +48,9 @@ export function useAddNewProject() {
 type NewProjectProps = Omit<Tables<"projects">, "id" | "owner_id">;
 
 async function addNewProject(project: NewProjectProps) {
-  const { error } = await supabase.from("projects").insert(project);
+  const { data, error } = await supabase.from("projects").insert(project).select();
   if (error) {
     throw error;
   }
+  return data as Tables<"projects">[]
 }

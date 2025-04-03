@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase as supabaseClient } from "../supabase/supabaseClient";
 import { Tables } from "../supabase/supabaseTypes";
+import { toast } from "sonner";
 
 const supabase = supabaseClient;
 
@@ -12,7 +13,9 @@ export async function fetchProjectParts(
 ): Promise<AllProjectPartTableRows[] | null> {
   const { data, error } = await supabase
     .from("part_numbers")
-    .select("project_id, sub_system, part_number, description, id")
+    .select(
+      "project_id, sub_system, part_number, description, id, created_date"
+    )
     .eq("project_id", projectId);
 
   if (error) {
@@ -35,25 +38,29 @@ export function useAddNewParts() {
   return useMutation({
     mutationFn: addNewParts,
     onError: (error) => {
-      console.error("part mutation error", error);
+      throw error;
     },
-    onSuccess: async () => {
+    onSuccess: async (_, variables) => {
+      variables.map((v) =>
+        toast.success(
+          `${v.project_id}-${v.sub_system}-${v.part_number} - ${v.description} added.`
+        )
+      );
       await queryClient.invalidateQueries({ queryKey: ["allProjectParts"] });
     },
   });
 }
 
-async function addNewParts(parts: Omit<AllProjectPartTableRows, "owner_id">) {
-  console.log(parts);
-  
+async function addNewParts(
+  parts: Omit<AllProjectPartTableRows, "owner_id" | "id" | "created_date">[]
+) {
   const { data, error } = await supabase
     .from("part_numbers")
-    .insert([{ some_column: "someValue" }])
+    .insert(parts)
     .select();
 
   if (error) {
     throw error;
   }
-
-  return data
+  return data as Tables<"part_numbers">[];
 }

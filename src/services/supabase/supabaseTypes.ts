@@ -66,6 +66,7 @@ export type Database = {
       };
       part_numbers: {
         Row: {
+          created_date: string | null;
           description: string | null;
           id: number;
           owner_id: string;
@@ -74,6 +75,7 @@ export type Database = {
           sub_system: string;
         };
         Insert: {
+          created_date?: string | null;
           description?: string | null;
           id?: number;
           owner_id?: string;
@@ -82,6 +84,7 @@ export type Database = {
           sub_system: string;
         };
         Update: {
+          created_date?: string | null;
           description?: string | null;
           id?: number;
           owner_id?: string;

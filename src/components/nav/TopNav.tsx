@@ -3,6 +3,7 @@ import { UserAuth } from "../auth/AuthContext";
 import HomeSVG from "../icons/HomeSVG";
 import UserCircleSVG from "../icons/UserCircleSVG";
 import { ReactNode } from "react";
+import GlobalLoadingIndicator from "../testing/GlobalLoadingIndicator";
 
 export default function TopNav({ children }: { children: ReactNode }) {
   const { session } = UserAuth();
@@ -13,6 +14,7 @@ export default function TopNav({ children }: { children: ReactNode }) {
       <Link to="/" className="hidden md:block">
         <HomeSVG />
       </Link>
+      <GlobalLoadingIndicator/>
 
       {/*TODO: profile component  */}
       <div className="ml-auto items-center gap-1 hidden md:flex ">

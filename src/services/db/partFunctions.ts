@@ -2,26 +2,49 @@ import { AllProjectPartTableRows } from "../queries/partsQueries";
 
 export function getNextSubCategory(
   data: AllProjectPartTableRows[] | null | undefined
-) {
+): { status: string; message: string } {
+  let res = { status: "", message: "" };
   if (!data?.length) {
-    console.log("no parts");
+    res = { status: "error", message: "No Parts." };
   } else {
+    const allowedCategories = [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "G",
+      "H",
+      "I",
+      "J",
+      "K",
+      "L",
+      "M",
+      "N",
+      "O",
+      "P",
+      "Q",
+      "R",
+      "S",
+      "U",
+      "V",
+      "W",
+      "X",
+      "Y",
+      "Z",
+    ];
     const currentCategories = getUniqueCategories(data);
-    console.log("data: ", data);
     if (currentCategories.includes("Z")) {
-      return { status: "error", message: "Category limit reached." };
+      res = { status: "error", message: "Category limit reached." };
+    } else {
+      const withoutT = currentCategories.filter((c) => c !== "T");
+      const newCat =
+        allowedCategories[allowedCategories.indexOf(withoutT.pop()!) + 1];
+      res = { status: "success", message: newCat };
     }
-    console.log("categories:", currentCategories);
-
-    const tIndex = currentCategories.indexOf("T");
-    console.log("tindex: ", tIndex);
-
-    const pre = currentCategories.slice(0, tIndex);
-    const post = currentCategories.slice(tIndex, currentCategories.length - 1);
-
-    console.log("pre: ", pre);
-    console.log("post: ", post);
   }
+  return res;
 }
 
 export function getUniqueCategories(data: AllProjectPartTableRows[]) {

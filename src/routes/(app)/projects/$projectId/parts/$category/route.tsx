@@ -1,4 +1,4 @@
-import AddCategoryButton from "@/components/projects/AddCategoryButton";
+import AddCategoryDialog from "@/components/projects/AddCategoryDialog";
 import PartsTable from "@/components/projects/PartsTable";
 import {
   Select,
@@ -65,8 +65,6 @@ function RouteComponent() {
     }
   });
 
-  const showAddCategoryButton = !uniqueCategories.includes("Z");
-
   async function handleCategoryChange(e: string) {
     const newCategory = e.split(" - ")[0];
     await navigate({
@@ -85,18 +83,26 @@ function RouteComponent() {
     );
   }
 
+  const showAddCategoryButton = !uniqueCategories.includes("Z");
+
+  const selectPlaceHolder = () => {
+    const value = subSystems.filter((s) => s.split(" - ")[0] === category);
+    const index = subSystems.indexOf(value[0]);
+    return subSystems[index];
+  };
+
   return (
     <div className="w-full h-full p-2 md:p-6">
       <div className="flex flex-row items-center gap-2">
         <Select onValueChange={(e) => void handleCategoryChange(e)}>
           <SelectTrigger className="text-xs md:text-md text-foreground w-64 [&_span]:text-foreground">
             <SelectValue
-              placeholder={subSystems[0]}
+              placeholder={selectPlaceHolder()}
               className="text-xs md:text-md w-64"
             />
           </SelectTrigger>
           <SelectContent>
-            {subSystems.map((c) => (
+            {subSystems.sort().map((c) => (
               <SelectItem
                 key={c}
                 value={c}
@@ -107,7 +113,7 @@ function RouteComponent() {
             ))}
           </SelectContent>
         </Select>
-        {showAddCategoryButton && <AddCategoryButton projectId={projectId} />}
+        {showAddCategoryButton && <AddCategoryDialog projectId={projectId} />}
       </div>
       <PartsTable main={main} assemblies={assemblies} parts={parts} />
     </div>

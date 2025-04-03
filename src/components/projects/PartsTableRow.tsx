@@ -11,6 +11,8 @@ export default function PartsTableRow({
     return String(number).padStart(4, "0");
   }
 
+  const createdDate = new Date(p.created_date!);
+
   return (
     <TableRow>
       <TableCell className="w-10 md:w-max">
@@ -21,7 +23,7 @@ export default function PartsTableRow({
         Created By
       </TableCell>
       <TableCell className="hidden md:table-cell md:align-middle">
-        Created Date
+        {createdDate.toLocaleDateString()}
       </TableCell>
       <TableCell>
         <EyeIcon className="size-5" />
