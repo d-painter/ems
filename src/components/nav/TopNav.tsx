@@ -14,7 +14,7 @@ export default function TopNav({ children }: { children: ReactNode }) {
       <Link to="/" className="hidden md:block">
         <HomeSVG />
       </Link>
-      <GlobalLoadingIndicator/>
+      {process.env.NODE_ENV !== "production" && <GlobalLoadingIndicator />}
 
       {/*TODO: profile component  */}
       <div className="ml-auto items-center gap-1 hidden md:flex ">
