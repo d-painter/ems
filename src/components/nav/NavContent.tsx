@@ -4,7 +4,9 @@ type NavContentProps = {
   closeMobileNav?: () => void;
 };
 
-export default function NavContent({ closeMobileNav = ()=> null }: NavContentProps) {
+export default function NavContent({
+  closeMobileNav = () => null,
+}: NavContentProps) {
   const routes = [
     { title: "Projects", to: "/projects" },
     { title: "Parts", to: "/parts" },
@@ -12,7 +14,7 @@ export default function NavContent({ closeMobileNav = ()=> null }: NavContentPro
   ];
 
   return (
-    <div className="flex flex-col text-2xl gap-2 [&_*]:hover:border-l-4 [&_*]:border-l-4 [&_*]:border-transparent [&_*]:hover:border-l-primary [&_*]:pl-2">
+    <div className="flex flex-col text-xl gap-2 [&_*]:hover:border-l-4 [&_*]:border-l-4 [&_*]:border-transparent [&_*]:hover:border-l-primary [&_*]:pl-2">
       <Link
         to={"/"}
         className="[&.active]:font-bold [&.active]:border-l-primary"
@@ -26,6 +28,7 @@ export default function NavContent({ closeMobileNav = ()=> null }: NavContentPro
           to={r.to}
           className="[&.active]:font-bold [&.active]:border-l-primary"
           onClick={() => closeMobileNav()}
+          activeOptions={{ exact: true }}
         >
           {r.title}
         </Link>

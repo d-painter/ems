@@ -3,11 +3,12 @@ import SideNav from "@/components/nav/SideNav";
 import ProjectTable from "@/components/projects/ProjectTable";
 import { useAllProjects } from "@/services/queries/projectQueries";
 import { createFileRoute } from "@tanstack/react-router";
-export const Route = createFileRoute("/(app)/")({
-  component: RouteComponent,
+
+export const Route = createFileRoute("/(app)/projects/")({
+  component: ProjectPage,
 });
 
-function RouteComponent() {
+function ProjectPage() {
   const { error, data: projectData } = useAllProjects();
 
   return (
@@ -17,8 +18,8 @@ function RouteComponent() {
           <NavContent />
         </div>
       </SideNav>
-      <div className="flex w-full flex-col gap-6 items-center overflow-y-auto pt-6">
-        <div className="flex w-full flex-col gap-6 items-center lg:w-3xl pb-20">
+      <div className="relative flex w-full flex-col gap-6 items-center pt-6 overflow-y-auto ">
+        <div className="relative flex w-full flex-col gap-6 items-center lg:w-3xl pb-20 ">
           <ProjectTable data={projectData} error={error} />
         </div>
       </div>

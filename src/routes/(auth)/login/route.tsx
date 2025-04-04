@@ -55,6 +55,7 @@ function LoginPage() {
                 <Input
                   className={`${error && "border-destructive"}`}
                   type="email"
+                  id="email"
                   placeholder="email"
                   name="email"
                   onChange={(e) =>
@@ -70,6 +71,7 @@ function LoginPage() {
                 <Input
                   className={`${error && "border-destructive"}`}
                   type="password"
+                  id="password"
                   placeholder="password"
                   name="password"
                   onChange={(e) =>

@@ -38,13 +38,13 @@ export default tseslint.config(
     },
     // Supabase `'never' is overridden by other types in this union type.` tmp fix
     // https://github.com/supabase/supabase-js/issues/1288
-    overrides: [
-      {
-        files: ["src/services/supabase/supabaseTypes.ts"],
-        rules: {
-          "@typescript-eslint/no-redundant-type-constituents": "off",
-        },
-      },
-    ],
+    // overrides: [
+    //   {
+    //     files: ["src/services/supabase/supabaseTypes.ts"],
+    //     rules: {
+    //       "@typescript-eslint/no-redundant-type-constituents": "off",
+    //     },
+    //   },
+    // ],
   }
 );
