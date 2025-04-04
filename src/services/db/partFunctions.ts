@@ -71,14 +71,20 @@ export function getNextPartNumber({
     filteredTypeNumbers = filteredPartNumbers
       .filter((n) => n > 8999 && n % 2 !== 0)
       .sort();
+    if (!filteredTypeNumbers?.length) {
+      return 9001;
+    }
   } else {
     filteredTypeNumbers = filteredPartNumbers
       .filter((n) => n < 9000 && n % 2 !== 0)
       .sort();
+    if (!filteredTypeNumbers?.length) {
+      return 1;
+    }
   }
-  if(!filteredTypeNumbers?.length){
-    throw new Error("no filtered numbers")
+  if (!filteredTypeNumbers?.length) {
+    throw new Error("no filtered numbers");
   }
-  const newNum = filteredTypeNumbers.pop()!+2
-  return newNum
+  const newNum = filteredTypeNumbers.pop()! + 2;
+  return newNum;
 }
