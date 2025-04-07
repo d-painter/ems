@@ -7,14 +7,18 @@ export const Route = createFileRoute("/(app)/projects/$projectId")({
 });
 
 function RouteComponent() {
-  const route = useParams({strict:false})
+  const route = useParams({ strict: false }); 
 
   return (
     <>
       <SideNav>
-        <NavContentProjects projectId={route.projectId!} category={route.category ?? ""} />
+        <NavContentProjects
+          projectId={route.projectId!}
+          category={route.category ?? ""}
+          engRel={route.engRel ?? ""}
+        />
       </SideNav>
-      <div className="w-full h-full">
+      <div className="w-full h-full p-2 md:p-6">
         <Outlet />
       </div>
     </>

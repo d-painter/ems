@@ -1,4 +1,5 @@
 import AddEngRelDialog from "@/components/projects/AddEngRelDialog";
+import EngRelTable from "@/components/projects/EngRelTable";
 import { useProjectEngRels } from "@/services/queries/engRelQueries";
 import { createFileRoute, useParams } from "@tanstack/react-router";
 
@@ -11,10 +12,9 @@ function RouteComponent() {
   const { data: engRels } = useProjectEngRels(projectId!);
 
   return (
-    <div className="px-2 flex flex-col gap-2">
+    <div className="px-2 flex flex-col gap-2 items-center w-full">
       <AddEngRelDialog projectId={projectId!} />
-
-      {JSON.stringify(engRels)}
+      <EngRelTable engRels={engRels} />
     </div>
   );
 }

@@ -9,15 +9,12 @@ const supabase = supabaseClient;
 async function fetchProjectEngRels(
   projectId: string
 ): Promise<Tables<"eng_rels">[] | null> {
-  const { data, error } = await supabase
+  const { data } = await supabase
     .from("eng_rels")
     .select("*")
-    .eq("project_id", projectId);
-  if (error) {
-    throw error;
-  } else {
-    return data as Tables<"eng_rels">[];
-  }
+    .eq("project_id", projectId)
+    .throwOnError();
+  return data as Tables<"eng_rels">[];
 }
 
 export function useProjectEngRels(projectId: string) {
@@ -41,14 +38,15 @@ export function useAddNewEngRel() {
     },
   });
 }
-async function addNewEngRel(engRel:{project_id:string, release_id:number}) {
-  const { data, error } = await supabase
+async function addNewEngRel(engRel: {
+  project_id: string;
+  release_id: number;
+}) {
+  const { data } = await supabase
     .from("eng_rels")
     .insert(engRel)
-    .select();
+    .select()
+    .throwOnError();
 
-  if (error) {
-    throw error;
-  }
   return data[0] as Tables<"eng_rels">;
 }

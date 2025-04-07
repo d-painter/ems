@@ -18,7 +18,7 @@ export const Route = createFileRoute("/(app)")({
 function AppRoute() {
   const { session } = UserAuth();
   const params = useParams({ strict: false });
-  const [showMobileNav, setShowMobileNav] = useState(false);
+  const [showMobileNav, setShowMobileNav] = useState(false);  
 
   function openMobileNav() {
     setShowMobileNav(true);
@@ -34,6 +34,7 @@ function AppRoute() {
           closeMobileNav={closeMobileNav}
           projectId={params.projectId}
           category={params.category ?? ""}
+          engRel={params.engRel ?? ""}
         />
       );
     } else {

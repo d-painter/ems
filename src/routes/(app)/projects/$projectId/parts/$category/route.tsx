@@ -92,7 +92,7 @@ function RouteComponent() {
   };
 
   return (
-    <div className="w-full h-full p-2 md:p-6 flex flex-col items-center overflow-auto">
+    <div className="w-full h-full flex flex-col items-center overflow-auto">
       <div className="w-full max-w-3xl max-sm:p-4">
         <div className="flex flex-row items-center gap-2 mb-4">
           <Select onValueChange={(e) => void handleCategoryChange(e)}>

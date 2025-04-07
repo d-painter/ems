@@ -25,7 +25,7 @@ import { Route as appProjectsProjectIdEngRelsRouteImport } from './routes/(app)/
 import { Route as appProjectsProjectIdAdrRouteImport } from './routes/(app)/projects/$projectId/adr/route'
 import { Route as appProjectsProjectIdEngRelsIndexImport } from './routes/(app)/projects/$projectId/eng-rels/index'
 import { Route as appProjectsProjectIdPartsCategoryRouteImport } from './routes/(app)/projects/$projectId/parts/$category/route'
-import { Route as appProjectsProjectIdEngRelsEngrelRouteImport } from './routes/(app)/projects/$projectId/eng-rels/$eng_rel/route'
+import { Route as appProjectsProjectIdEngRelsEngRelRouteImport } from './routes/(app)/projects/$projectId/eng-rels/$engRel/route'
 
 // Create/Update Routes
 
@@ -117,10 +117,10 @@ const appProjectsProjectIdPartsCategoryRouteRoute =
     getParentRoute: () => appProjectsProjectIdPartsRouteRoute,
   } as any)
 
-const appProjectsProjectIdEngRelsEngrelRouteRoute =
-  appProjectsProjectIdEngRelsEngrelRouteImport.update({
-    id: '/$eng_rel',
-    path: '/$eng_rel',
+const appProjectsProjectIdEngRelsEngRelRouteRoute =
+  appProjectsProjectIdEngRelsEngRelRouteImport.update({
+    id: '/$engRel',
+    path: '/$engRel',
     getParentRoute: () => appProjectsProjectIdEngRelsRouteRoute,
   } as any)
 
@@ -212,11 +212,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appProjectsProjectIdIndexImport
       parentRoute: typeof appProjectsProjectIdRouteImport
     }
-    '/(app)/projects/$projectId/eng-rels/$eng_rel': {
-      id: '/(app)/projects/$projectId/eng-rels/$eng_rel'
-      path: '/$eng_rel'
-      fullPath: '/projects/$projectId/eng-rels/$eng_rel'
-      preLoaderRoute: typeof appProjectsProjectIdEngRelsEngrelRouteImport
+    '/(app)/projects/$projectId/eng-rels/$engRel': {
+      id: '/(app)/projects/$projectId/eng-rels/$engRel'
+      path: '/$engRel'
+      fullPath: '/projects/$projectId/eng-rels/$engRel'
+      preLoaderRoute: typeof appProjectsProjectIdEngRelsEngRelRouteImport
       parentRoute: typeof appProjectsProjectIdEngRelsRouteImport
     }
     '/(app)/projects/$projectId/parts/$category': {
@@ -239,14 +239,14 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface appProjectsProjectIdEngRelsRouteRouteChildren {
-  appProjectsProjectIdEngRelsEngrelRouteRoute: typeof appProjectsProjectIdEngRelsEngrelRouteRoute
+  appProjectsProjectIdEngRelsEngRelRouteRoute: typeof appProjectsProjectIdEngRelsEngRelRouteRoute
   appProjectsProjectIdEngRelsIndexRoute: typeof appProjectsProjectIdEngRelsIndexRoute
 }
 
 const appProjectsProjectIdEngRelsRouteRouteChildren: appProjectsProjectIdEngRelsRouteRouteChildren =
   {
-    appProjectsProjectIdEngRelsEngrelRouteRoute:
-      appProjectsProjectIdEngRelsEngrelRouteRoute,
+    appProjectsProjectIdEngRelsEngRelRouteRoute:
+      appProjectsProjectIdEngRelsEngRelRouteRoute,
     appProjectsProjectIdEngRelsIndexRoute:
       appProjectsProjectIdEngRelsIndexRoute,
   }
@@ -325,7 +325,7 @@ export interface FileRoutesByFullPath {
   '/projects/$projectId/eng-rels': typeof appProjectsProjectIdEngRelsRouteRouteWithChildren
   '/projects/$projectId/parts': typeof appProjectsProjectIdPartsRouteRouteWithChildren
   '/projects/$projectId/': typeof appProjectsProjectIdIndexRoute
-  '/projects/$projectId/eng-rels/$eng_rel': typeof appProjectsProjectIdEngRelsEngrelRouteRoute
+  '/projects/$projectId/eng-rels/$engRel': typeof appProjectsProjectIdEngRelsEngRelRouteRoute
   '/projects/$projectId/parts/$category': typeof appProjectsProjectIdPartsCategoryRouteRoute
   '/projects/$projectId/eng-rels/': typeof appProjectsProjectIdEngRelsIndexRoute
 }
@@ -340,7 +340,7 @@ export interface FileRoutesByTo {
   '/projects/$projectId/adr': typeof appProjectsProjectIdAdrRouteRoute
   '/projects/$projectId/parts': typeof appProjectsProjectIdPartsRouteRouteWithChildren
   '/projects/$projectId': typeof appProjectsProjectIdIndexRoute
-  '/projects/$projectId/eng-rels/$eng_rel': typeof appProjectsProjectIdEngRelsEngrelRouteRoute
+  '/projects/$projectId/eng-rels/$engRel': typeof appProjectsProjectIdEngRelsEngRelRouteRoute
   '/projects/$projectId/parts/$category': typeof appProjectsProjectIdPartsCategoryRouteRoute
   '/projects/$projectId/eng-rels': typeof appProjectsProjectIdEngRelsIndexRoute
 }
@@ -359,7 +359,7 @@ export interface FileRoutesById {
   '/(app)/projects/$projectId/eng-rels': typeof appProjectsProjectIdEngRelsRouteRouteWithChildren
   '/(app)/projects/$projectId/parts': typeof appProjectsProjectIdPartsRouteRouteWithChildren
   '/(app)/projects/$projectId/': typeof appProjectsProjectIdIndexRoute
-  '/(app)/projects/$projectId/eng-rels/$eng_rel': typeof appProjectsProjectIdEngRelsEngrelRouteRoute
+  '/(app)/projects/$projectId/eng-rels/$engRel': typeof appProjectsProjectIdEngRelsEngRelRouteRoute
   '/(app)/projects/$projectId/parts/$category': typeof appProjectsProjectIdPartsCategoryRouteRoute
   '/(app)/projects/$projectId/eng-rels/': typeof appProjectsProjectIdEngRelsIndexRoute
 }
@@ -378,7 +378,7 @@ export interface FileRouteTypes {
     | '/projects/$projectId/eng-rels'
     | '/projects/$projectId/parts'
     | '/projects/$projectId/'
-    | '/projects/$projectId/eng-rels/$eng_rel'
+    | '/projects/$projectId/eng-rels/$engRel'
     | '/projects/$projectId/parts/$category'
     | '/projects/$projectId/eng-rels/'
   fileRoutesByTo: FileRoutesByTo
@@ -392,7 +392,7 @@ export interface FileRouteTypes {
     | '/projects/$projectId/adr'
     | '/projects/$projectId/parts'
     | '/projects/$projectId'
-    | '/projects/$projectId/eng-rels/$eng_rel'
+    | '/projects/$projectId/eng-rels/$engRel'
     | '/projects/$projectId/parts/$category'
     | '/projects/$projectId/eng-rels'
   id:
@@ -409,7 +409,7 @@ export interface FileRouteTypes {
     | '/(app)/projects/$projectId/eng-rels'
     | '/(app)/projects/$projectId/parts'
     | '/(app)/projects/$projectId/'
-    | '/(app)/projects/$projectId/eng-rels/$eng_rel'
+    | '/(app)/projects/$projectId/eng-rels/$engRel'
     | '/(app)/projects/$projectId/parts/$category'
     | '/(app)/projects/$projectId/eng-rels/'
   fileRoutesById: FileRoutesById
@@ -492,7 +492,7 @@ export const routeTree = rootRoute
       "filePath": "(app)/projects/$projectId/eng-rels/route.tsx",
       "parent": "/(app)/projects/$projectId",
       "children": [
-        "/(app)/projects/$projectId/eng-rels/$eng_rel",
+        "/(app)/projects/$projectId/eng-rels/$engRel",
         "/(app)/projects/$projectId/eng-rels/"
       ]
     },
@@ -507,8 +507,8 @@ export const routeTree = rootRoute
       "filePath": "(app)/projects/$projectId/index.tsx",
       "parent": "/(app)/projects/$projectId"
     },
-    "/(app)/projects/$projectId/eng-rels/$eng_rel": {
-      "filePath": "(app)/projects/$projectId/eng-rels/$eng_rel/route.tsx",
+    "/(app)/projects/$projectId/eng-rels/$engRel": {
+      "filePath": "(app)/projects/$projectId/eng-rels/$engRel/route.tsx",
       "parent": "/(app)/projects/$projectId/eng-rels"
     },
     "/(app)/projects/$projectId/parts/$category": {
