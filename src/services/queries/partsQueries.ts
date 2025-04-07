@@ -8,7 +8,7 @@ const supabase = supabaseClient;
 // Queries
 // Get all parts for a project
 export type AllProjectPartTableRows = Omit<Tables<"part_numbers">, "owner_id">;
-export async function fetchProjectParts(
+async function fetchProjectParts(
   projectId: string
 ): Promise<AllProjectPartTableRows[] | null> {
   const { data, error } = await supabase
