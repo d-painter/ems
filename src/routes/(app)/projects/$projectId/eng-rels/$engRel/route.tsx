@@ -1,3 +1,5 @@
+import EngRel from "@/components/projects/engRels/EngRel";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import { useProjectEngRels } from "@/services/queries/engRelQueries";
 import { createFileRoute, Navigate } from "@tanstack/react-router";
 import { toast } from "sonner";
@@ -9,7 +11,7 @@ export const Route = createFileRoute(
 });
 
 function RouteComponent() {
-  const { projectId, engRel } = Route.useParams();
+  const { projectId, engRel: engRelParam } = Route.useParams();
   const { data: engRels, isPending } = useProjectEngRels(projectId);
 
   function formatEngRel(rel: number) {
@@ -17,18 +19,19 @@ function RouteComponent() {
   }
 
   if (isPending) {
-    return <p>Loading...</p>;
+    return <LoadingSpinner />;
   }
 
-  const uniqueEngRels = [
-    ...new Set(
-      engRels?.map((e) => `${e.project_id}-ER-${formatEngRel(e.release_id)}`)
-    ),
-  ];
-  const validEngRel = uniqueEngRels.includes(engRel);
+  const uniqueEngRels = engRels?.map(
+    (e) => `${e.project_id}-ER-${formatEngRel(e.release_id)}`
+  );
+
+  const validEngRel = !uniqueEngRels?.length
+    ? false
+    : uniqueEngRels.includes(engRelParam);
 
   if (!validEngRel) {
-    toast.error(`${engRel} does not exist.`);
+    toast.error(`${engRelParam} does not exist.`);
     return (
       <Navigate
         to="/projects/$projectId/eng-rels"
@@ -38,7 +41,13 @@ function RouteComponent() {
     );
   }
 
+  const engRel = engRels!.filter(
+    (e) => e.release_id === Number(engRelParam.split("-")[2])
+  )[0];
+
   return (
-    <div>Hello "/(app)/projects/$projectId/eng-rels/$engRel"! {engRel}</div>
+    <div>
+      <EngRel engRel={engRel} />
+    </div>
   );
 }

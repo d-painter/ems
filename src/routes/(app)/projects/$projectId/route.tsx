@@ -1,5 +1,6 @@
 import NavContentProjects from "@/components/nav/NavContentProjects";
 import SideNav from "@/components/nav/SideNav";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import { useAllProjects } from "@/services/queries/projectQueries";
 import {
   createFileRoute,
@@ -19,7 +20,7 @@ function RouteComponent() {
 
   const { data, isPending } = useAllProjects();
   if (isPending) {
-    return <p>Loading...</p>;
+    return <LoadingSpinner />;
   }
   const unique = [...new Set(data?.map((d) => d.project_id))];
   const validProject = unique.includes(route.projectId!);

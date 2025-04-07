@@ -1,5 +1,6 @@
 import AddCategoryDialog from "@/components/projects/AddCategoryDialog";
 import PartsTable from "@/components/projects/PartsTable";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import {
   Select,
   SelectContent,
@@ -13,7 +14,6 @@ import {
   useProjectParts,
 } from "@/services/queries/partsQueries";
 import { createFileRoute, Navigate, useNavigate } from "@tanstack/react-router";
-import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
 export const Route = createFileRoute(
@@ -37,11 +37,7 @@ function RouteComponent() {
     );
   }
   if (!data) {
-    return (
-      <div className="flex flex-col w-full items-center justify-center h-full">
-        <Loader2 className="animate-spin stroke-primary" />
-      </div>
-    );
+    return <LoadingSpinner />;
   }
   const uniqueCategories = getUniqueCategories(data);
 
