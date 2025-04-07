@@ -79,6 +79,7 @@ function RouteComponent() {
       <Navigate
         to="/projects/$projectId/parts/$category"
         params={{ projectId: projectId, category: "A" }}
+        replace={true}
       />
     );
   }

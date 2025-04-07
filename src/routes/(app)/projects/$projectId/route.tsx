@@ -1,13 +1,33 @@
 import NavContentProjects from "@/components/nav/NavContentProjects";
 import SideNav from "@/components/nav/SideNav";
-import { createFileRoute, Outlet, useParams } from "@tanstack/react-router";
+import { useAllProjects } from "@/services/queries/projectQueries";
+import {
+  createFileRoute,
+  Navigate,
+  Outlet,
+  useParams,
+} from "@tanstack/react-router";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/(app)/projects/$projectId")({
   component: RouteComponent,
+  errorComponent: () => <p>Error</p>,
 });
 
 function RouteComponent() {
-  const route = useParams({ strict: false }); 
+  const route = useParams({ strict: false });
+
+  const { data, isPending } = useAllProjects();
+  if (isPending) {
+    return <p>Loading...</p>;
+  }
+  const unique = [...new Set(data?.map((d) => d.project_id))];
+  const validProject = unique.includes(route.projectId!);
+
+  if (!validProject) {
+    toast.error(`${route.projectId} does not exist`);
+    return <Navigate to="/projects" replace={true} />;
+  }
 
   return (
     <>
