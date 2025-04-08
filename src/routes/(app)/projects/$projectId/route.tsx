@@ -12,7 +12,6 @@ import { toast } from "sonner";
 
 export const Route = createFileRoute("/(app)/projects/$projectId")({
   component: RouteComponent,
-  errorComponent: () => <p>Error</p>,
 });
 
 function RouteComponent() {

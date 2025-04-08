@@ -50,3 +50,36 @@ async function addNewEngRel(engRel: {
 
   return data[0] as Tables<"eng_rels">;
 }
+
+// Update an engineering release
+export function useUpdateEngRel() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: updateEngRel,
+    onError: (error) => {
+      throw error;
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["allProjectEngRels"] });
+    },
+  });
+}
+
+type UpdateEngRelParams = {
+  columnToMatch: string;
+  matchValue: number;
+  updates: { [key: string]: string | number };
+};
+
+async function updateEngRel({ ...params }: UpdateEngRelParams) {
+  const { columnToMatch, matchValue, updates } = { ...params };
+
+  const { data } = await supabase
+    .from("eng_rels")
+    .update(updates)
+    .eq(columnToMatch, matchValue)
+    .select()
+    .throwOnError();
+
+  return data as Tables<"eng_rels">[];
+}

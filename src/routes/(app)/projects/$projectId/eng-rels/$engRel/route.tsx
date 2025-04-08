@@ -46,8 +46,8 @@ function RouteComponent() {
   )[0];
 
   return (
-    <div>
+    <>
       <EngRel engRel={engRel} />
-    </div>
+    </>
   );
 }
