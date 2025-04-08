@@ -1,4 +1,3 @@
-import CloseSVG from "@/components/icons/CloseSVG";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -42,7 +41,6 @@ export default function EngRelHeader({
 
   return (
     <div className="flex flex-row text-white p-6 text-2xl bg-primary justify-between">
-      {/* Inputs */}
       <form
         className="w-full flex flex-row justify-between"
         onSubmit={(e) => void handleSubmit(e)}
