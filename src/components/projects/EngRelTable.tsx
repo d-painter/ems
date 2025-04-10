@@ -32,7 +32,9 @@ export default function EngRelTable({
               </TableCell>
             </TableRow>
           ) : (
-            engRels.map((e, i) => <EngRelTableRow engRel={e} key={i} />)
+            engRels
+              .sort((a, b) => a.release_id - b.release_id)
+              .map((e, i) => <EngRelTableRow engRel={e} key={i} />)
           )}
         </TableBody>
       </Table>

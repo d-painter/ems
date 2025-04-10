@@ -24,6 +24,24 @@ export function useProjectEngRels(projectId: string) {
   });
 }
 
+// Get part rows associated with a release
+async function fetchEngRelParts(parts: number[]) {
+  const { data } = await supabase
+    .from("part_numbers")
+    .select()
+    .in("id", parts)
+    .throwOnError();
+
+  return data as Tables<"part_numbers">[];
+}
+
+export function useEngRelParts(parts: number[]) {
+  return useQuery({
+    queryKey: ["engRelParts", parts],
+    queryFn: () => fetchEngRelParts(parts),
+  });
+}
+
 // Mutations
 // Add a new engineering release
 export function useAddNewEngRel() {

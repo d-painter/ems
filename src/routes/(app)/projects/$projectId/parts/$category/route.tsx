@@ -88,6 +88,11 @@ function RouteComponent() {
     return subSystems[index];
   };
 
+  function sortedByPartNumber(a:AllProjectPartTableRows[]){
+    return a.sort((a,b) => a.part_number - b.part_number)
+  }  
+  
+
   return (
     <div className="w-full h-full flex flex-col items-center overflow-auto">
       <div className="w-full max-w-3xl max-sm:p-4">
@@ -113,7 +118,7 @@ function RouteComponent() {
           </Select>
           {showAddCategoryButton && <AddCategoryDialog projectId={projectId} />}
         </div>
-        <PartsTable main={main} assemblies={assemblies} parts={parts} />
+        <PartsTable main={main} assemblies={sortedByPartNumber(assemblies)} parts={sortedByPartNumber(parts)} />
       </div>
     </div>
   );

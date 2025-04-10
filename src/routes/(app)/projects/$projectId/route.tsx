@@ -34,8 +34,6 @@ function RouteComponent() {
       <SideNav>
         <NavContentProjects
           projectId={route.projectId!}
-          category={route.category ?? ""}
-          engRel={route.engRel ?? ""}
         />
       </SideNav>
       <div className="w-full h-full p-2 md:p-6">

@@ -40,12 +40,12 @@ export default function EngRelHeader({
   }
 
   return (
-    <div className="flex flex-row text-white p-6 text-2xl bg-primary justify-between">
+    <div className="flex flex-row text-white p-2 md:p-6 text-2xl bg-primary justify-between">
       <form
         className="w-full flex flex-row justify-between"
         onSubmit={(e) => void handleSubmit(e)}
       >
-        <div className="w-1/2 flex flex-col">
+        <div className="flex flex-col">
           <div className="min-h-14">
             <Label htmlFor="title">Title</Label>
             {emptyTitleBoolean || edit ? (
@@ -110,7 +110,7 @@ export default function EngRelHeader({
               type="button"
               onClick={() => setEdit(true)}
             >
-                <Pen/>
+              <Pen />
             </Button>
           )}
         </div>

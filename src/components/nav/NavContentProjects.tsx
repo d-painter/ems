@@ -3,36 +3,10 @@ import { Link } from "@tanstack/react-router";
 type NavContentProps = {
   closeMobileNav?: () => void;
   projectId: string;
-  category: string;
-  engRel: string;
 };
 
 export default function NavContentProjects({ ...props }: NavContentProps) {
-  const {
-    closeMobileNav = () => null,
-    projectId,
-    category,
-    engRel,
-  } = { ...props };
-
-  const projectsRoutes = [
-    {
-      title: "Dashboard",
-      to: `/projects/${projectId}`,
-    },
-    {
-      title: "Decision Records",
-      to: `/projects/${projectId}/adr`,
-    },
-    {
-      title: "Eng Releases",
-      to: `/projects/${projectId}/eng-rels/${engRel}`,
-    },
-    {
-      title: "Parts",
-      to: `/projects/${projectId}/parts/${category}`,
-    },
-  ];
+  const { closeMobileNav = () => null, projectId } = { ...props };
 
   return (
     <div className="flex flex-col text-xl h-full justify-center">
@@ -49,17 +23,42 @@ export default function NavContentProjects({ ...props }: NavContentProps) {
           >
             Home
           </Link>
-          {projectsRoutes.map((r) => (
-            <Link
-              key={r.title}
-              to={r.to}
-              className="[&.active]:font-bold [&.active]:border-l-primary"
-              onClick={() => closeMobileNav()}
-              activeOptions={{ exact: true }}
-            >
-              {r.title}
-            </Link>
-          ))}
+          <Link
+            to="/projects/$projectId"
+            params={{ projectId: projectId }}
+            className="[&.active]:font-bold [&.active]:border-l-primary"
+            onClick={() => closeMobileNav()}
+            activeOptions={{ exact: true }}
+          >
+            Dashboard
+          </Link>
+          <Link
+            to="/projects/$projectId/adr"
+            params={{ projectId: projectId }}
+            className="[&.active]:font-bold [&.active]:border-l-primary"
+            onClick={() => closeMobileNav()}
+            activeOptions={{ exact: false }}
+          >
+            Decision Record
+          </Link>
+          <Link
+            to="/projects/$projectId/eng-rels"
+            params={{ projectId: projectId }}
+            className="[&.active]:font-bold [&.active]:border-l-primary"
+            onClick={() => closeMobileNav()}
+            activeOptions={{ exact: false }}
+          >
+            Eng Releases
+          </Link>
+          <Link
+            to="/projects/$projectId/parts"
+            params={{ projectId: projectId }}
+            className="[&.active]:font-bold [&.active]:border-l-primary"
+            onClick={() => closeMobileNav()}
+            activeOptions={{ exact: false }}
+          >
+            Parts
+          </Link>
         </div>
       </div>
     </div>
