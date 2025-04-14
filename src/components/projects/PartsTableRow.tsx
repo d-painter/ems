@@ -39,17 +39,16 @@ export default function PartsTableRow({
           </TableCell>
         </TableRow>
       </ContextMenuTrigger>
-      <ContextMenuContent className="w-64">
-        <ContextMenuLabel inset>Copy</ContextMenuLabel>
+      <ContextMenuContent className="w-fit">
+        <ContextMenuLabel className="font-bold">Copy</ContextMenuLabel>
         <ContextMenuItem
-          inset
           onClick={() =>
             void navigator.clipboard.writeText(
               `${p.project_id}-${p.sub_system}-${formatPartNumber(p.part_number)}-01A - ${p.description}`
             )
           }
         >
-          Part Number-01A - Description
+          {`${p.project_id}-${p.sub_system}-${formatPartNumber(p.part_number)}-01A - ${p.description}`}{" "}
         </ContextMenuItem>
       </ContextMenuContent>
     </ContextMenu>
