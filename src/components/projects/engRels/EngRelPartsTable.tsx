@@ -21,7 +21,7 @@ export default function EngRelPartsTable({
     );
   }
   return (
-    <div className="w-96">
+    <>
       <Table>
         <TableHeader>
           <TableRow className="text-left">
@@ -29,19 +29,20 @@ export default function EngRelPartsTable({
             <TableHead>Description</TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody>
+        <TableBody className="[&_td]:!text-xs">
           {parts.map((p, i) => (
-            <TableRow key={i}>
-                  <TableCell className="pl-4">
-                    {p.project_id}-{p.sub_system}-{String(p.part_number).padStart(4,"0")}
-                  </TableCell>
-                  <TableCell className="min-w-24 !max-w-36 !truncate">
-                    {p.description}
-                  </TableCell>
-                </TableRow>
-          ))}     
+            <TableRow key={i} className="pl-4">
+              <TableCell className="pl-4">
+                {p.project_id}-{p.sub_system}-
+                {String(p.part_number).padStart(4, "0")}
+              </TableCell>
+              <TableCell className="min-w-24 !max-w-36 !truncate">
+                {p.description}
+              </TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
-    </div>
+    </>
   );
 }
