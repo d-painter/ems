@@ -104,10 +104,19 @@ export default function AddPartDialog({ ...props }: AddPartsDialogProps) {
           className="flex flex-col gap-4"
           onSubmit={(e: FormEvent<HTMLFormElement>) => void addNewPart(e)}
         >
-          <div className="flex flex-row gap-2 w-full justify-between">
-            <Label htmlFor="description">
-              {partType === "assembly" ? "Assembly" : "Part"} Description
-            </Label>
+          <Label htmlFor="description">
+            {partType === "assembly" ? "Assembly" : "Part"} Description
+          </Label>
+            <Input
+              type="text"
+              id="description"
+              placeholder="Description"
+              name="description"
+              autoFocus
+              onChange={(e) =>
+                setFormState({ ...formState, [e.target.name]: e.target.value })
+              }
+            />
             <div className="flex flex-row gap-2">
               <Checkbox
                 id="checkbox"
@@ -115,22 +124,9 @@ export default function AddPartDialog({ ...props }: AddPartsDialogProps) {
                 onClick={() => setIsHanded(!isHanded)}
               />
               <Label htmlFor="checkbox">
-                {" "}
                 Handed {partType === "assembly" ? "assembly" : "part"}?
               </Label>
             </div>
-          </div>
-          <div className="flex flex-row gap-2  w-full">
-            <Input
-              type="text"
-              id="description"
-              placeholder="Description"
-              name="description"
-              onChange={(e) =>
-                setFormState({ ...formState, [e.target.name]: e.target.value })
-              }
-            />
-          </div>
           <DialogFooter className="max-sm:flex max-sm:flex-row max-sm:ml-auto">
             <Button
               variant="secondary"
@@ -139,7 +135,10 @@ export default function AddPartDialog({ ...props }: AddPartsDialogProps) {
             >
               Cancel
             </Button>
-            <Button type="submit" disabled={!formState.description && true}>
+            <Button
+              type="submit"
+              disabled={!formState.description && true}
+            >
               Create
             </Button>
           </DialogFooter>
