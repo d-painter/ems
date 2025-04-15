@@ -26,16 +26,13 @@ export default function PartsTable({ ...props }: PartsTableProps) {
           <TableRow className="text-left">
             <TableHead className="text-left">Part Number</TableHead>
             <TableHead>Description</TableHead>
-            <TableHead className="max-sm:hidden">
-              Created By
-            </TableHead>
+            <TableHead className="max-sm:hidden">Created By</TableHead>
             <TableHead className="max-sm:hidden">Created Date</TableHead>
             <TableHead className="!max-w-16 !text-center">Edit</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {main && <PartsTableRow part={main} />}
-
           <TableRow className="hover:bg-transparent border-b border-b-primary">
             <TableCell className="!text-xs pt-6">ASSEMBLIES</TableCell>
             <TableCell colSpan={100} className="pt-6">
