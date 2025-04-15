@@ -2,6 +2,7 @@ import { Tables } from "@/services/supabase/supabaseTypes";
 import EngRelPartsTable from "./EngRelPartsTable";
 import EditEngRelParts from "./EditEngRelParts";
 import { useEngRelParts } from "@/services/queries/engRelQueries";
+import CsvClickDrag from "@/components/csv/CsvClickDrag";
 
 export default function EngRelParts({
   engRel,
@@ -25,6 +26,7 @@ export default function EngRelParts({
         <div className="h-full w-full justify-center md:w-fit items-center flex md:flex-col gap-10">
           <EditEngRelParts engRel={engRel} />
           <div className="hidden md:flex w-full  border-b"></div>
+          <CsvClickDrag />
           <div className="size-24 rounded-2xl text-center bg-black/10">CSV</div>
         </div>
       </div>
