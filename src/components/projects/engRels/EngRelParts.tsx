@@ -19,10 +19,10 @@ export default function EngRelParts({
   return (
     <div className="flex justify-center w-full">
       <div className="flex flex-col-reverse items-center md:flex-row justify-around w-full gap-2 max-w-[900px]">
-        <div className="w-96 ">
+        <div className="w-full max-w-96 ">
           <EngRelPartsTable parts={engParts} />
         </div>
-        <div className="h-full w-full justify-center md:w-fit items-center flex md:flex-col  gap-10">
+        <div className="h-full w-full justify-center md:w-fit items-center flex md:flex-col gap-10">
           <EditEngRelParts engRel={engRel} />
           <div className="hidden md:flex w-full  border-b"></div>
           <div className="size-24 rounded-2xl text-center bg-black/10">CSV</div>

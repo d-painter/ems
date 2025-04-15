@@ -15,9 +15,9 @@ export default function EngRelPartsTable({
 }) {
   if (!parts?.length) {
     return (
-      <div className="w-full space-y-2">
+      <>
         <div>No parts associated with this release.</div>
-      </div>
+      </>
     );
   }
   return (
