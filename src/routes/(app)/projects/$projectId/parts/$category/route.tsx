@@ -1,5 +1,6 @@
 import AddCategoryDialog from "@/components/projects/AddCategoryDialog";
 import PartsTable from "@/components/projects/PartsTable";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import {
   Select,
   SelectContent,
@@ -13,7 +14,6 @@ import {
   useProjectParts,
 } from "@/services/queries/partsQueries";
 import { createFileRoute, Navigate, useNavigate } from "@tanstack/react-router";
-import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
 export const Route = createFileRoute(
@@ -37,11 +37,7 @@ function RouteComponent() {
     );
   }
   if (!data) {
-    return (
-      <div className="flex flex-col w-full items-center justify-center h-full">
-        <Loader2 className="animate-spin stroke-primary" />
-      </div>
-    );
+    return <LoadingSpinner />;
   }
   const uniqueCategories = getUniqueCategories(data);
 
@@ -79,6 +75,7 @@ function RouteComponent() {
       <Navigate
         to="/projects/$projectId/parts/$category"
         params={{ projectId: projectId, category: "A" }}
+        replace={true}
       />
     );
   }
@@ -91,10 +88,15 @@ function RouteComponent() {
     return subSystems[index];
   };
 
+  function sortedByPartNumber(a:AllProjectPartTableRows[]){
+    return a.sort((a,b) => a.part_number - b.part_number)
+  }  
+  
+
   return (
-    <div className="w-full h-full p-2 md:p-6 flex flex-col items-center overflow-auto">
+    <div className="w-full h-full flex flex-col items-center overflow-auto ">
       <div className="w-full max-w-3xl max-sm:p-4">
-        <div className="flex flex-row items-center gap-2 mb-4">
+        <div className="flex flex-row items-center gap-2 mb-4 mt-1">
           <Select onValueChange={(e) => void handleCategoryChange(e)}>
             <SelectTrigger className="text-xs md:text-md text-foreground w-64 [&_span]:text-foreground">
               <SelectValue
@@ -116,7 +118,7 @@ function RouteComponent() {
           </Select>
           {showAddCategoryButton && <AddCategoryDialog projectId={projectId} />}
         </div>
-        <PartsTable main={main} assemblies={assemblies} parts={parts} />
+        <PartsTable main={main} assemblies={sortedByPartNumber(assemblies)} parts={sortedByPartNumber(parts)} />
       </div>
     </div>
   );

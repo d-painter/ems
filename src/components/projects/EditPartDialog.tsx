@@ -8,7 +8,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
-import { FormEvent, useState } from "react";
+import { FormEvent, MouseEvent, useState } from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { toast } from "sonner";
@@ -90,12 +90,15 @@ export default function EditPartDialog({ ...props }: EditPartDialogProps) {
             <Button
               variant="secondary"
               type="button"
-              onClick={() => setOpen(false)}
+              onClick={(e: MouseEvent<HTMLButtonElement>) => {
+                setOpen(false);
+                e.currentTarget.blur();
+              }}
             >
               Cancel
             </Button>
             <Button type="submit" disabled={!formState.description && true}>
-              Create
+              Update
             </Button>
           </DialogFooter>
         </form>

@@ -33,7 +33,6 @@ function AppRoute() {
         <NavContentProjects
           closeMobileNav={closeMobileNav}
           projectId={params.projectId}
-          category={params.category ?? ""}
         />
       );
     } else {

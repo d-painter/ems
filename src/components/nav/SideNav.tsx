@@ -13,7 +13,7 @@ export default function SideNav({ children }: { children: ReactNode }) {
   }
 
   return (
-    <div className="relative w-56 h-full hidden md:flex-col shrink-0 md:flex bg-black/3 p-4 border-r border-r-primary">
+    <div className="relative w-56 h-full hidden md:flex-col shrink-0 md:flex p-4 border-r border-r-primary">
       {children}
       <div className="mt-auto w-full">
         <Button onClick={() => void logout()} className="w-full">

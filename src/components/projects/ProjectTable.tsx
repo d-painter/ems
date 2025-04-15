@@ -11,6 +11,7 @@ import {
 } from "../ui/DataTable";
 import { Link } from "@tanstack/react-router";
 import AddProjectDialog from "./AddProjectDialog";
+import LoadingSpinner from "../ui/LoadingSpinner";
 
 type ProjectTableProps = {
   data: Tables<"projects">[] | null | undefined;
@@ -44,7 +45,9 @@ export default function ProjectTable({ ...props }: ProjectTableProps) {
               </DtContentRow>
             ) : !data ? (
               <DtContentRow>
-                <DtData>Loading...</DtData>
+                <DtData>
+                  <LoadingSpinner />
+                </DtData>
               </DtContentRow>
             ) : data.length === 0 ? (
               <DtContentRow>

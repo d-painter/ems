@@ -74,6 +74,7 @@ export default function AddPartDialog({ ...props }: AddPartsDialogProps) {
       }
 
       setFormState({ description: "" });
+      setIsHanded(false);
       setOpen(false);
     } catch (error) {
       // TODO: individual error handling
@@ -85,6 +86,11 @@ export default function AddPartDialog({ ...props }: AddPartsDialogProps) {
     }
   }
 
+  function handleClose() {
+    setOpen(false);
+    setIsHanded(false);
+  }
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -93,7 +99,10 @@ export default function AddPartDialog({ ...props }: AddPartsDialogProps) {
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="max-sm:top-0 max-sm:translate-y-4 overflow-y-auto">
+      <DialogContent
+        className="max-sm:top-0 max-sm:translate-y-4 overflow-y-auto"
+        onCloseAutoFocus={() => handleClose()}
+      >
         <DialogHeader>
           <DialogTitle>
             Add New {partType === "assembly" ? "Assembly" : "Part"}
@@ -104,38 +113,34 @@ export default function AddPartDialog({ ...props }: AddPartsDialogProps) {
           className="flex flex-col gap-4"
           onSubmit={(e: FormEvent<HTMLFormElement>) => void addNewPart(e)}
         >
-          <div className="flex flex-row gap-2 w-full justify-between">
-            <Label htmlFor="description">
-              {partType === "assembly" ? "Assembly" : "Part"} Description
-            </Label>
-            <div className="flex flex-row gap-2">
-              <Checkbox
-                id="checkbox"
-                className="outline"
-                onClick={() => setIsHanded(!isHanded)}
-              />
-              <Label htmlFor="checkbox">
-                {" "}
-                Handed {partType === "assembly" ? "assembly" : "part"}?
-              </Label>
-            </div>
-          </div>
-          <div className="flex flex-row gap-2  w-full">
-            <Input
-              type="text"
-              id="description"
-              placeholder="Description"
-              name="description"
-              onChange={(e) =>
-                setFormState({ ...formState, [e.target.name]: e.target.value })
-              }
+          <Label htmlFor="description">
+            {partType === "assembly" ? "Assembly" : "Part"} Description
+          </Label>
+          <Input
+            type="text"
+            id="description"
+            placeholder="Description"
+            name="description"
+            autoFocus
+            onChange={(e) =>
+              setFormState({ ...formState, [e.target.name]: e.target.value })
+            }
+          />
+          <div className="flex flex-row gap-2">
+            <Checkbox
+              id="checkbox"
+              className="outline"
+              onClick={() => setIsHanded(!isHanded)}
             />
+            <Label htmlFor="checkbox">
+              Handed {partType === "assembly" ? "assembly" : "part"}?
+            </Label>
           </div>
           <DialogFooter className="max-sm:flex max-sm:flex-row max-sm:ml-auto">
             <Button
               variant="secondary"
               type="button"
-              onClick={() => setOpen(false)}
+              onClick={() => handleClose()}
             >
               Cancel
             </Button>
