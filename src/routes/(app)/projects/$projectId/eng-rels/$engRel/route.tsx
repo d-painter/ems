@@ -11,6 +11,8 @@ export const Route = createFileRoute(
 });
 
 function RouteComponent() {
+  console.log("test");
+
   const { projectId, engRel: engRelParam } = Route.useParams();
   const { data: engRels, isPending } = useProjectEngRels(projectId);
 

@@ -36,7 +36,7 @@ function RouteComponent() {
           projectId={route.projectId!}
         />
       </SideNav>
-      <div className="w-full h-full p-2 md:p-6">
+      <div className="w-full h-full p-2 md:px-6">
         <Outlet />
       </div>
     </>

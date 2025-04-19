@@ -1,30 +1,25 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-// @ts-expect-error because error
-
 import { useCSVReader, formatFileSize } from "react-papaparse";
+import type { ParseResult } from "papaparse";
+import { toast } from "sonner";
 
-export default function CsvClickDrag() {
+export default function CsvClickDrag({
+  csvPartsFromFile,
+}: {
+  csvPartsFromFile: (results: ParseResult<string[]>) => void;
+}) {
   const { CSVReader } = useCSVReader();
 
   return (
     <CSVReader
-      onUploadAccepted={(results: any) => {
-        console.log("---------------------------");
-        console.log(results);
-        console.log("---------------------------");
+      onUploadAccepted={(results: ParseResult<string[]>) => {
+        csvPartsFromFile(results);
+        toast.success("Release updated.");
       }}
     >
-      {({
-        getRootProps,
-        acceptedFile,
-        ProgressBar,
-        getRemoveFileProps,
-        Remove,
-      }: any) => (
+      {({ getRootProps, acceptedFile, getRemoveFileProps, Remove }: any) => (
         <>
           <div
-            className="items-center border-2 border-dashed bg-secondary p-2 rounded-2xl flex flex-col justify-center hover:bg-secondary hover:cursor-pointer"
+            className="items-center border-2 text-sm border-dashed bg-secondary p-2 rounded-xl flex flex-col justify-center hover:bg-secondary hover:cursor-pointer"
             {...getRootProps()}
           >
             {acceptedFile ? (
@@ -37,9 +32,6 @@ export default function CsvClickDrag() {
                     <span className="rounded-sm flex text-white text-xs justify-center">
                       {formatFileSize(acceptedFile.size)}
                     </span>
-                  </div>
-                  <div className="min-h-3 px-2.5 w-full">
-                    <ProgressBar />
                   </div>
                   <div
                     {...getRemoveFileProps()}

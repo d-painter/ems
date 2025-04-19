@@ -86,7 +86,7 @@ export function useUpdateEngRel() {
 type UpdateEngRelParams = {
   columnToMatch: string;
   matchValue: number;
-  updates: { [key: string]: string | number };
+  updates: { [key: string]: string };
 };
 
 async function updateEngRel({ ...params }: UpdateEngRelParams) {

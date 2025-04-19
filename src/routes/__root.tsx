@@ -3,8 +3,8 @@ import {
   Link,
   Outlet,
 } from "@tanstack/react-router";
-//import { TanStackRouterDevtools } from "@tanstack/router-devtools";
-//import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { TanStackRouterDevtools } from "@tanstack/router-devtools";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AuthContext } from "@/components/auth/AuthContext";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -30,8 +30,8 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
     <>
       <Outlet />
       <Toaster richColors />
-      {/* {process.env.NODE_ENV !== "production" && <TanStackRouterDevtools />}
-      {process.env.NODE_ENV !== "production" && <ReactQueryDevtools />} */}
+      {process.env.NODE_ENV !== "production" && <TanStackRouterDevtools />}
+      {process.env.NODE_ENV !== "production" && <ReactQueryDevtools />}
     </>
   ),
 });
