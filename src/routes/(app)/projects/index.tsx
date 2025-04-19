@@ -1,3 +1,4 @@
+import MobileNavBottom from "@/components/nav/MobileNavBottom";
 import NavContent from "@/components/nav/NavContent";
 import SideNav from "@/components/nav/SideNav";
 import ProjectTable from "@/components/projects/ProjectTable";
@@ -15,7 +16,7 @@ function ProjectPage() {
     <>
       <SideNav>
         <div className="my-auto">
-          <NavContent />
+          <NavContent location="side" />
         </div>
       </SideNav>
       <div className="relative flex w-full flex-col gap-6 items-center pt-6 overflow-y-auto ">
@@ -23,6 +24,9 @@ function ProjectPage() {
           <ProjectTable data={projectData} error={error} />
         </div>
       </div>
+      <MobileNavBottom>
+        <NavContent location="mobile" />
+      </MobileNavBottom>
     </>
   );
 }

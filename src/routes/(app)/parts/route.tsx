@@ -1,3 +1,5 @@
+import MobileNavBottom from "@/components/nav/MobileNavBottom";
+import NavContent from "@/components/nav/NavContent";
 import SideNav from "@/components/nav/SideNav";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -12,6 +14,9 @@ function PartsLayoutComponent() {
         <h1 className="my-auto">Content1</h1>
       </SideNav>
       <div>Parts Page</div>
+      <MobileNavBottom>
+        <NavContent location="mobile" />
+      </MobileNavBottom>
     </>
   );
 }
