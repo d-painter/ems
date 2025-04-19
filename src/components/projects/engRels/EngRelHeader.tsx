@@ -101,19 +101,22 @@ export default function EngRelHeader({
           {(edit || emptyDescriptionBoolean || emptyTitleBoolean) && (
             <div className="flex flex-row gap-1">
               <Button
+                size={"icon"}
                 variant="engRel"
                 type="button"
                 onClick={() => setEdit(false)}
               >
                 <X />
               </Button>
-              <Button variant="engRel" type="submit">
+
+              <Button variant="engRel" type="submit" size={"icon"}>
                 <Check />
               </Button>
             </div>
           )}
           {!edit && !emptyDescriptionBoolean && (
             <Button
+              size={"icon"}
               variant="engRel"
               type="button"
               onClick={() => setEdit(true)}

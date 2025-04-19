@@ -13,7 +13,7 @@ export default function EngRelTableRow({
 
   return (
     <TableRow>
-      <TableCell>
+      <TableCell className="min-w-24 !max-w-36 !truncate">
         <Link
           className="underline"
           to="/projects/$projectId/eng-rels/$engRel"
@@ -22,8 +22,7 @@ export default function EngRelTableRow({
             engRel: `${engRel.project_id}-ER-${formatEngRelNumber(engRel.release_id)}`,
           }}
         >
-          {engRel.project_id}-ER-{engRel.release_id}-
-          {formatEngRelNumber(engRel.release_id)}{" "}
+          {engRel.project_id}-ER-{formatEngRelNumber(engRel.release_id)}
         </Link>
       </TableCell>
       <TableCell className="min-w-24 !max-w-36 !truncate">

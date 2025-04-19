@@ -19,13 +19,13 @@ export default function CsvClickDrag({
       {({ getRootProps, acceptedFile, getRemoveFileProps, Remove }: any) => (
         <>
           <div
-            className="items-center border-2 text-sm border-dashed bg-secondary p-2 rounded-xl flex flex-col justify-center hover:bg-secondary hover:cursor-pointer"
+            className="items-center border-2 h-10 w-64 text-sm border-dashed bg-secondary p-2 flex flex-col justify-center hover:bg-secondary hover:cursor-pointer"
             {...getRootProps()}
           >
             {acceptedFile ? (
               <>
-                <div className="p-1 size-28 flex flex-col items-center justify-center gap-4 hover:cursor-default bg-primary relative rounded-xl">
-                  <div className="items-center flex flex-col px-2.5">
+                <div className="p-1 h-8 w-full flex flex-col items-center justify-center gap-4 hover:cursor-default rounded-sm bg-primary relative">
+                  <div className="items-center flex flex-col p-2.5">
                     <span className="rounded-sm text-xs text-white mb-0.5 text-nowrap">
                       {acceptedFile.name}
                     </span>
