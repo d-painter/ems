@@ -37,6 +37,8 @@ export default function EngRelParts({
 
   let engParts;
   if (engRel.part_numbers) {
+    console.log(engRel.part_numbers);
+    
     engParts = JSON.parse(engRel?.part_numbers) as ParsedCsvPartParams[];
   }
 

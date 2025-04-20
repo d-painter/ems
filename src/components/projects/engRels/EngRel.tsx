@@ -3,6 +3,7 @@ import EngRelHeader from "./EngRelHeader";
 import EngRelParts from "./EngRelParts";
 
 export default function EngRel({ engRel }: { engRel: Tables<"eng_rels"> }) {
+  console.log(engRel);
   return (
     <div className="w-full h-full space-y-2 overflow-auto max-w-5xl mx-auto">
       <EngRelHeader engRel={engRel} />

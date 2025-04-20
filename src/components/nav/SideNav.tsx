@@ -1,24 +1,21 @@
 import { ReactNode } from "react";
-import { Button } from "../ui/button";
+import LogoutButton from "./LogoutButton";
 import { UserAuth } from "../auth/AuthContext";
-import { useNavigate } from "@tanstack/react-router";
+import { UserCircle } from "lucide-react";
 
 export default function SideNav({ children }: { children: ReactNode }) {
-  const { signOut } = UserAuth();
-  const navigate = useNavigate();
-
-  async function logout() {
-    await signOut();
-    await navigate({ to: "/login" });
-  }
-
+  const { session } = UserAuth();
   return (
-    <div className="relative w-56 h-full hidden md:flex-col shrink-0 md:flex p-4 border-r border-r-primary">
+    <div className="relative w-44 lg:w-56 h-full hidden md:flex-col shrink-0 md:flex p-4 border-r border-r-primary">
       <div className="my-auto">{children}</div>
       <div className="mt-auto">
-        <Button onClick={() => void logout()} className="w-full">
-          Log out
-        </Button>
+        <div className="w-full max-w-54">
+          <div className="flex flex-row gap-1 items-center">
+            <UserCircle size={18} />
+            <p className="text-base text-wrap">{session?.user?.email}</p>
+          </div>
+          <LogoutButton />
+        </div>
       </div>
     </div>
   );
