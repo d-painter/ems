@@ -15,7 +15,7 @@ export default function EngRelTable({
   engRels: Tables<"eng_rels">[] | null | undefined;
 }) {
   return (
-    <div className="w-[95%] sm:w-[550px]">
+    <div className="w-full max-w-4xl">
       <Table>
         <TableHeader>
           <TableRow className="text-left">

@@ -46,7 +46,7 @@ export default function AddPartDialog({ ...props }: AddPartsDialogProps) {
       if (!data?.length) {
         throw new Error("no data");
       }
-      const newPartNum = getNextPartNumber({ data, partType, subSystem });
+      const newPartNum = getNextPartNumber({ data, partType, subSystem });      
       if (!isHanded) {
         await addNewPartsMutation.mutateAsync([
           {
@@ -77,6 +77,7 @@ export default function AddPartDialog({ ...props }: AddPartsDialogProps) {
       setIsHanded(false);
       setOpen(false);
     } catch (error) {
+     
       // TODO: individual error handling
       if (error instanceof Error) {
         toast.error(error.message);

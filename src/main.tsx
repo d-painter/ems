@@ -9,11 +9,16 @@ import "./index.css";
 // Import the generated route tree
 import { routeTree } from "./routeTree.gen";
 import { AuthContextProvider, UserAuth } from "./components/auth/AuthContext";
+
+//Query
+const queryClient = new QueryClient();
+
 // Create a new router instance
 const router = createRouter({
   routeTree,
   context: {
     auth: undefined!, // This will be set after we wrap the app in an AuthProvider
+    queryClient
   },
 });
 // Register the router instance for type safety
@@ -28,7 +33,7 @@ function InnerApp() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} context={{ auth }} />
+        <RouterProvider router={router} context={{ auth, queryClient }} />
       </QueryClientProvider>
     </>
   );
@@ -41,9 +46,6 @@ function App() {
     </AuthContextProvider>
   );
 }
-
-//Query
-const queryClient = new QueryClient();
 
 // Render the app
 const rootElement = document.getElementById("root")!;

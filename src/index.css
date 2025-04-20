@@ -130,6 +130,6 @@
     @apply w-full min-h-60 bg-background text-foreground;
   }
   #root {
-    @apply w-full sm:h-dvh overflow-hidden ;
+    @apply w-full sm:h-dvh;
   }
 }

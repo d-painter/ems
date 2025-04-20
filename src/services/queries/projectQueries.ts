@@ -18,12 +18,13 @@ async function fetchProjects(): Promise<Tables<"projects">[] | null> {
     return data as Tables<"projects">[] | null;
   }
 }
+export const allProjectsQuery = {
+  queryKey: ["allProjects"],
+  queryFn: fetchProjects,
+};
 
 export function useAllProjects() {
-  return useQuery({
-    queryKey: ["allProjects"],
-    queryFn: fetchProjects,
-  });
+  return useQuery(allProjectsQuery);
 }
 
 // Mutations
@@ -48,9 +49,12 @@ export function useAddNewProject() {
 type NewProjectProps = Omit<Tables<"projects">, "id" | "owner_id">;
 
 async function addNewProject(project: NewProjectProps) {
-  const { data, error } = await supabase.from("projects").insert(project).select();
+  const { data, error } = await supabase
+    .from("projects")
+    .insert(project)
+    .select();
   if (error) {
     throw error;
   }
-  return data as Tables<"projects">[]
+  return data as Tables<"projects">[];
 }

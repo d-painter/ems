@@ -1,11 +1,15 @@
-import NavContent from "@/components/nav/NavContent";
-import SideNav from "@/components/nav/SideNav";
 import ProjectTable from "@/components/projects/ProjectTable";
-import { useAllProjects } from "@/services/queries/projectQueries";
+import {
+  allProjectsQuery,
+  useAllProjects,
+} from "@/services/queries/projectQueries";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/(app)/projects/")({
   component: ProjectPage,
+  loader: async ({ context: { queryClient } }) => {
+    await queryClient.prefetchQuery(allProjectsQuery);
+  },
 });
 
 function ProjectPage() {
@@ -13,13 +17,8 @@ function ProjectPage() {
 
   return (
     <>
-      <SideNav>
-        <div className="my-auto">
-          <NavContent />
-        </div>
-      </SideNav>
-      <div className="relative flex w-full flex-col gap-6 items-center pt-6 overflow-y-auto ">
-        <div className="relative flex w-full flex-col gap-6 items-center lg:w-3xl pb-20 ">
+      <div className="relative flex w-full flex-col gap-6 items-center overflow-auto">
+        <div className="relative flex w-full flex-col gap-6 items-center pb-20 ">
           <ProjectTable data={projectData} error={error} />
         </div>
       </div>

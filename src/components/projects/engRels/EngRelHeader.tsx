@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { useUpdateEngRel } from "@/services/queries/engRelQueries";
 import { Tables } from "@/services/supabase/supabaseTypes";
 import { Check, Pen, X } from "lucide-react";
@@ -40,21 +41,27 @@ export default function EngRelHeader({
   }
 
   return (
-    <div className="flex flex-row text-white p-2 md:p-6 text-2xl bg-primary justify-between">
+    <div className="flex flex-row text-white p-2 md:p-6 h-fit bg-primary justify-between">
       <form
-        className="w-full flex flex-row justify-between"
+        className="w-full flex flex-row"
         onSubmit={(e) => void handleSubmit(e)}
       >
-        <div className="flex flex-col">
+        <div className="flex flex-col grow">
+          <h1 className="mb-2 flex flex-row text-xl">
+            {engRel.project_id}-ER-{String(engRel.release_id).padStart(4, "0")}
+          </h1>
           <div className="min-h-14">
-            <Label htmlFor="title">Title</Label>
+            <Label htmlFor="title" className="text-xs font-extralight">
+              Title
+            </Label>
             {emptyTitleBoolean || edit ? (
               <Input
+                autoFocus
                 placeholder="Title"
                 type="text"
                 id="title"
                 name="title"
-                className="placeholder:text-white mt-1"
+                className="placeholder:text-white mt-1 !text-base"
                 defaultValue={engRel.title ?? ""}
                 onChange={(e) =>
                   setFormState({
@@ -64,18 +71,19 @@ export default function EngRelHeader({
                 }
               />
             ) : (
-              <h2>{engRel.title}</h2>
+              <h2 className="text-base">{engRel.title}</h2>
             )}
           </div>
           <div className="min-h-14">
-            <Label htmlFor="description">Description</Label>
+            <Label htmlFor="description" className="text-xs font-extralight">
+              Description
+            </Label>
             {emptyDescriptionBoolean || edit ? (
-              <Input
+              <Textarea
                 placeholder="Description"
-                type="text"
                 id="description"
                 name="description"
-                className="placeholder:text-white mt-1"
+                className="placeholder:text-white mt-1 !field-sizing-content"
                 defaultValue={engRel.description ?? ""}
                 onChange={(e) =>
                   setFormState({
@@ -85,7 +93,7 @@ export default function EngRelHeader({
                 }
               />
             ) : (
-              <h2>{engRel.description}</h2>
+              <h2 className="text-base">{engRel.description}</h2>
             )}
           </div>
         </div>
@@ -93,19 +101,22 @@ export default function EngRelHeader({
           {(edit || emptyDescriptionBoolean || emptyTitleBoolean) && (
             <div className="flex flex-row gap-1">
               <Button
+                size={"icon"}
                 variant="engRel"
                 type="button"
                 onClick={() => setEdit(false)}
               >
                 <X />
               </Button>
-              <Button variant="engRel" type="submit">
+
+              <Button variant="engRel" type="submit" size={"icon"}>
                 <Check />
               </Button>
             </div>
           )}
           {!edit && !emptyDescriptionBoolean && (
             <Button
+              size={"icon"}
               variant="engRel"
               type="button"
               onClick={() => setEdit(true)}
