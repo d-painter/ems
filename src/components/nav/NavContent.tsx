@@ -1,10 +1,10 @@
 import { Link } from "@tanstack/react-router";
 
 type NavContentProps = {
-  location: "side" | "mobile";
+  navType: "side" | "mobile";
 };
 
-export default function NavContent({ location }: NavContentProps) {
+export default function NavContent({ navType: navType }: NavContentProps) {
   const routes = [
     { title: "Projects", to: "/projects" },
     { title: "Parts", to: "/parts" },
@@ -13,7 +13,7 @@ export default function NavContent({ location }: NavContentProps) {
 
   return (
     <>
-      {location === "side" && (
+      {navType === "side" && (
         <div className="hidden md:flex flex-col text-xl gap-2 [&_*]:hover:border-l-4 [&_*]:border-l-4 [&_*]:border-transparent [&_*]:hover:border-l-primary [&_*]:pl-2">
           <Link
             to={"/"}
@@ -33,11 +33,21 @@ export default function NavContent({ location }: NavContentProps) {
           ))}
         </div>
       )}
-      {location === "mobile" && (
+      {navType === "mobile" && (
         <>
-          <Link to={"/"}>Home</Link>
+          <Link
+            className="p-2 flex h-full justify-center items-center"
+            to={"/"}
+          >
+            Home
+          </Link>
           {routes.map((r) => (
-            <Link key={r.title} to={r.to} activeOptions={{ exact: true }}>
+            <Link
+              className="p-2 flex h-full justify-center items-center"
+              key={r.title}
+              to={r.to}
+              activeOptions={{ exact: true }}
+            >
               {r.title}
             </Link>
           ))}

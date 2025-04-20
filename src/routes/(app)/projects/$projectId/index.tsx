@@ -7,6 +7,6 @@ export const Route = createFileRoute("/(app)/projects/$projectId/")({
 function RouteComponent() {
   
   return (
-    <div>Hello "/(app)/projects/$projectId/"!</div>
+    <div>Hello "/(app)/projects/$projectId/" Dashboard (index) Page</div>
   );
 }

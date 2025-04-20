@@ -1,3 +1,4 @@
+import MobileNavBottom from "@/components/nav/MobileNavBottom";
 import NavContentProjects from "@/components/nav/NavContentProjects";
 import SideNav from "@/components/nav/SideNav";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
@@ -30,15 +31,16 @@ function RouteComponent() {
   }
 
   return (
-    <>
+    <div className="w-full h-full flex flex-col md:flex-row">
       <SideNav>
-        <NavContentProjects
-          projectId={route.projectId!}
-        />
+        <NavContentProjects navType="side" projectId={route.projectId!} />
       </SideNav>
-      <div className="w-full h-full p-2 md:px-6">
+      <div className="w-full h-full p-2">
         <Outlet />
       </div>
-    </>
+        <MobileNavBottom>
+          <NavContentProjects navType="mobile" projectId={route.projectId!} />
+        </MobileNavBottom>
+    </div>
   );
 }

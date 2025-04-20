@@ -16,6 +16,7 @@ import { Route as appIndexImport } from './routes/(app)/index'
 import { Route as authSignupImport } from './routes/(auth)/signup'
 import { Route as authLoginRouteImport } from './routes/(auth)/login/route'
 import { Route as appSuppliersRouteImport } from './routes/(app)/suppliers/route'
+import { Route as appProjectsRouteImport } from './routes/(app)/projects/route'
 import { Route as appPartsRouteImport } from './routes/(app)/parts/route'
 import { Route as appProjectsIndexImport } from './routes/(app)/projects/index'
 import { Route as appProjectsProjectIdRouteImport } from './routes/(app)/projects/$projectId/route'
@@ -58,6 +59,12 @@ const appSuppliersRouteRoute = appSuppliersRouteImport.update({
   getParentRoute: () => appRouteRoute,
 } as any)
 
+const appProjectsRouteRoute = appProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => appRouteRoute,
+} as any)
+
 const appPartsRouteRoute = appPartsRouteImport.update({
   id: '/parts',
   path: '/parts',
@@ -65,15 +72,15 @@ const appPartsRouteRoute = appPartsRouteImport.update({
 } as any)
 
 const appProjectsIndexRoute = appProjectsIndexImport.update({
-  id: '/projects/',
-  path: '/projects/',
-  getParentRoute: () => appRouteRoute,
+  id: '/',
+  path: '/',
+  getParentRoute: () => appProjectsRouteRoute,
 } as any)
 
 const appProjectsProjectIdRouteRoute = appProjectsProjectIdRouteImport.update({
-  id: '/projects/$projectId',
-  path: '/projects/$projectId',
-  getParentRoute: () => appRouteRoute,
+  id: '/$projectId',
+  path: '/$projectId',
+  getParentRoute: () => appProjectsRouteRoute,
 } as any)
 
 const appProjectsProjectIdIndexRoute = appProjectsProjectIdIndexImport.update({
@@ -142,6 +149,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appPartsRouteImport
       parentRoute: typeof appRouteImport
     }
+    '/(app)/projects': {
+      id: '/(app)/projects'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof appProjectsRouteImport
+      parentRoute: typeof appRouteImport
+    }
     '/(app)/suppliers': {
       id: '/(app)/suppliers'
       path: '/suppliers'
@@ -172,17 +186,17 @@ declare module '@tanstack/react-router' {
     }
     '/(app)/projects/$projectId': {
       id: '/(app)/projects/$projectId'
-      path: '/projects/$projectId'
+      path: '/$projectId'
       fullPath: '/projects/$projectId'
       preLoaderRoute: typeof appProjectsProjectIdRouteImport
-      parentRoute: typeof appRouteImport
+      parentRoute: typeof appProjectsRouteImport
     }
     '/(app)/projects/': {
       id: '/(app)/projects/'
-      path: '/projects'
-      fullPath: '/projects'
+      path: '/'
+      fullPath: '/projects/'
       preLoaderRoute: typeof appProjectsIndexImport
-      parentRoute: typeof appRouteImport
+      parentRoute: typeof appProjectsRouteImport
     }
     '/(app)/projects/$projectId/adr': {
       id: '/(app)/projects/$projectId/adr'
@@ -293,20 +307,31 @@ const appProjectsProjectIdRouteRouteWithChildren =
     appProjectsProjectIdRouteRouteChildren,
   )
 
-interface appRouteRouteChildren {
-  appPartsRouteRoute: typeof appPartsRouteRoute
-  appSuppliersRouteRoute: typeof appSuppliersRouteRoute
-  appIndexRoute: typeof appIndexRoute
+interface appProjectsRouteRouteChildren {
   appProjectsProjectIdRouteRoute: typeof appProjectsProjectIdRouteRouteWithChildren
   appProjectsIndexRoute: typeof appProjectsIndexRoute
 }
 
-const appRouteRouteChildren: appRouteRouteChildren = {
-  appPartsRouteRoute: appPartsRouteRoute,
-  appSuppliersRouteRoute: appSuppliersRouteRoute,
-  appIndexRoute: appIndexRoute,
+const appProjectsRouteRouteChildren: appProjectsRouteRouteChildren = {
   appProjectsProjectIdRouteRoute: appProjectsProjectIdRouteRouteWithChildren,
   appProjectsIndexRoute: appProjectsIndexRoute,
+}
+
+const appProjectsRouteRouteWithChildren =
+  appProjectsRouteRoute._addFileChildren(appProjectsRouteRouteChildren)
+
+interface appRouteRouteChildren {
+  appPartsRouteRoute: typeof appPartsRouteRoute
+  appProjectsRouteRoute: typeof appProjectsRouteRouteWithChildren
+  appSuppliersRouteRoute: typeof appSuppliersRouteRoute
+  appIndexRoute: typeof appIndexRoute
+}
+
+const appRouteRouteChildren: appRouteRouteChildren = {
+  appPartsRouteRoute: appPartsRouteRoute,
+  appProjectsRouteRoute: appProjectsRouteRouteWithChildren,
+  appSuppliersRouteRoute: appSuppliersRouteRoute,
+  appIndexRoute: appIndexRoute,
 }
 
 const appRouteRouteWithChildren = appRouteRoute._addFileChildren(
@@ -316,11 +341,12 @@ const appRouteRouteWithChildren = appRouteRoute._addFileChildren(
 export interface FileRoutesByFullPath {
   '/': typeof appIndexRoute
   '/parts': typeof appPartsRouteRoute
+  '/projects': typeof appProjectsRouteRouteWithChildren
   '/suppliers': typeof appSuppliersRouteRoute
   '/login': typeof authLoginRouteRoute
   '/signup': typeof authSignupRoute
   '/projects/$projectId': typeof appProjectsProjectIdRouteRouteWithChildren
-  '/projects': typeof appProjectsIndexRoute
+  '/projects/': typeof appProjectsIndexRoute
   '/projects/$projectId/adr': typeof appProjectsProjectIdAdrRouteRoute
   '/projects/$projectId/eng-rels': typeof appProjectsProjectIdEngRelsRouteRouteWithChildren
   '/projects/$projectId/parts': typeof appProjectsProjectIdPartsRouteRouteWithChildren
@@ -349,6 +375,7 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/(app)': typeof appRouteRouteWithChildren
   '/(app)/parts': typeof appPartsRouteRoute
+  '/(app)/projects': typeof appProjectsRouteRouteWithChildren
   '/(app)/suppliers': typeof appSuppliersRouteRoute
   '/(auth)/login': typeof authLoginRouteRoute
   '/(auth)/signup': typeof authSignupRoute
@@ -369,11 +396,12 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/parts'
+    | '/projects'
     | '/suppliers'
     | '/login'
     | '/signup'
     | '/projects/$projectId'
-    | '/projects'
+    | '/projects/'
     | '/projects/$projectId/adr'
     | '/projects/$projectId/eng-rels'
     | '/projects/$projectId/parts'
@@ -399,6 +427,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/(app)'
     | '/(app)/parts'
+    | '/(app)/projects'
     | '/(app)/suppliers'
     | '/(auth)/login'
     | '/(auth)/signup'
@@ -446,15 +475,22 @@ export const routeTree = rootRoute
       "filePath": "(app)/route.tsx",
       "children": [
         "/(app)/parts",
+        "/(app)/projects",
         "/(app)/suppliers",
-        "/(app)/",
-        "/(app)/projects/$projectId",
-        "/(app)/projects/"
+        "/(app)/"
       ]
     },
     "/(app)/parts": {
       "filePath": "(app)/parts/route.tsx",
       "parent": "/(app)"
+    },
+    "/(app)/projects": {
+      "filePath": "(app)/projects/route.tsx",
+      "parent": "/(app)",
+      "children": [
+        "/(app)/projects/$projectId",
+        "/(app)/projects/"
+      ]
     },
     "/(app)/suppliers": {
       "filePath": "(app)/suppliers/route.tsx",
@@ -472,7 +508,7 @@ export const routeTree = rootRoute
     },
     "/(app)/projects/$projectId": {
       "filePath": "(app)/projects/$projectId/route.tsx",
-      "parent": "/(app)",
+      "parent": "/(app)/projects",
       "children": [
         "/(app)/projects/$projectId/adr",
         "/(app)/projects/$projectId/eng-rels",
@@ -482,7 +518,7 @@ export const routeTree = rootRoute
     },
     "/(app)/projects/": {
       "filePath": "(app)/projects/index.tsx",
-      "parent": "/(app)"
+      "parent": "/(app)/projects"
     },
     "/(app)/projects/$projectId/adr": {
       "filePath": "(app)/projects/$projectId/adr/route.tsx",
