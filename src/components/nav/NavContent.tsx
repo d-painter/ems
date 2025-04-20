@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
+import { SheetClose } from "../ui/sheet";
 
 type NavContentProps = {
-  navType: "side" | "mobile";
+  navType: "side" | "mobile" | "drawer";
 };
 
 export default function NavContent({ navType: navType }: NavContentProps) {
@@ -13,6 +14,30 @@ export default function NavContent({ navType: navType }: NavContentProps) {
 
   return (
     <>
+      {navType === "drawer" && (
+        <div className="flex flex-col text-xl gap-2 [&_*]:hover:border-l-4 [&_*]:border-l-4 [&_*]:border-transparent [&_*]:hover:border-l-primary [&_*]:pl-2">
+          <SheetClose asChild>
+            <Link
+              to={"/"}
+              className="[&.active]:font-bold [&.active]:border-l-primary"
+            >
+              Home
+            </Link>
+          </SheetClose>
+          {routes.map((r) => (
+            <SheetClose asChild>
+              <Link
+                key={r.title}
+                to={r.to}
+                className="[&.active]:font-bold [&.active]:border-l-primary"
+                activeOptions={{ exact: true }}
+              >
+                {r.title}
+              </Link>
+            </SheetClose>
+          ))}
+        </div>
+      )}
       {navType === "side" && (
         <div className="hidden md:flex flex-col text-xl gap-2 [&_*]:hover:border-l-4 [&_*]:border-l-4 [&_*]:border-transparent [&_*]:hover:border-l-primary [&_*]:pl-2">
           <Link

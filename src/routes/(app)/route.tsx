@@ -36,9 +36,7 @@ function AppRoute() {
       <div className="w-full h-full overflow-hidden flex flex-row">
         {show && (
           <SideNav>
-            <div className="my-auto">
-              <NavContent navType="side" />
-            </div>
+            <NavContent navType="side" />
           </SideNav>
         )}
         <Outlet />
