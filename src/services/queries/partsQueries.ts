@@ -24,11 +24,16 @@ async function fetchProjectParts(
     return data;
   }
 }
-export function useProjectParts(projectId: string) {
-  return useQuery({
+
+export function allProjectPartsQuery(projectId: string) {
+  return {
     queryKey: ["allProjectParts", projectId],
     queryFn: () => fetchProjectParts(projectId),
-  });
+  };
+}
+
+export function useProjectParts(projectId: string) {
+  return useQuery(allProjectPartsQuery(projectId));
 }
 
 // Mutations

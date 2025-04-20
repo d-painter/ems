@@ -2,6 +2,7 @@ import MobileNavBottom from "@/components/nav/MobileNavBottom";
 import NavContentProjects from "@/components/nav/NavContentProjects";
 import SideNav from "@/components/nav/SideNav";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import { allProjectPartsQuery } from "@/services/queries/partsQueries";
 import { useAllProjects } from "@/services/queries/projectQueries";
 import {
   createFileRoute,
@@ -13,6 +14,10 @@ import { toast } from "sonner";
 
 export const Route = createFileRoute("/(app)/projects/$projectId")({
   component: RouteComponent,
+  loader: async ( { context: { queryClient }, params }) => {   
+    const {projectId} = params
+    await queryClient.prefetchQuery(allProjectPartsQuery(projectId));
+  },
 });
 
 function RouteComponent() {
