@@ -88,15 +88,14 @@ function RouteComponent() {
     return subSystems[index];
   };
 
-  function sortedByPartNumber(a:AllProjectPartTableRows[]){
-    return a.sort((a,b) => a.part_number - b.part_number)
-  }  
-  
+  function sortedByPartNumber(a: AllProjectPartTableRows[]) {
+    return a.sort((a, b) => a.part_number - b.part_number);
+  }
 
   return (
-    <div className="w-full h-full flex flex-col items-center overflow-auto ">
-      <div className="w-full max-w-3xl max-sm:p-4">
-        <div className="flex flex-row items-center gap-2 mb-4 mt-1">
+    <div className="w-full flex flex-col items-center h-full">
+      <div className="w-full h-full max-w-3xl pb-10 sm:pb-20">
+        <div className="flex flex-row items-center gap-2 mb-4 mt-1 relative top-0">
           <Select onValueChange={(e) => void handleCategoryChange(e)}>
             <SelectTrigger className="text-xs md:text-md text-foreground w-64 [&_span]:text-foreground">
               <SelectValue
@@ -118,7 +117,13 @@ function RouteComponent() {
           </Select>
           {showAddCategoryButton && <AddCategoryDialog projectId={projectId} />}
         </div>
-        <PartsTable main={main} assemblies={sortedByPartNumber(assemblies)} parts={sortedByPartNumber(parts)} />
+        <div className="h-full overflow-auto">
+          <PartsTable
+            main={main}
+            assemblies={sortedByPartNumber(assemblies)}
+            parts={sortedByPartNumber(parts)}
+          />
+        </div>
       </div>
     </div>
   );

@@ -56,6 +56,10 @@ type GetNextPartNumberParams = {
   partType: string;
   subSystem: string;
 };
+
+function sortAscending(a: number, b: number) {
+  return a - b;
+}
 export function getNextPartNumber({
   data,
   partType,
@@ -70,14 +74,14 @@ export function getNextPartNumber({
   if (partType === "assembly") {
     filteredTypeNumbers = filteredPartNumbers
       .filter((n) => n > 8999 && n % 2 !== 0)
-      .sort();
+      .sort(sortAscending);
     if (!filteredTypeNumbers?.length) {
       return 9001;
     }
   } else {
     filteredTypeNumbers = filteredPartNumbers
       .filter((n) => n < 9000 && n % 2 !== 0)
-      .sort();
+      .sort(sortAscending);
     if (!filteredTypeNumbers?.length) {
       return 1;
     }
