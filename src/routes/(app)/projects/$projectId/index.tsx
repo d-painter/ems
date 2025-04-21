@@ -7,7 +7,7 @@ export const Route = createFileRoute("/(app)/projects/$projectId/")({
 function RouteComponent() {
   return (
     <div className="h-full">
-      <div className="w-full h-1/2">
+      <div className="max-w-[450px]">
         <TestChart />
       </div>
     </div>
@@ -74,7 +74,7 @@ export function TestChart() {
               tickLine={false}
               axisLine={false}
               tickMargin={8}
-              tickFormatter={(value:string) => value.slice(0, 3)}
+              tickFormatter={(value: string) => value.slice(0, 3)}
             />
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
             <Line
