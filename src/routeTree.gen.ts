@@ -16,13 +16,11 @@ import { Route as appIndexImport } from './routes/(app)/index'
 import { Route as authSignupImport } from './routes/(auth)/signup'
 import { Route as authLoginRouteImport } from './routes/(auth)/login/route'
 import { Route as appSuppliersRouteImport } from './routes/(app)/suppliers/route'
-import { Route as appProjectsRouteImport } from './routes/(app)/projects/route'
 import { Route as appPartsRouteImport } from './routes/(app)/parts/route'
 import { Route as appProjectsIndexImport } from './routes/(app)/projects/index'
 import { Route as appProjectsProjectIdRouteImport } from './routes/(app)/projects/$projectId/route'
 import { Route as appProjectsProjectIdIndexImport } from './routes/(app)/projects/$projectId/index'
 import { Route as appProjectsProjectIdPartsRouteImport } from './routes/(app)/projects/$projectId/parts/route'
-import { Route as appProjectsProjectIdEngRelsRouteImport } from './routes/(app)/projects/$projectId/eng-rels/route'
 import { Route as appProjectsProjectIdAdrRouteImport } from './routes/(app)/projects/$projectId/adr/route'
 import { Route as appProjectsProjectIdEngRelsIndexImport } from './routes/(app)/projects/$projectId/eng-rels/index'
 import { Route as appProjectsProjectIdPartsCategoryRouteImport } from './routes/(app)/projects/$projectId/parts/$category/route'
@@ -59,12 +57,6 @@ const appSuppliersRouteRoute = appSuppliersRouteImport.update({
   getParentRoute: () => appRouteRoute,
 } as any)
 
-const appProjectsRouteRoute = appProjectsRouteImport.update({
-  id: '/projects',
-  path: '/projects',
-  getParentRoute: () => appRouteRoute,
-} as any)
-
 const appPartsRouteRoute = appPartsRouteImport.update({
   id: '/parts',
   path: '/parts',
@@ -72,15 +64,15 @@ const appPartsRouteRoute = appPartsRouteImport.update({
 } as any)
 
 const appProjectsIndexRoute = appProjectsIndexImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => appProjectsRouteRoute,
+  id: '/projects/',
+  path: '/projects/',
+  getParentRoute: () => appRouteRoute,
 } as any)
 
 const appProjectsProjectIdRouteRoute = appProjectsProjectIdRouteImport.update({
-  id: '/$projectId',
-  path: '/$projectId',
-  getParentRoute: () => appProjectsRouteRoute,
+  id: '/projects/$projectId',
+  path: '/projects/$projectId',
+  getParentRoute: () => appRouteRoute,
 } as any)
 
 const appProjectsProjectIdIndexRoute = appProjectsProjectIdIndexImport.update({
@@ -96,13 +88,6 @@ const appProjectsProjectIdPartsRouteRoute =
     getParentRoute: () => appProjectsProjectIdRouteRoute,
   } as any)
 
-const appProjectsProjectIdEngRelsRouteRoute =
-  appProjectsProjectIdEngRelsRouteImport.update({
-    id: '/eng-rels',
-    path: '/eng-rels',
-    getParentRoute: () => appProjectsProjectIdRouteRoute,
-  } as any)
-
 const appProjectsProjectIdAdrRouteRoute =
   appProjectsProjectIdAdrRouteImport.update({
     id: '/adr',
@@ -112,9 +97,9 @@ const appProjectsProjectIdAdrRouteRoute =
 
 const appProjectsProjectIdEngRelsIndexRoute =
   appProjectsProjectIdEngRelsIndexImport.update({
-    id: '/',
-    path: '/',
-    getParentRoute: () => appProjectsProjectIdEngRelsRouteRoute,
+    id: '/eng-rels/',
+    path: '/eng-rels/',
+    getParentRoute: () => appProjectsProjectIdRouteRoute,
   } as any)
 
 const appProjectsProjectIdPartsCategoryRouteRoute =
@@ -126,9 +111,9 @@ const appProjectsProjectIdPartsCategoryRouteRoute =
 
 const appProjectsProjectIdEngRelsEngRelRouteRoute =
   appProjectsProjectIdEngRelsEngRelRouteImport.update({
-    id: '/$engRel',
-    path: '/$engRel',
-    getParentRoute: () => appProjectsProjectIdEngRelsRouteRoute,
+    id: '/eng-rels/$engRel',
+    path: '/eng-rels/$engRel',
+    getParentRoute: () => appProjectsProjectIdRouteRoute,
   } as any)
 
 // Populate the FileRoutesByPath interface
@@ -147,13 +132,6 @@ declare module '@tanstack/react-router' {
       path: '/parts'
       fullPath: '/parts'
       preLoaderRoute: typeof appPartsRouteImport
-      parentRoute: typeof appRouteImport
-    }
-    '/(app)/projects': {
-      id: '/(app)/projects'
-      path: '/projects'
-      fullPath: '/projects'
-      preLoaderRoute: typeof appProjectsRouteImport
       parentRoute: typeof appRouteImport
     }
     '/(app)/suppliers': {
@@ -186,30 +164,23 @@ declare module '@tanstack/react-router' {
     }
     '/(app)/projects/$projectId': {
       id: '/(app)/projects/$projectId'
-      path: '/$projectId'
+      path: '/projects/$projectId'
       fullPath: '/projects/$projectId'
       preLoaderRoute: typeof appProjectsProjectIdRouteImport
-      parentRoute: typeof appProjectsRouteImport
+      parentRoute: typeof appRouteImport
     }
     '/(app)/projects/': {
       id: '/(app)/projects/'
-      path: '/'
-      fullPath: '/projects/'
+      path: '/projects'
+      fullPath: '/projects'
       preLoaderRoute: typeof appProjectsIndexImport
-      parentRoute: typeof appProjectsRouteImport
+      parentRoute: typeof appRouteImport
     }
     '/(app)/projects/$projectId/adr': {
       id: '/(app)/projects/$projectId/adr'
       path: '/adr'
       fullPath: '/projects/$projectId/adr'
       preLoaderRoute: typeof appProjectsProjectIdAdrRouteImport
-      parentRoute: typeof appProjectsProjectIdRouteImport
-    }
-    '/(app)/projects/$projectId/eng-rels': {
-      id: '/(app)/projects/$projectId/eng-rels'
-      path: '/eng-rels'
-      fullPath: '/projects/$projectId/eng-rels'
-      preLoaderRoute: typeof appProjectsProjectIdEngRelsRouteImport
       parentRoute: typeof appProjectsProjectIdRouteImport
     }
     '/(app)/projects/$projectId/parts': {
@@ -228,10 +199,10 @@ declare module '@tanstack/react-router' {
     }
     '/(app)/projects/$projectId/eng-rels/$engRel': {
       id: '/(app)/projects/$projectId/eng-rels/$engRel'
-      path: '/$engRel'
+      path: '/eng-rels/$engRel'
       fullPath: '/projects/$projectId/eng-rels/$engRel'
       preLoaderRoute: typeof appProjectsProjectIdEngRelsEngRelRouteImport
-      parentRoute: typeof appProjectsProjectIdEngRelsRouteImport
+      parentRoute: typeof appProjectsProjectIdRouteImport
     }
     '/(app)/projects/$projectId/parts/$category': {
       id: '/(app)/projects/$projectId/parts/$category'
@@ -242,33 +213,15 @@ declare module '@tanstack/react-router' {
     }
     '/(app)/projects/$projectId/eng-rels/': {
       id: '/(app)/projects/$projectId/eng-rels/'
-      path: '/'
-      fullPath: '/projects/$projectId/eng-rels/'
+      path: '/eng-rels'
+      fullPath: '/projects/$projectId/eng-rels'
       preLoaderRoute: typeof appProjectsProjectIdEngRelsIndexImport
-      parentRoute: typeof appProjectsProjectIdEngRelsRouteImport
+      parentRoute: typeof appProjectsProjectIdRouteImport
     }
   }
 }
 
 // Create and export the route tree
-
-interface appProjectsProjectIdEngRelsRouteRouteChildren {
-  appProjectsProjectIdEngRelsEngRelRouteRoute: typeof appProjectsProjectIdEngRelsEngRelRouteRoute
-  appProjectsProjectIdEngRelsIndexRoute: typeof appProjectsProjectIdEngRelsIndexRoute
-}
-
-const appProjectsProjectIdEngRelsRouteRouteChildren: appProjectsProjectIdEngRelsRouteRouteChildren =
-  {
-    appProjectsProjectIdEngRelsEngRelRouteRoute:
-      appProjectsProjectIdEngRelsEngRelRouteRoute,
-    appProjectsProjectIdEngRelsIndexRoute:
-      appProjectsProjectIdEngRelsIndexRoute,
-  }
-
-const appProjectsProjectIdEngRelsRouteRouteWithChildren =
-  appProjectsProjectIdEngRelsRouteRoute._addFileChildren(
-    appProjectsProjectIdEngRelsRouteRouteChildren,
-  )
 
 interface appProjectsProjectIdPartsRouteRouteChildren {
   appProjectsProjectIdPartsCategoryRouteRoute: typeof appProjectsProjectIdPartsCategoryRouteRoute
@@ -287,19 +240,22 @@ const appProjectsProjectIdPartsRouteRouteWithChildren =
 
 interface appProjectsProjectIdRouteRouteChildren {
   appProjectsProjectIdAdrRouteRoute: typeof appProjectsProjectIdAdrRouteRoute
-  appProjectsProjectIdEngRelsRouteRoute: typeof appProjectsProjectIdEngRelsRouteRouteWithChildren
   appProjectsProjectIdPartsRouteRoute: typeof appProjectsProjectIdPartsRouteRouteWithChildren
   appProjectsProjectIdIndexRoute: typeof appProjectsProjectIdIndexRoute
+  appProjectsProjectIdEngRelsEngRelRouteRoute: typeof appProjectsProjectIdEngRelsEngRelRouteRoute
+  appProjectsProjectIdEngRelsIndexRoute: typeof appProjectsProjectIdEngRelsIndexRoute
 }
 
 const appProjectsProjectIdRouteRouteChildren: appProjectsProjectIdRouteRouteChildren =
   {
     appProjectsProjectIdAdrRouteRoute: appProjectsProjectIdAdrRouteRoute,
-    appProjectsProjectIdEngRelsRouteRoute:
-      appProjectsProjectIdEngRelsRouteRouteWithChildren,
     appProjectsProjectIdPartsRouteRoute:
       appProjectsProjectIdPartsRouteRouteWithChildren,
     appProjectsProjectIdIndexRoute: appProjectsProjectIdIndexRoute,
+    appProjectsProjectIdEngRelsEngRelRouteRoute:
+      appProjectsProjectIdEngRelsEngRelRouteRoute,
+    appProjectsProjectIdEngRelsIndexRoute:
+      appProjectsProjectIdEngRelsIndexRoute,
   }
 
 const appProjectsProjectIdRouteRouteWithChildren =
@@ -307,31 +263,20 @@ const appProjectsProjectIdRouteRouteWithChildren =
     appProjectsProjectIdRouteRouteChildren,
   )
 
-interface appProjectsRouteRouteChildren {
+interface appRouteRouteChildren {
+  appPartsRouteRoute: typeof appPartsRouteRoute
+  appSuppliersRouteRoute: typeof appSuppliersRouteRoute
+  appIndexRoute: typeof appIndexRoute
   appProjectsProjectIdRouteRoute: typeof appProjectsProjectIdRouteRouteWithChildren
   appProjectsIndexRoute: typeof appProjectsIndexRoute
 }
 
-const appProjectsRouteRouteChildren: appProjectsRouteRouteChildren = {
-  appProjectsProjectIdRouteRoute: appProjectsProjectIdRouteRouteWithChildren,
-  appProjectsIndexRoute: appProjectsIndexRoute,
-}
-
-const appProjectsRouteRouteWithChildren =
-  appProjectsRouteRoute._addFileChildren(appProjectsRouteRouteChildren)
-
-interface appRouteRouteChildren {
-  appPartsRouteRoute: typeof appPartsRouteRoute
-  appProjectsRouteRoute: typeof appProjectsRouteRouteWithChildren
-  appSuppliersRouteRoute: typeof appSuppliersRouteRoute
-  appIndexRoute: typeof appIndexRoute
-}
-
 const appRouteRouteChildren: appRouteRouteChildren = {
   appPartsRouteRoute: appPartsRouteRoute,
-  appProjectsRouteRoute: appProjectsRouteRouteWithChildren,
   appSuppliersRouteRoute: appSuppliersRouteRoute,
   appIndexRoute: appIndexRoute,
+  appProjectsProjectIdRouteRoute: appProjectsProjectIdRouteRouteWithChildren,
+  appProjectsIndexRoute: appProjectsIndexRoute,
 }
 
 const appRouteRouteWithChildren = appRouteRoute._addFileChildren(
@@ -341,19 +286,17 @@ const appRouteRouteWithChildren = appRouteRoute._addFileChildren(
 export interface FileRoutesByFullPath {
   '/': typeof appIndexRoute
   '/parts': typeof appPartsRouteRoute
-  '/projects': typeof appProjectsRouteRouteWithChildren
   '/suppliers': typeof appSuppliersRouteRoute
   '/login': typeof authLoginRouteRoute
   '/signup': typeof authSignupRoute
   '/projects/$projectId': typeof appProjectsProjectIdRouteRouteWithChildren
-  '/projects/': typeof appProjectsIndexRoute
+  '/projects': typeof appProjectsIndexRoute
   '/projects/$projectId/adr': typeof appProjectsProjectIdAdrRouteRoute
-  '/projects/$projectId/eng-rels': typeof appProjectsProjectIdEngRelsRouteRouteWithChildren
   '/projects/$projectId/parts': typeof appProjectsProjectIdPartsRouteRouteWithChildren
   '/projects/$projectId/': typeof appProjectsProjectIdIndexRoute
   '/projects/$projectId/eng-rels/$engRel': typeof appProjectsProjectIdEngRelsEngRelRouteRoute
   '/projects/$projectId/parts/$category': typeof appProjectsProjectIdPartsCategoryRouteRoute
-  '/projects/$projectId/eng-rels/': typeof appProjectsProjectIdEngRelsIndexRoute
+  '/projects/$projectId/eng-rels': typeof appProjectsProjectIdEngRelsIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -375,7 +318,6 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/(app)': typeof appRouteRouteWithChildren
   '/(app)/parts': typeof appPartsRouteRoute
-  '/(app)/projects': typeof appProjectsRouteRouteWithChildren
   '/(app)/suppliers': typeof appSuppliersRouteRoute
   '/(auth)/login': typeof authLoginRouteRoute
   '/(auth)/signup': typeof authSignupRoute
@@ -383,7 +325,6 @@ export interface FileRoutesById {
   '/(app)/projects/$projectId': typeof appProjectsProjectIdRouteRouteWithChildren
   '/(app)/projects/': typeof appProjectsIndexRoute
   '/(app)/projects/$projectId/adr': typeof appProjectsProjectIdAdrRouteRoute
-  '/(app)/projects/$projectId/eng-rels': typeof appProjectsProjectIdEngRelsRouteRouteWithChildren
   '/(app)/projects/$projectId/parts': typeof appProjectsProjectIdPartsRouteRouteWithChildren
   '/(app)/projects/$projectId/': typeof appProjectsProjectIdIndexRoute
   '/(app)/projects/$projectId/eng-rels/$engRel': typeof appProjectsProjectIdEngRelsEngRelRouteRoute
@@ -396,19 +337,17 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/parts'
-    | '/projects'
     | '/suppliers'
     | '/login'
     | '/signup'
     | '/projects/$projectId'
-    | '/projects/'
+    | '/projects'
     | '/projects/$projectId/adr'
-    | '/projects/$projectId/eng-rels'
     | '/projects/$projectId/parts'
     | '/projects/$projectId/'
     | '/projects/$projectId/eng-rels/$engRel'
     | '/projects/$projectId/parts/$category'
-    | '/projects/$projectId/eng-rels/'
+    | '/projects/$projectId/eng-rels'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/parts'
@@ -427,7 +366,6 @@ export interface FileRouteTypes {
     | '__root__'
     | '/(app)'
     | '/(app)/parts'
-    | '/(app)/projects'
     | '/(app)/suppliers'
     | '/(auth)/login'
     | '/(auth)/signup'
@@ -435,7 +373,6 @@ export interface FileRouteTypes {
     | '/(app)/projects/$projectId'
     | '/(app)/projects/'
     | '/(app)/projects/$projectId/adr'
-    | '/(app)/projects/$projectId/eng-rels'
     | '/(app)/projects/$projectId/parts'
     | '/(app)/projects/$projectId/'
     | '/(app)/projects/$projectId/eng-rels/$engRel'
@@ -475,22 +412,15 @@ export const routeTree = rootRoute
       "filePath": "(app)/route.tsx",
       "children": [
         "/(app)/parts",
-        "/(app)/projects",
         "/(app)/suppliers",
-        "/(app)/"
+        "/(app)/",
+        "/(app)/projects/$projectId",
+        "/(app)/projects/"
       ]
     },
     "/(app)/parts": {
       "filePath": "(app)/parts/route.tsx",
       "parent": "/(app)"
-    },
-    "/(app)/projects": {
-      "filePath": "(app)/projects/route.tsx",
-      "parent": "/(app)",
-      "children": [
-        "/(app)/projects/$projectId",
-        "/(app)/projects/"
-      ]
     },
     "/(app)/suppliers": {
       "filePath": "(app)/suppliers/route.tsx",
@@ -508,29 +438,22 @@ export const routeTree = rootRoute
     },
     "/(app)/projects/$projectId": {
       "filePath": "(app)/projects/$projectId/route.tsx",
-      "parent": "/(app)/projects",
+      "parent": "/(app)",
       "children": [
         "/(app)/projects/$projectId/adr",
-        "/(app)/projects/$projectId/eng-rels",
         "/(app)/projects/$projectId/parts",
-        "/(app)/projects/$projectId/"
+        "/(app)/projects/$projectId/",
+        "/(app)/projects/$projectId/eng-rels/$engRel",
+        "/(app)/projects/$projectId/eng-rels/"
       ]
     },
     "/(app)/projects/": {
       "filePath": "(app)/projects/index.tsx",
-      "parent": "/(app)/projects"
+      "parent": "/(app)"
     },
     "/(app)/projects/$projectId/adr": {
       "filePath": "(app)/projects/$projectId/adr/route.tsx",
       "parent": "/(app)/projects/$projectId"
-    },
-    "/(app)/projects/$projectId/eng-rels": {
-      "filePath": "(app)/projects/$projectId/eng-rels/route.tsx",
-      "parent": "/(app)/projects/$projectId",
-      "children": [
-        "/(app)/projects/$projectId/eng-rels/$engRel",
-        "/(app)/projects/$projectId/eng-rels/"
-      ]
     },
     "/(app)/projects/$projectId/parts": {
       "filePath": "(app)/projects/$projectId/parts/route.tsx",
@@ -545,7 +468,7 @@ export const routeTree = rootRoute
     },
     "/(app)/projects/$projectId/eng-rels/$engRel": {
       "filePath": "(app)/projects/$projectId/eng-rels/$engRel/route.tsx",
-      "parent": "/(app)/projects/$projectId/eng-rels"
+      "parent": "/(app)/projects/$projectId"
     },
     "/(app)/projects/$projectId/parts/$category": {
       "filePath": "(app)/projects/$projectId/parts/$category/route.tsx",
@@ -553,7 +476,7 @@ export const routeTree = rootRoute
     },
     "/(app)/projects/$projectId/eng-rels/": {
       "filePath": "(app)/projects/$projectId/eng-rels/index.tsx",
-      "parent": "/(app)/projects/$projectId/eng-rels"
+      "parent": "/(app)/projects/$projectId"
     }
   }
 }
