@@ -2,8 +2,6 @@ import { UserAuth } from "@/components/auth/AuthContext";
 import MobileNavBottom from "@/components/nav/MobileNavBottom";
 import NavContent from "@/components/nav/NavContent";
 import SideNav from "@/components/nav/SideNav";
-
-import TopNav from "@/components/nav/TopNav";
 import {
   createFileRoute,
   Navigate,
@@ -32,7 +30,6 @@ function AppRoute() {
 
   return (
     <div className="flex flex-col h-full w-full">
-      <TopNav />
       <div className="w-full h-full overflow-hidden flex flex-row">
         {show && (
           <SideNav>

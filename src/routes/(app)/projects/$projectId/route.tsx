@@ -14,8 +14,8 @@ import { toast } from "sonner";
 
 export const Route = createFileRoute("/(app)/projects/$projectId")({
   component: RouteComponent,
-  loader: async ( { context: { queryClient }, params }) => {   
-    const {projectId} = params
+  loader: async ({ context: { queryClient }, params }) => {
+    const { projectId } = params;
     await queryClient.prefetchQuery(allProjectPartsQuery(projectId));
   },
 });
@@ -42,7 +42,7 @@ function RouteComponent() {
           <NavContentProjects navType="side" projectId={route.projectId!} />
         </div>
       </SideNav>
-      <div className="w-full h-full p-2">
+      <div className="w-full h-full justify-center flex  p-2">
         <Outlet />
       </div>
       <MobileNavBottom>

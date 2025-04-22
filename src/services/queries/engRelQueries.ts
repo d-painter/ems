@@ -25,21 +25,50 @@ export function useProjectEngRels(projectId: string) {
 }
 
 // Get part rows associated with a release
-async function fetchEngRelParts(parts: number[]) {
-  const { data } = await supabase
-    .from("part_numbers")
-    .select()
-    .in("id", parts)
-    .throwOnError();
+// TODO: Check if used
+// async function fetchEngRelParts(parts: number[]) {
+//   const { data } = await supabase
+//     .from("part_numbers")
+//     .select()
+//     .in("id", parts)
+//     .throwOnError();
 
-  return data as Tables<"part_numbers">[];
+//   return data as Tables<"part_numbers">[];
+// }
+
+// export function useEngRelParts(parts: number[]) {
+//   return useQuery({
+//     queryKey: ["engRelParts", parts],
+//     queryFn: () => fetchEngRelParts(parts),
+//   });
+// }
+
+// Get all files
+async function getEngRelFiles(fileIds: string[] | null) {
+  if (!fileIds) {
+    return [];
+  }
+  const { data, error } = await supabase.storage
+    .from("ems-eng-rel-docs")
+    .list("private");
+  if (error) {
+    console.error("Error fetching items:", error);
+  }
+  if (!data?.length) {
+    return data;
+  }
+  const filteredData = data.filter((d) => fileIds.includes(d.id));
+  return filteredData;
 }
 
-export function useEngRelParts(parts: number[]) {
-  return useQuery({
-    queryKey: ["engRelParts", parts],
-    queryFn: () => fetchEngRelParts(parts),
-  });
+export function useEngRelFiles(fileIds: string[] | null) {
+  return useQuery(allEngRelFilesQuery(fileIds));
+}
+function allEngRelFilesQuery(fileIds: string[] | null) {
+  return {
+    queryKey: ["allEngRelFiles", fileIds],
+    queryFn: () => getEngRelFiles(fileIds),
+  };
 }
 
 // Mutations
@@ -86,7 +115,7 @@ export function useUpdateEngRel() {
 type UpdateEngRelParams = {
   columnToMatch: string;
   matchValue: number;
-  updates: { [key: string]: string };
+  updates: { [key: string]: string | string[] };
 };
 
 async function updateEngRel({ ...params }: UpdateEngRelParams) {
