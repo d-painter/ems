@@ -1,4 +1,6 @@
-import EngRel from "@/components/projects/engRels/EngRel";
+import EngRelFiles from "@/components/projects/engRels/EngRelFiles";
+import EngRelHeader from "@/components/projects/engRels/EngRelHeader";
+import EngRelParts from "@/components/projects/engRels/EngRelParts";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import { useProjectEngRels } from "@/services/queries/engRelQueries";
 import { createFileRoute, Navigate } from "@tanstack/react-router";
@@ -46,8 +48,12 @@ function RouteComponent() {
   )[0];
 
   return (
-    <>
-      <EngRel engRel={engRel} />
-    </>
+    <div className="w-full h-full overflow-auto max-w-5xl pb-10">
+      <EngRelHeader engRel={engRel} />
+      <div className="space-y-4">
+        <EngRelParts engRel={engRel} />
+        <EngRelFiles engRel={engRel} />
+      </div>
+    </div>
   );
 }

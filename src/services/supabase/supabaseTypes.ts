@@ -34,39 +34,10 @@ export type Database = {
   };
   public: {
     Tables: {
-      eng_release_old: {
-        Row: {
-          cost_code: string | null;
-          description: string | null;
-          er_num: string;
-          id: number;
-          owner_id: string;
-          part_numbers: string | null;
-          title: string | null;
-        };
-        Insert: {
-          cost_code?: string | null;
-          description?: string | null;
-          er_num: string;
-          id?: number;
-          owner_id: string;
-          part_numbers?: string | null;
-          title?: string | null;
-        };
-        Update: {
-          cost_code?: string | null;
-          description?: string | null;
-          er_num?: string;
-          id?: number;
-          owner_id?: string;
-          part_numbers?: string | null;
-          title?: string | null;
-        };
-        Relationships: [];
-      };
       eng_rels: {
         Row: {
           description: string | null;
+          file_ids: string[] | null;
           id: number;
           owner_id: string;
           part_numbers: string | null;
@@ -76,6 +47,7 @@ export type Database = {
         };
         Insert: {
           description?: string | null;
+          file_ids?: string[] | null;
           id?: number;
           owner_id?: string;
           part_numbers?: string | null;
@@ -85,6 +57,7 @@ export type Database = {
         };
         Update: {
           description?: string | null;
+          file_ids?: string[] | null;
           id?: number;
           owner_id?: string;
           part_numbers?: string | null;
@@ -132,27 +105,6 @@ export type Database = {
         };
         Relationships: [];
       };
-      part_numbers_old: {
-        Row: {
-          description: string | null;
-          id: number;
-          owner_id: string | null;
-          part_number: string | null;
-        };
-        Insert: {
-          description?: string | null;
-          id?: number;
-          owner_id?: string | null;
-          part_number?: string | null;
-        };
-        Update: {
-          description?: string | null;
-          id?: number;
-          owner_id?: string | null;
-          part_number?: string | null;
-        };
-        Relationships: [];
-      };
       projects: {
         Row: {
           id: number;
@@ -174,30 +126,6 @@ export type Database = {
           project_description?: string | null;
           project_id?: string;
           project_title?: string | null;
-        };
-        Relationships: [];
-      };
-      projects_old: {
-        Row: {
-          id: number;
-          owner_id: string;
-          project_description: string;
-          project_id: string;
-          project_title: string;
-        };
-        Insert: {
-          id?: number;
-          owner_id: string;
-          project_description: string;
-          project_id: string;
-          project_title: string;
-        };
-        Update: {
-          id?: number;
-          owner_id?: string;
-          project_description?: string;
-          project_id?: string;
-          project_title?: string;
         };
         Relationships: [];
       };

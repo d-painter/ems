@@ -14,7 +14,7 @@ export default function NavContentProjects({ ...props }: NavContentProps) {
         <div className="hidden md:flex flex-col text-base lg:text-xl gap-2 [&_*]:hover:border-l-4 [&_*]:border-l-4 [&_*]:border-transparent [&_*]:hover:border-l-primary [&_*]:pl-2">
           <Link
             to={"/"}
-            className="[&.active]:font-bold [&.active]:border-l-primary"
+            className="[&.active]:font-bold [&.active]:border-l-primary mb-6"
             activeOptions={{ exact: true }}
           >
             Home
