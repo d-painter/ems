@@ -22,14 +22,14 @@ export default function ProjectTable({ ...props }: ProjectTableProps) {
   const { data, error } = props;
 
   return (
-    <Card className="w-[95%] p-6">
-      <CardTitle className="pl-2">
+    <Card className="w-[95%] ">
+      <CardTitle className="pl-4">
         <div className="flex flex-row gap-4 items-center">
           PROJECTS
           <AddProjectDialog />
         </div>
       </CardTitle>
-      <CardContent className="rounded-lg border p-0">
+      <CardContent className="p-2">
         <DataTable>
           <DataTableHead>
             <DtHeaderRow>
