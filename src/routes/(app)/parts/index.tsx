@@ -22,11 +22,13 @@ export const Route = createFileRoute("/(app)/parts/")({
 });
 
 function RouteComponent() {
-  const { data: allPartData, isPending } = useAllParts();
   const [search, setSearch] = useState("");
+  const { data: allPartData, isPending } = useAllParts();
   if (isPending) {
     return <LoadingSpinner />;
   }
+
+  // const allPartData = []
 
   function getFilteredData() {
     const filteredParts = allPartData?.filter((p) => {
@@ -61,11 +63,11 @@ function RouteComponent() {
   }
 
   return (
-    <div className="w-full h-full flex flex-col items-center overflow-auto p-2">
-      <div className="flex w-full h-full flex-col items-center pb-20 md:w-xl">
-        <Card className="w-full">
-          <CardContent>
-            <div className="flex flex-col gap-2">
+    <div className="w-full h-full flex flex-col items-center p-2 ">
+      <div className="flex w-full h-full flex-col items-center md:w-xl pb-20 md:pb-2">
+        <Card className="w-full h-fit max-h-full my-auto pb-2">
+          <CardContent className="h-full overflow-hidden">
+            <div className=" flex bg-background w-full flex-col gap-2">
               <Label
                 htmlFor="search"
                 className="flex flex-row justify-between w-full px-1"
@@ -85,44 +87,46 @@ function RouteComponent() {
                 onChange={(e) => setSearch(e.currentTarget.value.toLowerCase())}
               />
             </div>
-            <Table>
-              <TableHeader>
-                <TableRow className="text-left">
-                  <TableHead className="text-left w-32  ">
-                    Part Number
-                  </TableHead>
-                  <TableHead>Description</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filteredData ? (
-                  filteredData.map((d) => {
-                    return (
-                      <TableRow key={d.id}>
-                        <TableCell className="underline">
-                          <Link
-                            to={"/parts/$partId/"}
-                            params={{
-                              partId: `${d.project_id}-${d.sub_system}-${String(d.part_number).padStart(4, "0")}`,
-                            }}
-                          >
-                            {d.project_id}-{d.sub_system}-
-                            {String(d.part_number).padStart(4, "0")}
-                          </Link>
-                        </TableCell>
-                        <TableCell>{d.description}</TableCell>
-                      </TableRow>
-                    );
-                  })
-                ) : (
-                  <TableRow>
-                    <TableCell className="underline" colSpan={100}>
-                      No Data
-                    </TableCell>
+            <div className="w-full overflow-auto h-[85%] mt-2">
+              <Table className="">
+                <TableHeader>
+                  <TableRow className="text-left">
+                    <TableHead className="text-left w-32  ">
+                      Part Number
+                    </TableHead>
+                    <TableHead>Description</TableHead>
                   </TableRow>
-                )}
-              </TableBody>
-            </Table>
+                </TableHeader>
+                <TableBody>
+                  {filteredData ? (
+                    filteredData.map((d) => {
+                      return (
+                        <TableRow key={d.id}>
+                          <TableCell className="underline">
+                            <Link
+                              to={"/parts/$partId/"}
+                              params={{
+                                partId: `${d.project_id}-${d.sub_system}-${String(d.part_number).padStart(4, "0")}`,
+                              }}
+                            >
+                              {d.project_id}-{d.sub_system}-
+                              {String(d.part_number).padStart(4, "0")}
+                            </Link>
+                          </TableCell>
+                          <TableCell>{d.description}</TableCell>
+                        </TableRow>
+                      );
+                    })
+                  ) : (
+                    <TableRow>
+                      <TableCell className="underline" colSpan={100}>
+                        No Data
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            </div>
           </CardContent>
         </Card>
       </div>
