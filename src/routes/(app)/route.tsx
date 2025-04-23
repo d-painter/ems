@@ -17,32 +17,32 @@ function AppRoute() {
   const { session } = UserAuth();
 
   if (!session) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/login/" />;
   }
   const matchRoute = useMatchRoute();
   const matchedIndex = matchRoute({ to: "/" });
-  const matchedParts = matchRoute({ to: "/parts" });
-  const matchedProjects = matchRoute({ to: "/projects" });
-  const matchedSuppliers = matchRoute({ to: "/suppliers" });
+  const matchedParts = matchRoute({ to: "/parts/" });
+  const matchedProjects = matchRoute({ to: "/projects/" });
+  const matchedSuppliers = matchRoute({ to: "/suppliers/" });
 
   const show =
     matchedIndex || matchedProjects || matchedParts || matchedSuppliers;
 
   return (
-    <div className="flex flex-col h-full w-full">
-      <div className="w-full h-full overflow-hidden flex flex-row">
-        {show && (
-          <SideNav>
-            <NavContent navType="side" />
-          </SideNav>
-        )}
+    <div className="w-full h-full min-h-dvh overflow-hidden flex flex-row md:flex-row">
+      {show && (
+        <SideNav>
+          <NavContent navType="side" />
+        </SideNav>
+      )}
+      <div className="flex w-full justify-center h-full items-center overflow-auto min-h-dvh">
         <Outlet />
-        {show && (
-          <MobileNavBottom>
-            <NavContent navType="mobile" />
-          </MobileNavBottom>
-        )}
       </div>
+      {show && (
+        <MobileNavBottom>
+          <NavContent navType="mobile" />
+        </MobileNavBottom>
+      )}
     </div>
   );
 }

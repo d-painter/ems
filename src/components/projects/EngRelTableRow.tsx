@@ -16,7 +16,7 @@ export default function EngRelTableRow({
       <TableCell className="min-w-24 !max-w-36 !truncate">
         <Link
           className="underline"
-          to="/projects/$projectId/eng-rels/$engRel"
+          to="/projects/$projectId/eng-rels/$engRel/"
           params={{
             projectId: engRel.project_id,
             engRel: `${engRel.project_id}-ER-${formatEngRelNumber(engRel.release_id)}`,

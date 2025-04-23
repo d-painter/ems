@@ -32,7 +32,7 @@ function RouteComponent() {
 
   if (!validProject) {
     toast.error(`${route.projectId} does not exist`);
-    return <Navigate to="/projects" replace={true} />;
+    return <Navigate to="/projects/" replace={true} />;
   }
 
   return (
@@ -42,7 +42,7 @@ function RouteComponent() {
           <NavContentProjects navType="side" projectId={route.projectId!} />
         </div>
       </SideNav>
-      <div className="w-full h-full justify-center flex  p-2">
+      <div className="w-full h-full p-2 pb-20 md:pb-2">
         <Outlet />
       </div>
       <MobileNavBottom>

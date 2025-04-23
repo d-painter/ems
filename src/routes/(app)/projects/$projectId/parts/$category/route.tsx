@@ -64,7 +64,7 @@ function RouteComponent() {
   async function handleCategoryChange(e: string) {
     const newCategory = e.split(" - ")[0];
     await navigate({
-      to: "/projects/$projectId/parts/$category",
+      to: "/projects/$projectId/parts/$category/",
       params: { projectId: projectId, category: newCategory },
     });
   }
@@ -73,7 +73,7 @@ function RouteComponent() {
     toast.error(`Category "${category}" does not exist.`);
     return (
       <Navigate
-        to="/projects/$projectId/parts/$category"
+        to="/projects/$projectId/parts/$category/"
         params={{ projectId: projectId, category: "A" }}
         replace={true}
       />
@@ -93,36 +93,41 @@ function RouteComponent() {
   }
 
   return (
-    <div className="w-full flex flex-col items-center h-full">
-      <div className="w-full h-full max-w-3xl pb-10 sm:pb-20">
-        <div className="flex flex-row items-center gap-2 mb-4 mt-1 relative top-0">
-          <Select onValueChange={(e) => void handleCategoryChange(e)}>
-            <SelectTrigger className="text-xs md:text-md text-foreground w-64 [&_span]:text-foreground">
-              <SelectValue
-                placeholder={selectPlaceHolder()}
-                className="text-xs md:text-md w-64"
-              />
-            </SelectTrigger>
-            <SelectContent>
-              {subSystems.sort().map((c) => (
-                <SelectItem
-                  key={c}
-                  value={c}
-                  className="!truncate text-xs md:text-md"
-                >
-                  {c}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          {showAddCategoryButton && <AddCategoryDialog projectId={projectId} />}
-        </div>
-        <div className="h-full overflow-auto">
-          <PartsTable
-            main={main}
-            assemblies={sortedByPartNumber(assemblies)}
-            parts={sortedByPartNumber(parts)}
-          />
+    <div className="w-full flex flex-col items-center h-full overflow-hidden">
+      <div className="w-full h-full overflow-auto">
+        {/* <div className="w-full h-full max-w-3xl bg-red-200 mx-auto"> */}
+        <div className="flex flex-col h-full mx-auto max-w-4xl">
+          <div className="flex flex-row items-center gap-2 mb-4 mt-1 relative top-0">
+            <Select onValueChange={(e) => void handleCategoryChange(e)}>
+              <SelectTrigger className="text-xs md:text-md text-foreground w-64 [&_span]:text-foreground">
+                <SelectValue
+                  placeholder={selectPlaceHolder()}
+                  className="text-xs md:text-md w-64"
+                />
+              </SelectTrigger>
+              <SelectContent>
+                {subSystems.sort().map((c) => (
+                  <SelectItem
+                    key={c}
+                    value={c}
+                    className="!truncate text-xs md:text-md"
+                  >
+                    {c}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            {showAddCategoryButton && (
+              <AddCategoryDialog projectId={projectId} />
+            )}
+          </div>
+          <div className="grow ">
+            <PartsTable
+              main={main}
+              assemblies={sortedByPartNumber(assemblies)}
+              parts={sortedByPartNumber(parts)}
+            />
+          </div>
         </div>
       </div>
     </div>

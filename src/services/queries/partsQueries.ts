@@ -17,14 +17,12 @@ async function fetchProjectParts(
       "project_id, sub_system, part_number, description, id, created_date"
     )
     .eq("project_id", projectId);
-
   if (error) {
     throw error;
   } else {
     return data;
   }
 }
-
 export function useProjectParts(projectId: string) {
   return useQuery(allProjectPartsQuery(projectId));
 }
@@ -33,6 +31,28 @@ export function allProjectPartsQuery(projectId: string) {
     queryKey: ["allProjectParts", projectId],
     queryFn: () => fetchProjectParts(projectId),
   };
+}
+
+//Get all parts
+export function allPartsQuery(){
+  return {
+    queryKey: ["All parts"],
+    queryFn: fetchAllParts
+  }
+}
+
+async function fetchAllParts():Promise<Tables<"part_numbers">[]>{
+  const { data, error } = await supabase
+    .from("part_numbers")
+    .select()
+  if (error) {
+    throw error;
+  } else {
+    return data as Tables<"part_numbers">[];
+  }
+}
+export function useAllParts(){
+  return useQuery(allPartsQuery())
 }
 
 // Mutations

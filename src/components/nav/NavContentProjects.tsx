@@ -20,7 +20,7 @@ export default function NavContentProjects({ ...props }: NavContentProps) {
             Home
           </Link>
           <Link
-            to="/projects/$projectId"
+            to="/projects/$projectId/"
             params={{ projectId: projectId }}
             className="[&.active]:font-bold [&.active]:border-l-primary"
             activeOptions={{ exact: true }}
@@ -28,7 +28,7 @@ export default function NavContentProjects({ ...props }: NavContentProps) {
             Dashboard
           </Link>
           <Link
-            to="/projects/$projectId/adr"
+            to="/projects/$projectId/adr/"
             params={{ projectId: projectId }}
             className="[&.active]:font-bold [&.active]:border-l-primary"
             activeOptions={{ exact: false }}
@@ -36,7 +36,7 @@ export default function NavContentProjects({ ...props }: NavContentProps) {
             Decision Record
           </Link>
           <Link
-            to="/projects/$projectId/eng-rels"
+            to="/projects/$projectId/eng-rels/"
             params={{ projectId: projectId }}
             className="[&.active]:font-bold [&.active]:border-l-primary"
             activeOptions={{ exact: false }}
@@ -44,7 +44,7 @@ export default function NavContentProjects({ ...props }: NavContentProps) {
             Eng Releases
           </Link>
           <Link
-            to="/projects/$projectId/parts"
+            to="/projects/$projectId/parts/"
             params={{ projectId: projectId }}
             className="[&.active]:font-bold [&.active]:border-l-primary"
             activeOptions={{ exact: false }}
@@ -57,7 +57,7 @@ export default function NavContentProjects({ ...props }: NavContentProps) {
         <>
           <Link
             className="p-2 flex h-full justify-center items-center"
-            to="/projects/$projectId"
+            to="/projects/$projectId/"
             params={{ projectId: projectId }}
             activeOptions={{ exact: true }}
           >
@@ -65,7 +65,7 @@ export default function NavContentProjects({ ...props }: NavContentProps) {
           </Link>
           <Link
             className="p-2 flex h-full justify-center items-center"
-            to="/projects/$projectId/adr"
+            to="/projects/$projectId/adr/"
             params={{ projectId: projectId }}
             activeOptions={{ exact: false }}
           >
@@ -73,7 +73,7 @@ export default function NavContentProjects({ ...props }: NavContentProps) {
           </Link>
           <Link
             className="p-2 flex h-full justify-center items-center"
-            to="/projects/$projectId/eng-rels"
+            to="/projects/$projectId/eng-rels/"
             params={{ projectId: projectId }}
             activeOptions={{ exact: false }}
           >
@@ -81,7 +81,7 @@ export default function NavContentProjects({ ...props }: NavContentProps) {
           </Link>
           <Link
             className="p-2 flex h-full justify-center items-center"
-            to="/projects/$projectId/parts"
+            to="/projects/$projectId/parts/"
             params={{ projectId: projectId }}
             activeOptions={{ exact: false }}
           >

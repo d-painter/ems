@@ -16,6 +16,7 @@ const queryClient = new QueryClient();
 // Create a new router instance
 const router = createRouter({
   routeTree,
+  trailingSlash:"always",
   context: {
     auth: undefined!, // This will be set after we wrap the app in an AuthProvider
     queryClient

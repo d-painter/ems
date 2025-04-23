@@ -7,9 +7,9 @@ type NavContentProps = {
 
 export default function NavContent({ navType: navType }: NavContentProps) {
   const routes = [
-    { title: "Projects", to: "/projects" },
-    { title: "Parts", to: "/parts" },
-    { title: "Suppliers", to: "/suppliers" },
+    { title: "Projects", to: "/projects/" },
+    { title: "Parts", to: "/parts/" },
+    { title: "Suppliers", to: "/suppliers/" },
   ];
 
   return (
@@ -51,7 +51,7 @@ export default function NavContent({ navType: navType }: NavContentProps) {
               key={r.title}
               to={r.to}
               className="[&.active]:font-bold [&.active]:border-l-primary"
-              activeOptions={{ exact: true }}
+              activeOptions={{ exact: false }}
             >
               {r.title}
             </Link>
@@ -71,7 +71,7 @@ export default function NavContent({ navType: navType }: NavContentProps) {
               className="p-2 flex h-full justify-center items-center"
               key={r.title}
               to={r.to}
-              activeOptions={{ exact: true }}
+              activeOptions={{ exact: false }}
             >
               {r.title}
             </Link>

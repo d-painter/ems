@@ -36,7 +36,7 @@ function RouteComponent() {
     toast.error(`${engRelParam} does not exist.`);
     return (
       <Navigate
-        to="/projects/$projectId/eng-rels"
+        to="/projects/$projectId/eng-rels/"
         params={{ projectId: projectId }}
         replace={true}
       />
