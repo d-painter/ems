@@ -1,9 +1,131 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { allPartsQuery, useAllParts } from "@/services/queries/partsQueries";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 
-export const Route = createFileRoute('/(app)/parts/')({
+export const Route = createFileRoute("/(app)/parts/")({
   component: RouteComponent,
-})
+  loader: async ({ context: { queryClient } }) => {
+    await queryClient.prefetchQuery(allPartsQuery());
+  },
+});
 
 function RouteComponent() {
-  return <div>Hello "/(app)/parts/"!</div>
+  const { data: allPartData, isPending } = useAllParts();
+  const [search, setSearch] = useState("");
+  if (isPending) {
+    return <LoadingSpinner />;
+  }
+
+  function getFilteredData() {
+    const filteredParts = allPartData?.filter((p) => {
+      console.log(p);
+
+      const pNumber = `${p.project_id}-${p.sub_system}-${String(p.part_number).padStart(4, "0")}`;
+
+      if (
+        pNumber.toLowerCase().includes(search) ||
+        p.description?.toLowerCase().includes(search)
+      ) {
+        return p;
+      }
+    });
+    console.log("filteredParts:", filteredParts);
+
+    return filteredParts;
+  }
+
+  /**
+   * TODO: Implement correct debounce
+   * Create data table for correct sorting and filtering
+   */
+
+  let filteredData;
+  if (allPartData?.length) {
+    if (search.length < 3) {
+      filteredData = allPartData;
+    } else {
+      filteredData = getFilteredData();
+    }
+  }
+
+  return (
+    <div className="w-full h-full flex flex-col items-center overflow-auto p-2">
+      <div className="flex w-full h-full flex-col items-center pb-20 md:w-xl">
+        <Card className="w-full">
+          <CardContent>
+            <div className="flex flex-col gap-2">
+              <Label
+                htmlFor="search"
+                className="flex flex-row justify-between w-full px-1"
+              >
+                <span className="text-xs">SEARCH</span>
+                <p
+                  className={`text-xs ${search.length > 2 ? "text-background" : "text-black/40"}`}
+                >
+                  {search.length}/3
+                </p>
+              </Label>
+              <Input
+                autoFocus
+                type="text"
+                name="search"
+                id="search"
+                onChange={(e) => setSearch(e.currentTarget.value.toLowerCase())}
+              />
+            </div>
+            <Table>
+              <TableHeader>
+                <TableRow className="text-left">
+                  <TableHead className="text-left w-32  ">
+                    Part Number
+                  </TableHead>
+                  <TableHead>Description</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {filteredData ? (
+                  filteredData.map((d) => {
+                    return (
+                      <TableRow key={d.id}>
+                        <TableCell className="underline">
+                          <Link
+                            to={"/parts/$partId/"}
+                            params={{
+                              partId: `${d.project_id}-${d.sub_system}-${String(d.part_number).padStart(4, "0")}`,
+                            }}
+                          >
+                            {d.project_id}-{d.sub_system}-
+                            {String(d.part_number).padStart(4, "0")}
+                          </Link>
+                        </TableCell>
+                        <TableCell>{d.description}</TableCell>
+                      </TableRow>
+                    );
+                  })
+                ) : (
+                  <TableRow>
+                    <TableCell className="underline" colSpan={100}>
+                      No Data
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
 }

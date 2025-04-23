@@ -32,7 +32,7 @@ function RouteComponent() {
 
   if (!validProject) {
     toast.error(`${route.projectId} does not exist`);
-    return <Navigate to="/projects" replace={true} />;
+    return <Navigate to="/projects/" replace={true} />;
   }
 
   return (
