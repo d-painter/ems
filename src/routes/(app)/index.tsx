@@ -10,7 +10,7 @@ function RouteComponent() {
   return (
     <>
       <div className="flex w-full flex-col gap-6 items-center overflow-auto">
-        <div className="flex w-full flex-col gap-6 items-center lg:w-3xl pb-20">
+        <div className="flex w-full flex-col gap-6 items-center h-full justify-center lg:w-3xl pb-20">
           <ProjectTable data={projectData} error={error} />
         </div>
       </div>

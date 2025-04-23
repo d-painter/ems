@@ -16,10 +16,10 @@ function ProjectPage() {
   const { error, data: projectData } = useAllProjects();
 
   return (
-      <div className="relative flex w-full flex-col gap-6 items-center overflow-auto">
-        <div className="relative flex w-full flex-col gap-6 items-center pb-20 lg:w-3xl">
-          <ProjectTable data={projectData} error={error} />
-        </div>
+    <div className="relative flex w-full flex-col gap-6 items-center overflow-auto">
+      <div className="relative flex w-full h-full flex-col gap-6 items-center justify-center pb-20 lg:w-3xl">
+        <ProjectTable data={projectData} error={error} />
       </div>
+    </div>
   );
 }

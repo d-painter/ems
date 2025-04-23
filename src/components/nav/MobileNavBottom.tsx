@@ -23,6 +23,7 @@ export default function MobileNavBottom({ children }: { children: ReactNode }) {
             </div>
           </SheetTrigger>
           <SheetContent
+            onOpenAutoFocus={(e) => e.preventDefault()}
             aria-describedby={undefined}
             side="bottom"
             className="h-fit"
