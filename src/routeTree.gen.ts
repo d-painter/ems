@@ -18,6 +18,7 @@ import { Route as authLoginRouteImport } from './routes/(auth)/login/route'
 import { Route as appSuppliersRouteImport } from './routes/(app)/suppliers/route'
 import { Route as appPartsRouteImport } from './routes/(app)/parts/route'
 import { Route as appProjectsIndexImport } from './routes/(app)/projects/index'
+import { Route as appPartsIndexImport } from './routes/(app)/parts/index'
 import { Route as appProjectsProjectIdRouteImport } from './routes/(app)/projects/$projectId/route'
 import { Route as appProjectsProjectIdIndexImport } from './routes/(app)/projects/$projectId/index'
 import { Route as appProjectsProjectIdPartsRouteImport } from './routes/(app)/projects/$projectId/parts/route'
@@ -67,6 +68,12 @@ const appProjectsIndexRoute = appProjectsIndexImport.update({
   id: '/projects/',
   path: '/projects/',
   getParentRoute: () => appRouteRoute,
+} as any)
+
+const appPartsIndexRoute = appPartsIndexImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => appPartsRouteRoute,
 } as any)
 
 const appProjectsProjectIdRouteRoute = appProjectsProjectIdRouteImport.update({
@@ -169,6 +176,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof appProjectsProjectIdRouteImport
       parentRoute: typeof appRouteImport
     }
+    '/(app)/parts/': {
+      id: '/(app)/parts/'
+      path: '/'
+      fullPath: '/parts/'
+      preLoaderRoute: typeof appPartsIndexImport
+      parentRoute: typeof appPartsRouteImport
+    }
     '/(app)/projects/': {
       id: '/(app)/projects/'
       path: '/projects'
@@ -223,6 +237,18 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
+interface appPartsRouteRouteChildren {
+  appPartsIndexRoute: typeof appPartsIndexRoute
+}
+
+const appPartsRouteRouteChildren: appPartsRouteRouteChildren = {
+  appPartsIndexRoute: appPartsIndexRoute,
+}
+
+const appPartsRouteRouteWithChildren = appPartsRouteRoute._addFileChildren(
+  appPartsRouteRouteChildren,
+)
+
 interface appProjectsProjectIdPartsRouteRouteChildren {
   appProjectsProjectIdPartsCategoryRouteRoute: typeof appProjectsProjectIdPartsCategoryRouteRoute
 }
@@ -264,7 +290,7 @@ const appProjectsProjectIdRouteRouteWithChildren =
   )
 
 interface appRouteRouteChildren {
-  appPartsRouteRoute: typeof appPartsRouteRoute
+  appPartsRouteRoute: typeof appPartsRouteRouteWithChildren
   appSuppliersRouteRoute: typeof appSuppliersRouteRoute
   appIndexRoute: typeof appIndexRoute
   appProjectsProjectIdRouteRoute: typeof appProjectsProjectIdRouteRouteWithChildren
@@ -272,7 +298,7 @@ interface appRouteRouteChildren {
 }
 
 const appRouteRouteChildren: appRouteRouteChildren = {
-  appPartsRouteRoute: appPartsRouteRoute,
+  appPartsRouteRoute: appPartsRouteRouteWithChildren,
   appSuppliersRouteRoute: appSuppliersRouteRoute,
   appIndexRoute: appIndexRoute,
   appProjectsProjectIdRouteRoute: appProjectsProjectIdRouteRouteWithChildren,
@@ -285,11 +311,12 @@ const appRouteRouteWithChildren = appRouteRoute._addFileChildren(
 
 export interface FileRoutesByFullPath {
   '/': typeof appIndexRoute
-  '/parts': typeof appPartsRouteRoute
+  '/parts': typeof appPartsRouteRouteWithChildren
   '/suppliers': typeof appSuppliersRouteRoute
   '/login': typeof authLoginRouteRoute
   '/signup': typeof authSignupRoute
   '/projects/$projectId': typeof appProjectsProjectIdRouteRouteWithChildren
+  '/parts/': typeof appPartsIndexRoute
   '/projects': typeof appProjectsIndexRoute
   '/projects/$projectId/adr': typeof appProjectsProjectIdAdrRouteRoute
   '/projects/$projectId/parts': typeof appProjectsProjectIdPartsRouteRouteWithChildren
@@ -300,11 +327,11 @@ export interface FileRoutesByFullPath {
 }
 
 export interface FileRoutesByTo {
-  '/parts': typeof appPartsRouteRoute
   '/suppliers': typeof appSuppliersRouteRoute
   '/login': typeof authLoginRouteRoute
   '/signup': typeof authSignupRoute
   '/': typeof appIndexRoute
+  '/parts': typeof appPartsIndexRoute
   '/projects': typeof appProjectsIndexRoute
   '/projects/$projectId/adr': typeof appProjectsProjectIdAdrRouteRoute
   '/projects/$projectId/parts': typeof appProjectsProjectIdPartsRouteRouteWithChildren
@@ -317,12 +344,13 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/(app)': typeof appRouteRouteWithChildren
-  '/(app)/parts': typeof appPartsRouteRoute
+  '/(app)/parts': typeof appPartsRouteRouteWithChildren
   '/(app)/suppliers': typeof appSuppliersRouteRoute
   '/(auth)/login': typeof authLoginRouteRoute
   '/(auth)/signup': typeof authSignupRoute
   '/(app)/': typeof appIndexRoute
   '/(app)/projects/$projectId': typeof appProjectsProjectIdRouteRouteWithChildren
+  '/(app)/parts/': typeof appPartsIndexRoute
   '/(app)/projects/': typeof appProjectsIndexRoute
   '/(app)/projects/$projectId/adr': typeof appProjectsProjectIdAdrRouteRoute
   '/(app)/projects/$projectId/parts': typeof appProjectsProjectIdPartsRouteRouteWithChildren
@@ -341,6 +369,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/signup'
     | '/projects/$projectId'
+    | '/parts/'
     | '/projects'
     | '/projects/$projectId/adr'
     | '/projects/$projectId/parts'
@@ -350,11 +379,11 @@ export interface FileRouteTypes {
     | '/projects/$projectId/eng-rels'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/parts'
     | '/suppliers'
     | '/login'
     | '/signup'
     | '/'
+    | '/parts'
     | '/projects'
     | '/projects/$projectId/adr'
     | '/projects/$projectId/parts'
@@ -371,6 +400,7 @@ export interface FileRouteTypes {
     | '/(auth)/signup'
     | '/(app)/'
     | '/(app)/projects/$projectId'
+    | '/(app)/parts/'
     | '/(app)/projects/'
     | '/(app)/projects/$projectId/adr'
     | '/(app)/projects/$projectId/parts'
@@ -420,7 +450,10 @@ export const routeTree = rootRoute
     },
     "/(app)/parts": {
       "filePath": "(app)/parts/route.tsx",
-      "parent": "/(app)"
+      "parent": "/(app)",
+      "children": [
+        "/(app)/parts/"
+      ]
     },
     "/(app)/suppliers": {
       "filePath": "(app)/suppliers/route.tsx",
@@ -446,6 +479,10 @@ export const routeTree = rootRoute
         "/(app)/projects/$projectId/eng-rels/$engRel",
         "/(app)/projects/$projectId/eng-rels/"
       ]
+    },
+    "/(app)/parts/": {
+      "filePath": "(app)/parts/index.tsx",
+      "parent": "/(app)/parts"
     },
     "/(app)/projects/": {
       "filePath": "(app)/projects/index.tsx",
