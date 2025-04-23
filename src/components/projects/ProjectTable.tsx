@@ -22,7 +22,7 @@ export default function ProjectTable({ ...props }: ProjectTableProps) {
   const { data, error } = props;
 
   return (
-    <Card className="w-[95%] ">
+    <Card className="w-full my-auto">
       <CardTitle className="pl-4">
         <div className="flex flex-row gap-4 items-center">
           PROJECTS

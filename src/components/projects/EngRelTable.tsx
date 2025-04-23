@@ -36,6 +36,7 @@ export default function EngRelTable({
               .sort((a, b) => a.release_id - b.release_id)
               .map((e, i) => <EngRelTableRow engRel={e} key={i} />)
           )}
+         
         </TableBody>
       </Table>
     </div>

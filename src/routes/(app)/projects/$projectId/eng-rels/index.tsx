@@ -13,13 +13,17 @@ function RouteComponent() {
   const { data: engRels } = useProjectEngRels(projectId!);
 
   return (
-    <div className="px-2 flex flex-col h-full gap-2 items-center w-full pb-20 md:pb-2">
-      <Card className="my-auto h-fit w-full max-w-2xl overflow-hidden">
-        <CardContent className="h-full flex flex-col gap-2">
-          <AddEngRelDialog projectId={projectId!} />
-          <EngRelTable engRels={engRels} />
-        </CardContent>
-      </Card>
+    <div className="w-full h-full overflow-hidden flex flex-col items-center">
+      <div className="h-full w-full flex">
+        <Card className="h-fit max-h-full w-full max-w-2xl m-auto overflow-hidden">
+          <CardContent className="h-full flex flex-col overflow-hidden">
+            <AddEngRelDialog projectId={projectId!} />
+            <div className="grow h-full overflow-auto">
+              <EngRelTable engRels={engRels} />
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }

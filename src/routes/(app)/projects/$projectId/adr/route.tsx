@@ -7,9 +7,9 @@ export const Route = createFileRoute("/(app)/projects/$projectId/adr")({
 
 function RouteComponent() {
   return (
-    <div className="w-full h-full flex justify-center text-sm items-center pb-16 md:pb-2 ">
-      <div className="w-full max-w-2xl h-full flex flex-col my-auto overflow-hidden">
-        <div className="flex flex-col gap-2 overflow-auto my-auto">
+    <div className="w-full h-full flex justify-center text-sm overflow-hidden">
+      <div className="w-full h-full flex  justify-center items-center overflow-auto">
+        <div className="h-fit w-full my-auto max-w-2xl space-y-2">
           <Card className="p-2 md:p-6">
             <h1>TOPIC 1</h1>
             <div className="flex flex-row justify-between">
@@ -46,7 +46,6 @@ function RouteComponent() {
               </div>
             </div>
           </Card>
-          
         </div>
       </div>
     </div>

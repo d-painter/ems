@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import IndexStyling from "@/components/ui/layout/IndexStyling";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import {
   Table,
@@ -32,10 +33,7 @@ function RouteComponent() {
 
   function getFilteredData() {
     const filteredParts = allPartData?.filter((p) => {
-      console.log(p);
-
       const pNumber = `${p.project_id}-${p.sub_system}-${String(p.part_number).padStart(4, "0")}`;
-
       if (
         pNumber.toLowerCase().includes(search) ||
         p.description?.toLowerCase().includes(search)
@@ -43,8 +41,6 @@ function RouteComponent() {
         return p;
       }
     });
-    console.log("filteredParts:", filteredParts);
-
     return filteredParts;
   }
 
@@ -63,73 +59,70 @@ function RouteComponent() {
   }
 
   return (
-    <div className="w-full h-full flex flex-col items-center p-2 ">
-      <div className="flex w-full h-full flex-col items-center md:w-xl pb-20 md:pb-2">
-        <Card className="w-full h-fit max-h-full my-auto pb-2">
-          <CardContent className="h-full overflow-hidden">
-            <div className=" flex bg-background w-full flex-col gap-2">
-              <Label
-                htmlFor="search"
-                className="flex flex-row justify-between w-full px-1"
+    <IndexStyling>
+      <Card className="w-full h-fit max-h-full my-auto pb-2">
+        <CardContent className="h-full overflow-hidden">
+          <div className=" flex bg-background w-full flex-col gap-2">
+            <Label
+              htmlFor="search"
+              className="flex flex-row justify-between w-full px-1"
+            >
+              <span className="text-xs">SEARCH</span>
+              <p
+                className={`text-xs ${search.length > 2 ? "text-background" : "text-black/40"}`}
               >
-                <span className="text-xs">SEARCH</span>
-                <p
-                  className={`text-xs ${search.length > 2 ? "text-background" : "text-black/40"}`}
-                >
-                  {search.length}/3
-                </p>
-              </Label>
-              <Input
-                autoFocus
-                type="text"
-                name="search"
-                id="search"
-                onChange={(e) => setSearch(e.currentTarget.value.toLowerCase())}
-              />
-            </div>
-            <div className="w-full overflow-auto h-[85%] mt-2">
-              <Table className="">
-                <TableHeader>
-                  <TableRow className="text-left">
-                    <TableHead className="text-left w-32  ">
-                      Part Number
-                    </TableHead>
-                    <TableHead>Description</TableHead>
+                {search.length}/3
+              </p>
+            </Label>
+            <Input
+              type="text"
+              name="search"
+              id="search"
+              onChange={(e) => setSearch(e.currentTarget.value.toLowerCase())}
+            />
+          </div>
+          <div className="w-full overflow-auto h-[85%] mt-2">
+            <Table className="">
+              <TableHeader>
+                <TableRow className="text-left">
+                  <TableHead className="text-left w-32  ">
+                    Part Number
+                  </TableHead>
+                  <TableHead>Description</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {filteredData ? (
+                  filteredData.map((d) => {
+                    return (
+                      <TableRow key={d.id}>
+                        <TableCell className="underline">
+                          <Link
+                            to={"/parts/$partId/"}
+                            params={{
+                              partId: `${d.project_id}-${d.sub_system}-${String(d.part_number).padStart(4, "0")}`,
+                            }}
+                          >
+                            {d.project_id}-{d.sub_system}-
+                            {String(d.part_number).padStart(4, "0")}
+                          </Link>
+                        </TableCell>
+                        <TableCell>{d.description}</TableCell>
+                      </TableRow>
+                    );
+                  })
+                ) : (
+                  <TableRow>
+                    <TableCell className="underline" colSpan={100}>
+                      No Data
+                    </TableCell>
                   </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {filteredData ? (
-                    filteredData.map((d) => {
-                      return (
-                        <TableRow key={d.id}>
-                          <TableCell className="underline">
-                            <Link
-                              to={"/parts/$partId/"}
-                              params={{
-                                partId: `${d.project_id}-${d.sub_system}-${String(d.part_number).padStart(4, "0")}`,
-                              }}
-                            >
-                              {d.project_id}-{d.sub_system}-
-                              {String(d.part_number).padStart(4, "0")}
-                            </Link>
-                          </TableCell>
-                          <TableCell>{d.description}</TableCell>
-                        </TableRow>
-                      );
-                    })
-                  ) : (
-                    <TableRow>
-                      <TableCell className="underline" colSpan={100}>
-                        No Data
-                      </TableCell>
-                    </TableRow>
-                  )}
-                </TableBody>
-              </Table>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
+                )}
+              </TableBody>
+            </Table>
+          </div>
+        </CardContent>
+      </Card>
+    </IndexStyling>
   );
 }

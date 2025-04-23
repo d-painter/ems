@@ -126,10 +126,9 @@
   * {
     @apply border-border outline-ring/50;
   }
-  body {
-    @apply w-full min-h-60 bg-background text-foreground;
-  }
+  body,
+  html,
   #root {
-    @apply w-full sm:h-dvh;
+    @apply min-h-dvh md:h-full;
   }
 }
