@@ -14,10 +14,11 @@ import { createFileRoute } from "@tanstack/react-router";
 export const Route = createFileRoute("/(app)/suppliers")({
   component: RouteComponent,
 });
+function RouteComponent() {
 
 const suppliers = supplierData;
 
-function RouteComponent() {
+
   return (
     <div className="w-full h-full flex flex-col p-2 justify-center items-center">
       <div className="w-full max-w-3xl">
