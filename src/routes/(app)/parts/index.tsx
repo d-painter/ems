@@ -60,7 +60,7 @@ function RouteComponent() {
 
   return (
     <IndexStyling>
-      <Card className="w-full h-fit max-h-full my-auto pb-2">
+      <Card className="w-full h-fit max-h-full my-auto  max-w-lg pb-2">
         <CardContent className="h-full overflow-hidden">
           <div className=" flex bg-background w-full flex-col gap-2">
             <Label
@@ -85,9 +85,7 @@ function RouteComponent() {
             <Table className="">
               <TableHeader>
                 <TableRow className="text-left">
-                  <TableHead className="text-left w-32  ">
-                    Part Number
-                  </TableHead>
+                  <TableHead className="text-left w-32">Part Number</TableHead>
                   <TableHead>Description</TableHead>
                 </TableRow>
               </TableHeader>
