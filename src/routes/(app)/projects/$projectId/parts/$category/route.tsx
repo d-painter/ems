@@ -64,7 +64,7 @@ function RouteComponent() {
   async function handleCategoryChange(e: string) {
     const newCategory = e.split(" - ")[0];
     await navigate({
-      to: "/projects/$projectId/parts/$category",
+      to: "/projects/$projectId/parts/$category/",
       params: { projectId: projectId, category: newCategory },
     });
   }
@@ -73,7 +73,7 @@ function RouteComponent() {
     toast.error(`Category "${category}" does not exist.`);
     return (
       <Navigate
-        to="/projects/$projectId/parts/$category"
+        to="/projects/$projectId/parts/$category/"
         params={{ projectId: projectId, category: "A" }}
         replace={true}
       />

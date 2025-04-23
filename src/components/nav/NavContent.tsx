@@ -7,9 +7,9 @@ type NavContentProps = {
 
 export default function NavContent({ navType: navType }: NavContentProps) {
   const routes = [
-    { title: "Projects", to: "/projects" },
-    { title: "Parts", to: "/parts" },
-    { title: "Suppliers", to: "/suppliers" },
+    { title: "Projects", to: "/projects/" },
+    { title: "Parts", to: "/parts/" },
+    { title: "Suppliers", to: "/suppliers/" },
   ];
 
   return (

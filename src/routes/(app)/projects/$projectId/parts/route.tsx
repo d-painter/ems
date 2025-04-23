@@ -16,7 +16,7 @@ function RouteComponent() {
     <>
       {!category && (
         <Navigate
-          to="/projects/$projectId/parts/$category"
+          to="/projects/$projectId/parts/$category/"
           params={{ projectId: projectId!, category: "A" }}
           replace={true}
         />

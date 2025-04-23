@@ -59,7 +59,7 @@ export default function ProjectTable({ ...props }: ProjectTableProps) {
                   <DtData>
                     <Link
                       className="hover:underline"
-                      to="/projects/$projectId"
+                      to="/projects/$projectId/"
                       params={{ projectId: d.project_id }}
                     >
                       {d.project_id}

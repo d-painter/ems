@@ -56,7 +56,7 @@ export default function AddCategoryDialog({
       setFormState({ description: "" });
       setOpen(false);
       await navigate({
-        to: "/projects/$projectId/parts/$category",
+        to: "/projects/$projectId/parts/$category/",
         params: { projectId: projectId, category: res[0].sub_system },
       });
     } catch (error) {

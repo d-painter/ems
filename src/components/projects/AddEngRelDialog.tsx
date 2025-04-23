@@ -34,7 +34,7 @@ export default function AddEngRelDialog({ projectId }: { projectId: string }) {
         release_id: newEngRelNum,
       });
       await navigate({
-        to: "/projects/$projectId/eng-rels/$engRel",
+        to: "/projects/$projectId/eng-rels/$engRel/",
         params: {
           projectId: projectId,
           engRel: `${projectId}-ER-${String(newRel.release_id).padStart(4, "0")}`,

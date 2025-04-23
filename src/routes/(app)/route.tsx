@@ -17,13 +17,13 @@ function AppRoute() {
   const { session } = UserAuth();
 
   if (!session) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/login/" />;
   }
   const matchRoute = useMatchRoute();
   const matchedIndex = matchRoute({ to: "/" });
-  const matchedParts = matchRoute({ to: "/parts" });
-  const matchedProjects = matchRoute({ to: "/projects" });
-  const matchedSuppliers = matchRoute({ to: "/suppliers" });
+  const matchedParts = matchRoute({ to: "/parts/" });
+  const matchedProjects = matchRoute({ to: "/projects/" });
+  const matchedSuppliers = matchRoute({ to: "/suppliers/" });
 
   const show =
     matchedIndex || matchedProjects || matchedParts || matchedSuppliers;

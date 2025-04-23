@@ -8,7 +8,7 @@ export default function LogoutButton() {
 
   async function logout() {
     await signOut();
-    await navigate({ to: "/login" });
+    await navigate({ to: "/login/" });
   }
   return (
     <Button onClick={() => void logout()} className="text-sm w-full">
