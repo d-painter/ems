@@ -15,9 +15,7 @@ function RouteComponent() {
           <NavContent navType="side" />
         </div>
       </SideNav>
-      <div>
         <Outlet />
-      </div>
       <MobileNavBottom>
         <NavContent navType="mobile" />
       </MobileNavBottom>
