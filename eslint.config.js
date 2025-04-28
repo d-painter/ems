@@ -6,6 +6,27 @@ import tseslint from "typescript-eslint";
 
 export default tseslint.config(
   { ignores: ["dist"] },
+  tseslint.configs.recommendedTypeChecked,
+  {
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+  },
+
+  // TODO: Sort types for CSV Checker
+  {
+    files: ["src/components/csv/CsvClickDrag.tsx"],
+    rules: {
+      "@typescript-eslint/no-unsafe-assignment": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-unsafe-call": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off",
+      "@typescript-eslint/no-unsafe-argument": "off",
+    },
+  },
   {
     extends: [
       js.configs.recommended,
@@ -26,6 +47,13 @@ export default tseslint.config(
         "warn",
         { allowConstantExport: true },
       ],
+    },
+
+    // Supabase `'never' is overridden by other types in this union type.` tmp fix
+    // https://github.com/supabase/supabase-js/issues/1288
+    files: ["src/services/supabase/supabaseTypes.ts"],
+    rules: {
+      "@typescript-eslint/no-redundant-type-constituents": "off",
     },
   }
 );

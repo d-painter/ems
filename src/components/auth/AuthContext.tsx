@@ -18,7 +18,7 @@ export interface AuthContext {
   signIn: (
     email: string,
     password: string
-  ) => Promise<{ success: boolean, error?:AuthError } | undefined> | null;
+  ) => Promise<{ success: boolean; error?: AuthError } | undefined> | null;
   signOut: () => Promise<void>;
 }
 
@@ -29,7 +29,7 @@ export function AuthContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [session, setSession] = useState<null | Session>(null);  
+  const [session, setSession] = useState<null | Session>(null);
 
   const signUpNewUser = async (email: string, password: string) => {
     const { data, error } = await supabase.auth.signUp({
@@ -70,17 +70,14 @@ export function AuthContextProvider({
   };
 
   useEffect(() => {
+    void supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
 
-       supabase.auth.getSession().then(({ data: { session } }) => {
-        setSession(session);
-      });
-
-      supabase.auth.onAuthStateChange((_event, session) => {
-        setSession(session);
-      });
-
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
   }, []);
-
 
   return (
     <AuthContext.Provider value={{ session, signUpNewUser, signOut, signIn }}>

@@ -5,6 +5,8 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { FormEvent, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
+import { supabase } from "@/services/supabase/supabaseClient";
+import GoogleIcon from "@/components/icons/GoogleIcon";
 
 export const Route = createFileRoute("/(auth)/login")({
   component: LoginPage,
@@ -23,19 +25,22 @@ function LoginPage() {
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const res = await signIn(formState.email, formState.password);
-    if (!res?.success) {
-      console.log(res);
 
+    if (!res?.success) {
       setError(res?.error?.message as string);
     } else {
-      navigate({ to: "/" });
+      await navigate({ to: "/" });
     }
   }
 
+  async function handleGoogleLogin() {
+    await supabase.auth.signInWithOAuth({ provider: "google" });
+  }
+
   return (
-    <div className="w-full h-full flex justify-center mt-8 md:items-center md:m-auto items-start overflow-auto">
-      <div className="w-fit md:h-min flex flex-col md:flex-row gap-14 justify-center items-center">
-        <div className="flex flex-col w-fit text-center text-4xl gap-2">
+    <div className="w-full h-full min-h-dvh flex justify-center items-center md:items-center md:m-auto overflow-auto">
+      <div className="w-fit h-full md:h-min flex flex-col md:flex-row md:gap-14 gap-4 justify-center items-center">
+        <div className="flex text-2xl md:text-4xl flex-col w-fit text-center gap-2">
           <div>ENGINEERING</div>
           <div>MANAGEMENT</div>
           <div>SYSTEM</div>
@@ -49,13 +54,15 @@ function LoginPage() {
           <CardContent>
             <form
               className="flex flex-col justify-center gap-4"
-              onSubmit={(e) => handleSubmit(e)}
+              onSubmit={(e: FormEvent<HTMLFormElement>) => void handleSubmit(e)}
             >
               <div className="grid w-full max-w-sm items-center gap-1.5">
                 <Label htmlFor="email">Email</Label>
                 <Input
-                  className={`${error && "border-red-600"}`}
+                  autoFocus
+                  className={`${error && "border-destructive"} `}
                   type="email"
+                  id="email"
                   placeholder="email"
                   name="email"
                   onChange={(e) =>
@@ -69,8 +76,9 @@ function LoginPage() {
               <div className="grid w-full max-w-sm items-center gap-1.5">
                 <Label htmlFor="password">Password</Label>
                 <Input
-                  className={`${error && "border-red-600"}`}
+                  className={`${error && "border-destructive"}`}
                   type="password"
+                  id="password"
                   placeholder="password"
                   name="password"
                   onChange={(e) =>
@@ -81,12 +89,23 @@ function LoginPage() {
                   }
                 />
               </div>
-
-              <p className="text-sm text-red-400 min-h-5">
-                {error && JSON.stringify(error)}
-              </p>
-
-              <Button type="submit">Login</Button>
+              <Button type="submit">Login with email</Button>
+              {error && (
+                <p className="text-sm text-destructive">
+                  {JSON.stringify(error)}
+                </p>
+              )}
+              <div className="my-2 flex w-full items-center self-center text-center">
+                <div className="h-[1px] w-full bg-black/20"></div>
+                <div className="mx-2 text-xs text-nowrap">SIGN UP / LOGIN</div>
+                <div className="h-[1px] w-full bg-black/20"></div>
+              </div>
+              <div className="flex flex-col w-full gap-2">
+                <Button type="button" onClick={() => void handleGoogleLogin()}>
+                  <GoogleIcon />
+                  <p className="self-center">Google</p>
+                </Button>
+              </div>
             </form>
           </CardContent>
         </Card>
