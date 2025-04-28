@@ -1,5 +1,5 @@
 import { ReactNode } from "@tanstack/react-router";
-import { Menu, UserCircle } from "lucide-react";
+import { Menu } from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -35,11 +35,8 @@ export default function MobileNavBottom({ children }: { children: ReactNode }) {
               <div className="flex flex-col h-fit w-full">
                 <NavContent navType="drawer" />
               </div>
-              <div className="w-full max-w-54">
-                <div className="flex flex-row gap-1 items-center">
-                  <UserCircle size={18} />
-                  <p className="text-base">{session?.user?.email}</p>
-                </div>
+              <div className="w-full max-w-54 space-y-1">
+                <p className="text-xs">{session?.user?.email}</p>
                 <LogoutButton />
               </div>
             </div>
