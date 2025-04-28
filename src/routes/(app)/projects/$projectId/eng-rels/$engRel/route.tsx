@@ -50,7 +50,7 @@ function RouteComponent() {
   return (
     <div className="w-full h-full overflow-auto max-w-5xl pb-10">
       <EngRelHeader engRel={engRel} />
-      <div className="space-y-4">
+      <div className="space-y-6">
         <EngRelParts engRel={engRel} />
         <EngRelFiles engRel={engRel} />
       </div>

@@ -55,7 +55,12 @@ export default function AddEngRelDialog({ projectId }: { projectId: string }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="ghost" size="xs" onClick={() => setOpen(true)}>
+        <Button
+          className="w-fit"
+          variant="openDialog"
+          size="xs"
+          onClick={() => setOpen(true)}
+        >
           New Engineering Release
         </Button>
       </DialogTrigger>

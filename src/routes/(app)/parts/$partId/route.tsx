@@ -9,13 +9,13 @@ export const Route = createFileRoute("/(app)/parts/$partId")({
 
 function RouteComponent() {
   return (
-    <div className="w-full h-full flex flex-col md:flex-row">
+    <div className="w-full h-full flex flex-col md:flex-row max-md:min-h-dvh">
       <SideNav>
         <div className="my-auto">
           <NavContent navType="side" />
         </div>
       </SideNav>
-        <Outlet />
+      <Outlet />
       <MobileNavBottom>
         <NavContent navType="mobile" />
       </MobileNavBottom>

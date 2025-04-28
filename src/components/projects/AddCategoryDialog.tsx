@@ -72,7 +72,7 @@ export default function AddCategoryDialog({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="ghost" size="xs" onClick={() => setOpen(true)}>
+        <Button variant="openDialog" size="xs" onClick={() => setOpen(true)}>
           Add Category
         </Button>
       </DialogTrigger>

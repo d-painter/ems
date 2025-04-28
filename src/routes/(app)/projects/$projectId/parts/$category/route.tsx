@@ -95,7 +95,6 @@ function RouteComponent() {
   return (
     <div className="w-full flex flex-col items-center h-full overflow-hidden">
       <div className="w-full h-full overflow-auto">
-        {/* <div className="w-full h-full max-w-3xl bg-red-200 mx-auto"> */}
         <div className="flex flex-col h-full mx-auto max-w-4xl">
           <div className="flex flex-row items-center gap-2 mb-4 mt-1 relative top-0">
             <Select onValueChange={(e) => void handleCategoryChange(e)}>

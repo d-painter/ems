@@ -1,17 +1,17 @@
 import { Tables } from "@/services/supabase/supabaseTypes";
 import { Card, CardContent, CardTitle } from "../ui/card";
-import {
-  DataTable,
-  DataTableHead,
-  DataTableBody,
-  DtContentRow,
-  DtData,
-  DtHeader,
-  DtHeaderRow,
-} from "../ui/DataTable";
+
 import { Link } from "@tanstack/react-router";
 import AddProjectDialog from "./AddProjectDialog";
 import LoadingSpinner from "../ui/LoadingSpinner";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "../ui/table";
 
 type ProjectTableProps = {
   data: Tables<"projects">[] | null | undefined;
@@ -30,33 +30,31 @@ export default function ProjectTable({ ...props }: ProjectTableProps) {
         </div>
       </CardTitle>
       <CardContent className="p-2">
-        <DataTable>
-          <DataTableHead>
-            <DtHeaderRow>
-              <DtHeader>Project</DtHeader>
-              <DtHeader>Project Name</DtHeader>
-              <DtHeader>Project Description</DtHeader>
-            </DtHeaderRow>
-          </DataTableHead>
-          <DataTableBody>
+        <Table>
+          <TableHeader>
+            <TableHead>Project</TableHead>
+            <TableHead>Project Name</TableHead>
+            <TableHead>Project Description</TableHead>
+          </TableHeader>
+          <TableBody>
             {error ? (
-              <DtContentRow>
-                <DtData>Error loading data</DtData>
-              </DtContentRow>
+              <TableRow>
+                <TableCell>Error loading data</TableCell>
+              </TableRow>
             ) : !data ? (
-              <DtContentRow>
-                <DtData>
+              <TableRow>
+                <TableCell>
                   <LoadingSpinner />
-                </DtData>
-              </DtContentRow>
+                </TableCell>
+              </TableRow>
             ) : data.length === 0 ? (
-              <DtContentRow>
-                <DtData>No projects.</DtData>
-              </DtContentRow>
+              <TableRow>
+                <TableCell>No projects.</TableCell>
+              </TableRow>
             ) : (
               data.map((d) => (
-                <DtContentRow key={d.id}>
-                  <DtData>
+                <TableRow key={d.id}>
+                  <TableCell>
                     <Link
                       className="hover:underline"
                       to="/projects/$projectId/"
@@ -64,14 +62,14 @@ export default function ProjectTable({ ...props }: ProjectTableProps) {
                     >
                       {d.project_id}
                     </Link>
-                  </DtData>
-                  <DtData>{d.project_title}</DtData>
-                  <DtData>{d.project_description}</DtData>
-                </DtContentRow>
+                  </TableCell>
+                  <TableCell>{d.project_title}</TableCell>
+                  <TableCell>{d.project_description}</TableCell>
+                </TableRow>
               ))
             )}
-          </DataTableBody>
-        </DataTable>
+          </TableBody>
+        </Table>
       </CardContent>
     </Card>
   );

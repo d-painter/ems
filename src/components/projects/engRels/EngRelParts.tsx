@@ -42,7 +42,7 @@ export default function EngRelParts({
 
   return (
     <div className="flex flex-col justify-center w-full">
-      <div className="flex items-center my-auto min-h-10 gap-4">
+      <div className="flex items-center my-auto min-h-10 gap-4 border-b-2 border-b-primary">
         {!edit && (
           <>
             <h1>PARTS</h1>
