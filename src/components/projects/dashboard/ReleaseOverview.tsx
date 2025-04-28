@@ -22,25 +22,25 @@ export default function ReleaseOverview() {
       <CardHeader>
         <CardTitle>Release Overview</CardTitle>
         <CardDescription>Overview of Project Releases</CardDescription>
-        <CardContent className="p-0">
-          <Table>
-            <TableHeader>
-              <TableHead>Release Title</TableHead>
-              <TableHead>Req. Release Date</TableHead>
-              <TableHead>Status</TableHead>
-            </TableHeader>
-            <TableBody>
-              {projectReleases.map((r) => (
-                <TableRow>
-                  <TableCell>{r.title}</TableCell>
-                  <TableCell>{r.reqReleaseDate}</TableCell>
-                  <TableCell>{r.status}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </CardContent>
       </CardHeader>
+      <CardContent className="px-4">
+        <Table>
+          <TableHeader>
+            <TableHead>Release Title</TableHead>
+            <TableHead>Req. Release Date</TableHead>
+            <TableHead>Status</TableHead>
+          </TableHeader>
+          <TableBody>
+            {projectReleases.map((r) => (
+              <TableRow>
+                <TableCell>{r.title}</TableCell>
+                <TableCell>{r.reqReleaseDate}</TableCell>
+                <TableCell>{r.status}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </CardContent>
     </Card>
   );
 }
