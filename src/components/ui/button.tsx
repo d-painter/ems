@@ -20,6 +20,8 @@ const buttonVariants = cva(
         secondary:
           "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
         ghost: "hover:bg-primary hover:text-background dark:hover:bg-accent/50",
+        openDialog:
+          "hover:bg-primary bg-black/5 hover:text-background dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {

@@ -111,8 +111,8 @@ function RouteComponent() {
                   })
                 ) : (
                   <TableRow>
-                    <TableCell className="underline" colSpan={100}>
-                      No Data
+                    <TableCell colSpan={100}>
+                      No parts.
                     </TableCell>
                   </TableRow>
                 )}

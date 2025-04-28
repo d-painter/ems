@@ -95,7 +95,7 @@ export default function AddPartDialog({ ...props }: AddPartsDialogProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="ghost" size="xs" onClick={() => setOpen(true)}>
+        <Button variant="openDialog" size="xs" onClick={() => setOpen(true)}>
           {partType === "assembly" ? "Add Assembly" : "Add Part"}
         </Button>
       </DialogTrigger>
