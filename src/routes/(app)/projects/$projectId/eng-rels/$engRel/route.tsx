@@ -1,3 +1,5 @@
+import EngRelPageInfo from "@/components/info/EngRelPageInfo";
+import InfoDialog from "@/components/info/InfoDialog";
 import EngRelFiles from "@/components/projects/engRels/EngRelFiles";
 import EngRelHeader from "@/components/projects/engRels/EngRelHeader";
 import EngRelParts from "@/components/projects/engRels/EngRelParts";
@@ -48,11 +50,22 @@ function RouteComponent() {
   )[0];
 
   return (
-    <div className="w-full h-full overflow-auto max-w-5xl pb-10">
-      <EngRelHeader engRel={engRel} />
-      <div className="space-y-6">
-        <EngRelParts engRel={engRel} />
-        <EngRelFiles engRel={engRel} />
+    <div className="w-full flex flex-col h-full overflow-hidden">
+      <div>
+        <InfoDialog
+          type="action"
+          title="Engineering Releases Information"
+          description="About Engineering Releases."
+        >
+          <EngRelPageInfo />
+        </InfoDialog>
+      </div>
+      <div className="w-full h-full flex gap-2 flex-col items-center overflow-auto  justify-start">
+        <div className="h-full w-full max-w-5xl space-y-6 pb-10">
+          <EngRelHeader engRel={engRel} />
+          <EngRelParts engRel={engRel} />
+          <EngRelFiles engRel={engRel} />
+        </div>
       </div>
     </div>
   );

@@ -34,7 +34,14 @@ function LoginPage() {
   }
 
   async function handleGoogleLogin() {
-    await supabase.auth.signInWithOAuth({ provider: "google" });
+    const redirectRoute =
+      process.env.NODE_ENV !== "production" ? "http://localhost:3000" : "";
+    await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: redirectRoute,
+      },
+    });
   }
 
   return (

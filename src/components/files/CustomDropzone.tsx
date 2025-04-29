@@ -13,8 +13,9 @@ export default function CustomDropzone({
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   return (
-    <div {...getRootProps()}>
-      <input {...getInputProps()} />
+    <div {...getRootProps()} className="w-full max-w-full overflow-hidden">
+      <input {...getInputProps()} className="hidden"/>
+
       {isDragActive ? (
         <div className=" p-2 text-xs border-dashed border-2 border-primary hover:cursor-pointer h-12 flex items-center w-full">
           <p>Drop file to upload</p>

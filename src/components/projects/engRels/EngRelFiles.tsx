@@ -119,9 +119,12 @@ export default function EngRelFiles({
   }
 
   return (
-    <div className="flex flex-col justify-center w-full">
-      <div className="flex items-center my-auto min-h-10 gap-4 border-b-2 border-b-primary w-full">FILES</div>
-      <CustomDropzone handleFiles={handleFiles} />
+    <div className="flex flex-col w-full justify-between">
+      <div className="flex items-center my-auto h-10 gap-4 border-b-2 border-b-primary w-full">
+        FILES
+      </div>
+        <CustomDropzone handleFiles={handleFiles} />
+
       <div>
         <Table>
           <TableHeader>
