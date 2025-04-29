@@ -130,10 +130,9 @@ export default function EtrsChart() {
       <CardHeader>
         <CardTitle>
           <div className="flex flex-row justify-between items-center">
-            <div className="flex flex-row gap-4 items-center">
-              ETRS TRACKER
-            </div>
+            <div className="flex flex-row gap-4 items-center">ETRS TRACKER</div>
             <InfoDialog
+              type="info"
               title="ETRS Chart Information"
               description="About the ETRS Chart."
             >

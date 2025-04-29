@@ -28,6 +28,7 @@ export default function ReleaseOverview() {
               RELEASE OVERVIEW
             </div>
             <InfoDialog
+              type="info"
               title="Release Overview Information"
               description="About the Release Overview Card."
             >
