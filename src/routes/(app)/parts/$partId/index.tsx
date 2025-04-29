@@ -31,7 +31,6 @@ function RouteComponent() {
         <h1>PART DOES NOT EXIST</h1>
       ) : (
         <div className="flex flex-col h-full w-full max-w-3xl gap-4">
-          {/* Header */}
           <div className="flex flex-col text-white w-full p-2 md:p-6 h-fit bg-primary justify-between">
             <h1 className="mb-2 flex flex-row text-xl">{partId}</h1>
             <h1 className="mb-2 flex flex-row text-xl">{p?.description}</h1>
