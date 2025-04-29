@@ -24,25 +24,6 @@ export function useProjectEngRels(projectId: string) {
   });
 }
 
-// Get part rows associated with a release
-// TODO: Check if used
-// async function fetchEngRelParts(parts: number[]) {
-//   const { data } = await supabase
-//     .from("part_numbers")
-//     .select()
-//     .in("id", parts)
-//     .throwOnError();
-
-//   return data as Tables<"part_numbers">[];
-// }
-
-// export function useEngRelParts(parts: number[]) {
-//   return useQuery({
-//     queryKey: ["engRelParts", parts],
-//     queryFn: () => fetchEngRelParts(parts),
-//   });
-// }
-
 // Get all files
 async function getEngRelFiles(fileIds: string[] | null) {
   if (!fileIds) {
@@ -71,6 +52,20 @@ function allEngRelFilesQuery(fileIds: string[] | null) {
   };
 }
 
+// Get Public Files
+
+export function usePublicFiles() {
+  return useQuery({ queryFn: getPublicFiles, queryKey: ["allPublicFiles"] });
+}
+
+async function getPublicFiles() {
+  const { data, error } = await supabase.storage.from("general").list();
+  if (error) {
+    console.error(error);
+  }
+  return data;
+}
+
 // Mutations
 // Add a new engineering release
 export function useAddNewEngRel() {
@@ -88,8 +83,8 @@ export function useAddNewEngRel() {
 async function addNewEngRel(engRel: {
   project_id: string;
   release_id: number;
-  title?:string;
-  description?:string
+  title?: string;
+  description?: string;
 }) {
   const { data } = await supabase
     .from("eng_rels")

@@ -9,18 +9,19 @@ export const Route = createFileRoute("/(app)/projects/$projectId/adr")({
 
 function RouteComponent() {
   return (
-    <div className="w-full flex flex-col min-h-full text-sm overflow-hidden">
+    <div className="w-full flex flex-col h-full text-sm overflow-hidden">
       <div>
         <InfoDialog
+          type="info"
           title="Decision Record Information"
           description="About Decision Records."
         >
           <DecisionRecordsInfo />
         </InfoDialog>
       </div>
-      <div className=" w-full h-full">
-        <div className="w-full h-full flex flex-col justify-center items-center overflow-auto">
-          <div className="h-fit w-full my-auto max-w-2xl space-y-2">
+      <div className=" w-full flex flex-col h-full">
+        <div className="w-full my-auto h-full flex flex-col justify-center items-center overflow-auto">
+          <div className="h-fit w-full max-w-2xl space-y-2">
             <Card className="p-2 md:p-6">
               <h1>TOPIC 1</h1>
               <div className="flex flex-row justify-between">
