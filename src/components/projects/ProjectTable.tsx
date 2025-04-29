@@ -12,6 +12,8 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
+import InfoDialog from "../info/InfoDialog";
+import ProjectCardInfo from "../info/ProjectCardInfo";
 
 type ProjectTableProps = {
   data: Tables<"projects">[] | null | undefined;
@@ -21,12 +23,27 @@ type ProjectTableProps = {
 export default function ProjectTable({ ...props }: ProjectTableProps) {
   const { data, error } = props;
 
+  const infoProps = {
+    title: "Projects Information",
+    description: "About the project card.",
+    content: <div>testing</div>,
+  };
+
   return (
     <Card className="w-full my-auto">
-      <CardTitle className="pl-4">
-        <div className="flex flex-row gap-4 items-center">
-          PROJECTS
-          <AddProjectDialog />
+      <CardTitle className="px-4">
+        <div className="flex flex-row justify-between items-center">
+          <div className="flex flex-row gap-4 items-center">
+            PROJECTS
+            <AddProjectDialog />
+          </div>
+          <InfoDialog
+            type="action"
+            title={infoProps.title}
+            description={infoProps.description}
+          >
+            <ProjectCardInfo />
+          </InfoDialog>
         </div>
       </CardTitle>
       <CardContent className="p-2">

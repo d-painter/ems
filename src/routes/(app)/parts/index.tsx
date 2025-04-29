@@ -1,3 +1,5 @@
+import InfoDialog from "@/components/info/InfoDialog";
+import PartsCardInfo from "@/components/info/PartsCardInfo";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -60,7 +62,17 @@ function RouteComponent() {
 
   return (
     <IndexStyling>
-      <Card className="w-full h-fit max-h-full my-auto  max-w-lg pb-2">
+      <Card className="relative w-full h-fit max-h-full my-auto max-w-lg pb-2">
+        <div className="w-fit absolute -right-1 -top-1">
+          <InfoDialog
+            type="info"
+            title="Parts Information"
+            description="About the Parts card."
+          >
+            <PartsCardInfo />
+          </InfoDialog>
+        </div>
+
         <CardContent className="h-full overflow-hidden">
           <div className=" flex bg-background w-full flex-col gap-2">
             <Label
@@ -111,9 +123,7 @@ function RouteComponent() {
                   })
                 ) : (
                   <TableRow>
-                    <TableCell colSpan={100}>
-                      No parts.
-                    </TableCell>
+                    <TableCell colSpan={100}>No parts.</TableCell>
                   </TableRow>
                 )}
               </TableBody>

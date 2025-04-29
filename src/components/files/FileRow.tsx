@@ -41,13 +41,15 @@ export default function FileRow({ file: f, deleteFile }: FileRowProps) {
           </button>
         </TableCell>
         <TableCell className="text-center items-center">
-          <Button type="button" variant={"ghost"} size={"xs"}>
-            <button
-              className="flex flex-row"
-              onClick={() => void deleteFile(f.id)}
-            >
+          <Button
+            type="button"
+            variant={"ghost"}
+            size={"xs"}
+            onClick={() => void deleteFile(f.id)}
+          >
+            <div className="flex flex-row">
               <Trash size={15} />
-            </button>
+            </div>
           </Button>
         </TableCell>
       </TableRow>

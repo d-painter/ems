@@ -1,3 +1,5 @@
+import InfoDialog from "@/components/info/InfoDialog";
+import SupplierCardInfo from "@/components/info/SupplierCardInfo";
 import SupplierTableRow from "@/components/supplier/SupplierTableRow";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import IndexStyling from "@/components/ui/layout/IndexStyling";
@@ -21,7 +23,18 @@ function RouteComponent() {
   return (
     <IndexStyling>
       <Card className="w-full my-auto">
-        <CardTitle className="pl-4">SUPPLIERS</CardTitle>
+        <CardTitle className="px-4">
+          <div className="flex flex-row justify-between items-center">
+            <div className="flex flex-row gap-4 items-center">SUPPLIERS</div>
+            <InfoDialog
+              type="info"
+              title="Supplier Information"
+              description="About the Supplier card."
+            >
+              <SupplierCardInfo />
+            </InfoDialog>
+          </div>
+        </CardTitle>
         <CardContent className="px-2">
           <Table>
             <TableHeader>

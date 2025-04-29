@@ -18,13 +18,19 @@ export default function EngRelParts({
   const [edit, setEdit] = useState(false);
 
   async function csvPartsFromFile(results: ParseResult<string[]>) {
-    const csvParts = getReleaseParts(results.data);
+    if (!results) {
+      toast.error("There is no usable data in that file.");
+      return;
+    }
     try {
+      const csvParts = getReleaseParts(results.data);
       await updateEngRelMutation.mutateAsync({
         columnToMatch: "id",
         matchValue: engRel.id,
         updates: { part_numbers: JSON.stringify(csvParts) },
       });
+      toast.success("Release updated.");
+      setEdit(false);
     } catch (error) {
       // TODO: individual error handling
       if (error instanceof Error) {
@@ -42,7 +48,7 @@ export default function EngRelParts({
 
   return (
     <div className="flex flex-col justify-center w-full">
-      <div className="flex items-center my-auto min-h-10 gap-4 border-b-2 border-b-primary">
+      <div className="flex items-center my-auto min-h-12 gap-4 border-b-2 border-b-primary">
         {!edit && (
           <>
             <h1>PARTS</h1>
@@ -58,7 +64,7 @@ export default function EngRelParts({
         )}
         {edit && (
           <>
-            <CsvClickDrag csvPartsFromFile={() => void csvPartsFromFile} />
+            <CsvClickDrag csvPartsFromFile={csvPartsFromFile} />
             <Button
               size={"icon"}
               variant="engRel"

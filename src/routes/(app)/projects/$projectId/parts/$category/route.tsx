@@ -1,3 +1,5 @@
+import InfoDialog from "@/components/info/InfoDialog";
+import PartsPageInfo from "@/components/info/PartsPageInfo";
 import AddCategoryDialog from "@/components/projects/AddCategoryDialog";
 import PartsTable from "@/components/projects/PartsTable";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
@@ -60,7 +62,7 @@ function RouteComponent() {
       }
     }
   });
-
+  
   async function handleCategoryChange(e: string) {
     const newCategory = e.split(" - ")[0];
     await navigate({
@@ -92,9 +94,27 @@ function RouteComponent() {
     return a.sort((a, b) => a.part_number - b.part_number);
   }
 
+  let result
+  if (data && projectId === "P002") {
+    result = data.filter(
+      (p) =>
+        `${p.project_id}-${p.sub_system}-${String(p.part_number).padStart(4, "0")}` ===
+        "P002-A-9000"
+    )[0].id;
+  }
+
   return (
-    <div className="w-full flex flex-col items-center h-full overflow-hidden">
-      <div className="w-full h-full overflow-auto">
+    <div className="w-full flex flex-col h-full overflow-hidden">
+      <div>
+        <InfoDialog
+          title="Parts Information"
+          description="About the Parts page."
+          type="action"
+        >
+          <PartsPageInfo result={result} />
+        </InfoDialog>
+      </div>
+      <div className="w-full h-full overflow-hidden">
         <div className="flex flex-col h-full mx-auto max-w-4xl">
           <div className="flex flex-row items-center gap-2 mb-4 mt-1 relative top-0">
             <Select onValueChange={(e) => void handleCategoryChange(e)}>

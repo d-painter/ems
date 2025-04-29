@@ -1,3 +1,10 @@
+//   This REGEX looks for any part description that has a quantity at the end of it.
+//   x — matches " x" literally
+//   \s — matches the space between "x" and the number
+//   (\d+) — captures one or more digits
+//   $ — ensures it's at the end of the string
+const REGEX = / x\s(\d+)$/;
+
 export function getReleaseParts(data: Array<string[]>): ParsedCsvPartParams[] {
   const filters = ["Constraints", "PIA"];
   if (!data?.length) {
@@ -20,6 +27,7 @@ export function getReleaseParts(data: Array<string[]>): ParsedCsvPartParams[] {
       !filters.some((el) => p.includes(el)) &&
       !indexesToRemove.has(i)
   );
+
   const headers = parts.shift();
   const arrToObject = parts.map((part) => {
     const obj: { [key: string]: string } = {};
@@ -29,25 +37,18 @@ export function getReleaseParts(data: Array<string[]>): ParsedCsvPartParams[] {
     return obj;
   });
 
-  //   x — matches " x" literally
-  //   \s — matches the space between "x" and the number
-  //   (\d+) — captures one or more digits
-  //   $ — ensures it's at the end of the string
-  const REGEX = / x\s(\d+)$/;
-
-  const keyWithQuantity = () => {
+  // This function gets the csv column which has the part name and number.
+  // Coded incase the CSV layout changes.
+  const keyWithPartNameAndQty = () => {
     for (const [key, entry] of Object.entries(arrToObject[0])) {
-      const match = entry.match(REGEX);
+      const match = entry.split(" - ");
       if (match) {
         return key;
       }
     }
     return "";
   };
-  const key = keyWithQuantity();
-  if (!key) {
-    return [];
-  }
+  const key = keyWithPartNameAndQty();
 
   return arrToObject.map((p) => {
     const match = p[key].match(REGEX);
@@ -60,11 +61,11 @@ export function getReleaseParts(data: Array<string[]>): ParsedCsvPartParams[] {
       "Weight (g)",
       "Weight (kg)",
     ];
-
     if (!match) {
       remove.forEach((e) => delete p[e]);
       return { partNumber, description, qty: 1, ...p } as ParsedCsvPartParams;
     }
+
     const qty = match[1];
     remove.forEach((e) => delete p[e]);
     return {

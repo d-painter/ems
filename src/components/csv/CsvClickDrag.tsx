@@ -1,19 +1,17 @@
 import { useCSVReader, formatFileSize } from "react-papaparse";
 import type { ParseResult } from "papaparse";
-import { toast } from "sonner";
 
 export default function CsvClickDrag({
   csvPartsFromFile,
 }: {
-  csvPartsFromFile: (results: ParseResult<string[]>) => void;
+  csvPartsFromFile: (results: ParseResult<string[]>) => Promise<void>;
 }) {
   const { CSVReader } = useCSVReader();
 
   return (
     <CSVReader
       onUploadAccepted={(results: ParseResult<string[]>) => {
-        csvPartsFromFile(results);
-        toast.success("Release updated.");
+        void csvPartsFromFile(results);
       }}
     >
       {({ getRootProps, acceptedFile, getRemoveFileProps, Remove }: any) => (

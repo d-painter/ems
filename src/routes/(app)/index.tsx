@@ -1,3 +1,6 @@
+import InfoDialog from "@/components/info/InfoDialog";
+import OpenIssuesCardInfo from "@/components/info/OpenIssuesCardInfo";
+import ReleasesCardInfo from "@/components/info/ReleasesCardInfo";
 import ProjectTable from "@/components/projects/ProjectTable";
 import {
   Card,
@@ -26,7 +29,11 @@ function RouteComponent() {
   const { error, data: projectData } = useAllProjects();
 
   const useReleases = releases;
-
+  const infoProps = {
+    title: "Releases Information",
+    description: "About the Releases card.",
+    content: <div>testing</div>,
+  };
   return (
     <IndexStyling>
       <div className="flex flex-wrap w-full h-full items-stretch justify-around gap-4 pb-4">
@@ -35,8 +42,21 @@ function RouteComponent() {
         </div>
         <Card className="grow">
           <CardHeader className="px-4">
-            <CardTitle>RELEASES</CardTitle>
-            <CardDescription>Overview of releases owned by you.</CardDescription>
+            <CardTitle>
+              <div className="flex flex-row justify-between items-center">
+                <div className="flex flex-row gap-4 items-center">RELEASES</div>
+                <InfoDialog
+                  type="info"
+                  title={infoProps.title}
+                  description={infoProps.description}
+                >
+                  <ReleasesCardInfo />
+                </InfoDialog>
+              </div>
+            </CardTitle>
+            <CardDescription>
+              Overview of releases owned by you.
+            </CardDescription>
           </CardHeader>
           <CardContent className="p-2">
             <Table>
@@ -59,7 +79,20 @@ function RouteComponent() {
         </Card>
         <Card className="grow">
           <CardHeader className="px-4">
-            <CardTitle>OPEN ISSUES</CardTitle>
+            <CardTitle>
+              <div className="flex flex-row justify-between items-center">
+                <div className="flex flex-row gap-4 items-center">
+                  OPEN ISSUES
+                </div>
+                <InfoDialog
+                  type="info"
+                  title="Open Issues Information"
+                  description="About the Open Issues card."
+                >
+                  <OpenIssuesCardInfo />
+                </InfoDialog>
+              </div>
+            </CardTitle>
             <CardDescription>Overview of issues owned by you.</CardDescription>
           </CardHeader>
           <CardContent className="p-2">
@@ -70,9 +103,9 @@ function RouteComponent() {
                 <TableHead>Status</TableHead>
               </TableHeader>
               <TableBody>
-              <TableRow>
-                    <TableCell colSpan={100}>No current issues.</TableCell>
-                  </TableRow>
+                <TableRow>
+                  <TableCell colSpan={100}>No current issues.</TableCell>
+                </TableRow>
               </TableBody>
             </Table>
           </CardContent>
