@@ -1,10 +1,12 @@
 import { useCSVReader, formatFileSize } from "react-papaparse";
 import type { ParseResult } from "papaparse";
 
+
 export default function CsvClickDrag({
   csvPartsFromFile,
 }: {
   csvPartsFromFile: (results: ParseResult<string[]>) => Promise<void>;
+
 }) {
   const { CSVReader } = useCSVReader();
 
@@ -12,6 +14,7 @@ export default function CsvClickDrag({
     <CSVReader
       onUploadAccepted={(results: ParseResult<string[]>) => {
         void csvPartsFromFile(results);
+
       }}
     >
       {({ getRootProps, acceptedFile, getRemoveFileProps, Remove }: any) => (

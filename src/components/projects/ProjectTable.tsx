@@ -15,6 +15,7 @@ import {
 import InfoDialog from "../info/InfoDialog";
 import ProjectCardInfo from "../info/ProjectCardInfo";
 
+
 type ProjectTableProps = {
   data: Tables<"projects">[] | null | undefined;
   error: Error | null;
@@ -44,6 +45,7 @@ export default function ProjectTable({ ...props }: ProjectTableProps) {
           >
             <ProjectCardInfo />
           </InfoDialog>
+
         </div>
       </CardTitle>
       <CardContent className="p-2">

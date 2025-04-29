@@ -1,5 +1,6 @@
 import InfoDialog from "@/components/info/InfoDialog";
 import ReleaseCardInfo from "@/components/info/ReleaseCardInfo";
+
 import {
   Card,
   CardContent,
@@ -36,6 +37,7 @@ export default function ReleaseOverview() {
             </InfoDialog>
           </div>
         </CardTitle>{" "}
+
         <CardDescription>Overview of Project Releases</CardDescription>
       </CardHeader>
       <CardContent className="px-4">

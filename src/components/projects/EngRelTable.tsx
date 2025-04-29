@@ -16,6 +16,7 @@ export default function EngRelTable({
   engRels: Tables<"eng_rels">[] | null | undefined;
 }) {
   const { projectId } = useParams({ strict: false });
+
   return (
     <div className="w-full h-full max-w-4xl overflow-auto">
       <Table>
@@ -33,6 +34,7 @@ export default function EngRelTable({
                 No Engineering Releases for this project.{" "}
                 {projectId === "P002" &&
                   "We suggest creating the first release using the button located in the info popup window."}
+
               </TableCell>
             </TableRow>
           ) : (

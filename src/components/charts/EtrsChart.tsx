@@ -23,6 +23,7 @@ import {
 import InfoDialog from "../info/InfoDialog";
 import EtrsTrackerInfo from "../info/EtrsTrackerInfo";
 
+
 function dateToNumber(date: string) {
   return new Date(date).getTime();
 }
@@ -140,6 +141,7 @@ export default function EtrsChart() {
             </InfoDialog>
           </div>
         </CardTitle>
+
         <CardDescription>Part Release Forecast</CardDescription>
       </CardHeader>
       <CardContent className="p-0">

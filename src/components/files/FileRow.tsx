@@ -50,6 +50,7 @@ export default function FileRow({ file: f, deleteFile }: FileRowProps) {
             <div className="flex flex-row">
               <Trash size={15} />
             </div>
+
           </Button>
         </TableCell>
       </TableRow>

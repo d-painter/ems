@@ -34,6 +34,7 @@ function RouteComponent() {
     description: "About the Releases card.",
     content: <div>testing</div>,
   };
+
   return (
     <IndexStyling>
       <div className="flex flex-wrap w-full h-full items-stretch justify-around gap-4 pb-4">
@@ -93,6 +94,7 @@ function RouteComponent() {
                 </InfoDialog>
               </div>
             </CardTitle>
+
             <CardDescription>Overview of issues owned by you.</CardDescription>
           </CardHeader>
           <CardContent className="p-2">

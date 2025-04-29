@@ -24,7 +24,6 @@ export function useProjectEngRels(projectId: string) {
   });
 }
 
-// Get all files
 async function getEngRelFiles(fileIds: string[] | null) {
   if (!fileIds) {
     return [];
@@ -53,7 +52,6 @@ function allEngRelFilesQuery(fileIds: string[] | null) {
 }
 
 // Get Public Files
-
 export function usePublicFiles() {
   return useQuery({ queryFn: getPublicFiles, queryKey: ["allPublicFiles"] });
 }

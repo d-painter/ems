@@ -72,7 +72,6 @@ function RouteComponent() {
             <PartsCardInfo />
           </InfoDialog>
         </div>
-
         <CardContent className="h-full overflow-hidden">
           <div className=" flex bg-background w-full flex-col gap-2">
             <Label

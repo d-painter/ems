@@ -27,7 +27,6 @@ export function getReleaseParts(data: Array<string[]>): ParsedCsvPartParams[] {
       !filters.some((el) => p.includes(el)) &&
       !indexesToRemove.has(i)
   );
-
   const headers = parts.shift();
   const arrToObject = parts.map((part) => {
     const obj: { [key: string]: string } = {};
@@ -42,6 +41,7 @@ export function getReleaseParts(data: Array<string[]>): ParsedCsvPartParams[] {
   const keyWithPartNameAndQty = () => {
     for (const [key, entry] of Object.entries(arrToObject[0])) {
       const match = entry.split(" - ");
+
       if (match) {
         return key;
       }
@@ -49,7 +49,6 @@ export function getReleaseParts(data: Array<string[]>): ParsedCsvPartParams[] {
     return "";
   };
   const key = keyWithPartNameAndQty();
-
   return arrToObject.map((p) => {
     const match = p[key].match(REGEX);
     const [partNumber, description] = p[key].split(" - ");
@@ -61,11 +60,11 @@ export function getReleaseParts(data: Array<string[]>): ParsedCsvPartParams[] {
       "Weight (g)",
       "Weight (kg)",
     ];
+
     if (!match) {
       remove.forEach((e) => delete p[e]);
       return { partNumber, description, qty: 1, ...p } as ParsedCsvPartParams;
     }
-
     const qty = match[1];
     remove.forEach((e) => delete p[e]);
     return {

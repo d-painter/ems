@@ -62,7 +62,7 @@ function RouteComponent() {
       }
     }
   });
-  
+
   async function handleCategoryChange(e: string) {
     const newCategory = e.split(" - ")[0];
     await navigate({
@@ -115,6 +115,7 @@ function RouteComponent() {
         </InfoDialog>
       </div>
       <div className="w-full h-full overflow-hidden">
+
         <div className="flex flex-col h-full mx-auto max-w-4xl">
           <div className="flex flex-row items-center gap-2 mb-4 mt-1 relative top-0">
             <Select onValueChange={(e) => void handleCategoryChange(e)}>
