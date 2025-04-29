@@ -74,10 +74,10 @@ export default function ProjectCardInfo() {
         can be viewed by clicking on the project number.
       </p>
       <p>
-        We'd recommend clicking on the button below to auto populate the first
-        two releases and suggest you to follow the engineering process through
-        using the '2025 Formula Student Car' project. After this, feel free to
-        create new projects to try out the workflow.
+        We'd recommend clicking on the button below to create the first two
+        projects and suggest following the engineering process through using the
+        '2025 Formula Student Car' project. After this, feel free to create new
+        projects to try out the workflow.
       </p>
       <DialogClose className=" w-full">
         <Button

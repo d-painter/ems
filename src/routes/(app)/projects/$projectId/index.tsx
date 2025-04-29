@@ -13,7 +13,7 @@ function RouteComponent() {
     <div className="h-full overflow-hidden">
       <div className="flex flex-col h-full w-full overflow-auto gap-2">
         <div>
-          <InfoDialog title="Dashboard Information" description="About the dashboard.">
+          <InfoDialog title="Dashboard Information" description="About the dashboard." type="action">
             <DashboardInfo />
           </InfoDialog>
         </div>

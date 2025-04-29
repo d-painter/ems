@@ -16,21 +16,27 @@ export type InfoProps = {
   title: string;
   description: string;
   children: ReactNode;
+  type: "info" | "action";
 };
 
 export default function InfoDialog({
   title,
   description,
   children,
+  type,
 }: InfoProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
         <Button variant={"ghost"} className="hover:bg-transparent">
-          <Info size={30} fill="blue" stroke="white" />
+          <Info
+            size={30}
+            fill={type === "action" ? "blue" : "black"}
+            stroke="white"
+          />
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md max-h-[95%] overflow-auto">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description} </DialogDescription>

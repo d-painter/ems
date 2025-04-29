@@ -65,6 +65,7 @@ function RouteComponent() {
       <Card className="relative w-full h-fit max-h-full my-auto max-w-lg pb-2">
         <div className="w-fit absolute -right-1 -top-1">
           <InfoDialog
+            type="info"
             title="Parts Information"
             description="About the Parts card."
           >

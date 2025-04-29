@@ -46,6 +46,7 @@ function RouteComponent() {
               <div className="flex flex-row justify-between items-center">
                 <div className="flex flex-row gap-4 items-center">RELEASES</div>
                 <InfoDialog
+                  type="info"
                   title={infoProps.title}
                   description={infoProps.description}
                 >
@@ -84,6 +85,7 @@ function RouteComponent() {
                   OPEN ISSUES
                 </div>
                 <InfoDialog
+                  type="info"
                   title="Open Issues Information"
                   description="About the Open Issues card."
                 >

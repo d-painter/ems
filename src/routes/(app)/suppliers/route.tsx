@@ -27,6 +27,7 @@ function RouteComponent() {
           <div className="flex flex-row justify-between items-center">
             <div className="flex flex-row gap-4 items-center">SUPPLIERS</div>
             <InfoDialog
+              type="info"
               title="Supplier Information"
               description="About the Supplier card."
             >

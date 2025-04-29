@@ -88,6 +88,8 @@ export function useAddNewEngRel() {
 async function addNewEngRel(engRel: {
   project_id: string;
   release_id: number;
+  title?:string;
+  description?:string
 }) {
   const { data } = await supabase
     .from("eng_rels")

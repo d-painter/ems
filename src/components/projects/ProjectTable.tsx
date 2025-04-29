@@ -38,6 +38,7 @@ export default function ProjectTable({ ...props }: ProjectTableProps) {
             <AddProjectDialog />
           </div>
           <InfoDialog
+            type="action"
             title={infoProps.title}
             description={infoProps.description}
           >
