@@ -74,9 +74,10 @@ export default function ProjectCardInfo() {
         can be viewed by clicking on the project number.
       </p>
       <p>
-        Feel free to create new projects to try out the workflow, but we'd
-        recommend clicking on the button below to auto populate the first two
-        and allow you to follow the engineering process through.
+        We'd recommend clicking on the button below to auto populate the first
+        two releases and suggest you to follow the engineering process through
+        using the '2025 Formula Student Car' project. After this, feel free to
+        create new projects to try out the workflow.
       </p>
       <DialogClose className=" w-full">
         <Button
@@ -84,7 +85,7 @@ export default function ProjectCardInfo() {
           className="w-full"
           onClick={() => void handleCreateNewProjects()}
         >
-          Set up your first project
+          Set up the first two projects
         </Button>
       </DialogClose>
     </div>

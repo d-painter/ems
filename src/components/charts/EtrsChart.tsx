@@ -20,6 +20,8 @@ import {
   partRows,
   PartRowWithReleaseDate,
 } from "../../services/data/dashboardData";
+import InfoDialog from "../info/InfoDialog";
+import EtrsTrackerInfo from "../info/EtrsTrackerInfo";
 
 function dateToNumber(date: string) {
   return new Date(date).getTime();
@@ -126,7 +128,19 @@ export default function EtrsChart() {
   return (
     <Card className="h-fit grow xl:max-w-1/2">
       <CardHeader>
-        <CardTitle>ETRS Tracker</CardTitle>
+        <CardTitle>
+          <div className="flex flex-row justify-between items-center">
+            <div className="flex flex-row gap-4 items-center">
+              ETRS TRACKER
+            </div>
+            <InfoDialog
+              title="ETRS Chart Information"
+              description="About the ETRS Chart."
+            >
+              <EtrsTrackerInfo />
+            </InfoDialog>
+          </div>
+        </CardTitle>
         <CardDescription>Part Release Forecast</CardDescription>
       </CardHeader>
       <CardContent className="p-0">
