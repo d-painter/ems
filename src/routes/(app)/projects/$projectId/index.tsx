@@ -12,7 +12,7 @@ function RouteComponent() {
   return (
     <div className="h-full overflow-hidden">
       <div className="flex flex-col h-full w-full overflow-auto gap-2">
-        <div className="w-full h-6 text-center flex items-center justify-start">
+        <div>
           <InfoDialog title="Dashboard Information" description="About the dashboard.">
             <DashboardInfo />
           </InfoDialog>

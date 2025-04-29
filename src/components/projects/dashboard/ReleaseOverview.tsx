@@ -1,3 +1,5 @@
+import InfoDialog from "@/components/info/InfoDialog";
+import ReleaseCardInfo from "@/components/info/ReleaseCardInfo";
 import {
   Card,
   CardContent,
@@ -20,7 +22,19 @@ export default function ReleaseOverview() {
   return (
     <Card className="max-md:w-full grow max-w-[500px]">
       <CardHeader>
-        <CardTitle>Release Overview</CardTitle>
+        <CardTitle>
+          <div className="flex flex-row justify-between items-center">
+            <div className="flex flex-row gap-4 items-center">
+              RELEASE OVERVIEW
+            </div>
+            <InfoDialog
+              title="Release Overview Information"
+              description="About the Release Overview Card."
+            >
+              <ReleaseCardInfo />
+            </InfoDialog>
+          </div>
+        </CardTitle>{" "}
         <CardDescription>Overview of Project Releases</CardDescription>
       </CardHeader>
       <CardContent className="px-4">
