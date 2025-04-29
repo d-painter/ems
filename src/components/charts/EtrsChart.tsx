@@ -127,7 +127,7 @@ const plotData = cumulativeReleasesPerDate.map((item) => {
 
 export default function EtrsChart() {
   return (
-    <Card className="h-fit grow xl:max-w-1/2">
+    <Card className="h-fit grow max-w-2xl">
       <CardHeader>
         <CardTitle>
           <div className="flex flex-row justify-between items-center">
