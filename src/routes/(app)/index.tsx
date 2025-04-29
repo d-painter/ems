@@ -37,81 +37,86 @@ function RouteComponent() {
 
   return (
     <IndexStyling>
-      <div className="flex flex-wrap w-full h-full items-stretch justify-around gap-4 pb-4">
-        <div className="my-auto w-full">
-          <ProjectTable data={projectData} error={error} />
-        </div>
-        <Card className="grow">
-          <CardHeader className="px-4">
-            <CardTitle>
-              <div className="flex flex-row justify-between items-center">
-                <div className="flex flex-row gap-4 items-center">RELEASES</div>
-                <InfoDialog
-                  type="info"
-                  title={infoProps.title}
-                  description={infoProps.description}
-                >
-                  <ReleasesCardInfo />
-                </InfoDialog>
-              </div>
-            </CardTitle>
-            <CardDescription>
-              Overview of releases owned by you.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="p-2">
-            <Table>
-              <TableHeader>
-                <TableHead>Release Title</TableHead>
-                <TableHead>Req. Release Date</TableHead>
-                <TableHead>Status</TableHead>
-              </TableHeader>
-              <TableBody>
-                {useReleases.map((r) => (
-                  <TableRow>
-                    <TableCell>{r.title}</TableCell>
-                    <TableCell>{r.reqReleaseDate}</TableCell>
-                    <TableCell>{r.status}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
-        <Card className="grow">
-          <CardHeader className="px-4">
-            <CardTitle>
-              <div className="flex flex-row justify-between items-center">
-                <div className="flex flex-row gap-4 items-center">
-                  OPEN ISSUES
+      <div className="flex flex-wrap flex-row w-full h-full gap-4 items-center pb-4">
+        <div className="w-full h-fit flex flex-wrap gap-2">
+          <div className="w-full">
+            <ProjectTable data={projectData} error={error} />
+          </div>
+          <Card className="grow p-0">
+            <CardHeader className="px-4">
+              <CardTitle>
+                <div className="flex flex-row justify-between items-center">
+                  <div className="flex flex-row gap-4 items-center">
+                    RELEASES
+                  </div>
+                  <InfoDialog
+                    type="info"
+                    title={infoProps.title}
+                    description={infoProps.description}
+                  >
+                    <ReleasesCardInfo />
+                  </InfoDialog>
                 </div>
-                <InfoDialog
-                  type="info"
-                  title="Open Issues Information"
-                  description="About the Open Issues card."
-                >
-                  <OpenIssuesCardInfo />
-                </InfoDialog>
-              </div>
-            </CardTitle>
-
-            <CardDescription>Overview of issues owned by you.</CardDescription>
-          </CardHeader>
-          <CardContent className="p-2">
-            <Table>
-              <TableHeader>
-                <TableHead>Issue Title</TableHead>
-                <TableHead>Req. Resolution Date</TableHead>
-                <TableHead>Status</TableHead>
-              </TableHeader>
-              <TableBody>
-                <TableRow>
-                  <TableCell colSpan={100}>No current issues.</TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
+              </CardTitle>
+              <CardDescription>
+                Overview of releases owned by you.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="p-2">
+              <Table>
+                <TableHeader>
+                  <TableHead>Release Title</TableHead>
+                  <TableHead>Req. Release Date</TableHead>
+                  <TableHead>Status</TableHead>
+                </TableHeader>
+                <TableBody>
+                  {useReleases.map((r) => (
+                    <TableRow>
+                      <TableCell>{r.title}</TableCell>
+                      <TableCell>{r.reqReleaseDate}</TableCell>
+                      <TableCell>{r.status}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+          <Card className="grow p-0">
+            <CardHeader className="px-4">
+              <CardTitle>
+                <div className="flex flex-row justify-between items-center">
+                  <div className="flex flex-row gap-4 items-center">
+                    OPEN ISSUES
+                  </div>
+                  <InfoDialog
+                    type="info"
+                    title="Open Issues Information"
+                    description="About the Open Issues card."
+                  >
+                    <OpenIssuesCardInfo />
+                  </InfoDialog>
+                </div>
+              </CardTitle>
+              <CardDescription>
+                Overview of issues owned by you.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="p-2">
+              <Table>
+                <TableHeader>
+                  <TableHead>Issue Title</TableHead>
+                  <TableHead>Req. Resolution Date</TableHead>
+                  <TableHead>Status</TableHead>
+                </TableHeader>
+                <TableBody>
+                  <TableRow>
+                    <TableCell colSpan={100}>No current issues.</TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </IndexStyling>
   );
