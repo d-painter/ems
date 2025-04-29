@@ -34,8 +34,6 @@ export default function EngRelParts({
     } catch (error) {
       // TODO: individual error handling
       if (error instanceof Error) {
-        console.log(error);
-        
         toast.error(error.message);
       } else {
         toast.error("There was an error completing this task.");

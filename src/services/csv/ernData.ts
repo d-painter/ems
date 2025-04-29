@@ -52,8 +52,6 @@ export function getReleaseParts(data: Array<string[]>): ParsedCsvPartParams[] {
 
   return arrToObject.map((p) => {
     const match = p[key].match(REGEX);
-    console.log(match);
-
     const [partNumber, description] = p[key].split(" - ");
     const remove = [
       "Descriptive Part Name",

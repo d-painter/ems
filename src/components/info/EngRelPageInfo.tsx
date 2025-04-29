@@ -10,7 +10,6 @@ export default function EngRelPageInfo() {
       .from("general")
       .download(name);
     if (error) {
-      console.log(error);
       toast.error("There was an error retrieving the file.");
     }
     if (data) {
