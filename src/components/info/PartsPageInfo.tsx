@@ -19,7 +19,7 @@ export default function PartsPageInfo({
       await updatePartMutation.mutateAsync({
         columnToMatch: "id",
         matchValue: result!,
-        updates: { description: "SUSPENSION" },
+        updates: { description: "CHASSIS" },
       });
     } catch (error) {
       // TODO: individual error handling
