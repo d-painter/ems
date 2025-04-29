@@ -36,8 +36,7 @@ export default function ReleaseOverview() {
               <ReleaseCardInfo />
             </InfoDialog>
           </div>
-        </CardTitle>{" "}
-
+        </CardTitle>
         <CardDescription>Overview of Project Releases</CardDescription>
       </CardHeader>
       <CardContent className="px-4">
