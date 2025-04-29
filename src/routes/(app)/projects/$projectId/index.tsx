@@ -14,14 +14,20 @@ function RouteComponent() {
     <div className="h-full overflow-hidden">
       <div className="flex flex-col h-full w-full overflow-auto gap-2">
         <div>
-          <InfoDialog title="Dashboard Information" description="About the dashboard." type="action">
+          <InfoDialog
+            title="Dashboard Information"
+            description="About the dashboard."
+            type="action"
+          >
             <DashboardInfo />
           </InfoDialog>
         </div>
-        <div className=" flex justify-center items-center h-full w-full">
-          <div className="flex flex-row flex-wrap w-full justify-center max-h-fit h-full gap-2">
-            <EtrsChart />
-            <ReleaseOverview />
+        <div className="flex flex-col justify-center items-center h-full w-full">
+          <div className="w-full h-fit flex flex-col items-center max-w-4xl justify-center">
+            <div className="flex flex-row flex-wrap w-full justify-center h-full gap-2">
+              <EtrsChart />
+              <ReleaseOverview />
+            </div>
           </div>
         </div>
       </div>

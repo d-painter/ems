@@ -21,7 +21,7 @@ import { releases } from "@/services/data/dashboardData";
 export default function ReleaseOverview() {
   const projectReleases = releases;
   return (
-    <Card className="max-md:w-full grow max-w-[500px]">
+    <Card className="max-md:w-full max-w-2xl grow">
       <CardHeader>
         <CardTitle>
           <div className="flex flex-row justify-between items-center">
