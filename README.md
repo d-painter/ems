@@ -1,54 +1,113 @@
-# React + TypeScript + Vite
+# Engineering Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Link to Hosted Site
 
-Currently, two official plugins are available:
+https://eng-mgmt-sys.netlify.app/login/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Overview
 
-## Expanding the ESLint configuration
+This project was created to condense several separate processes and manual entry tasks routinely performed by mechanical engineers.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+The project has been built using Vite, React, Typescript and Tailwind for the front end. Tanstack Router and Query are used for routing and data fetching. Supabase provides user authentication, DB and bucket storage. The site layout was developed using Tailwinds mobile first approach.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Future Work
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+This site has been created and hosted as a portfolio piece. There are a lot of obvious improvements I'm aware of, along with features I wanted to add which haven't been developed. I have diverted time and attention to other work, however, if I were to continue developing this site, I'd initially focus on the following topics:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+<ul>
+  <li>Breadcrumb navigation
+    <ul>
+      <li>User feedback suggests location awareness could be improved.</li>
+    </ul>
+  </li>
+  <li>Project Info Tracking
+    <ul>
+      <li>CAD PDM systems can export CSVs for any part or BOM level. It would be useful to regularly export full BOM data to track overall mass, lead times and cost.</li>
+    </ul>
+  </li>
+  <li>Engineering Release Page
+    <ul>
+      <li>Collect more information like supplier and cost code.</li>
+      <li>Create sign off workflow so everyone can see the release status:</br> (Created, Submitted, Eng Sign off, Purchasing Sign off, Complete).</li>
+    </ul>
+  </li>
+  <li>Decision Records
+    <ul>
+      <li>Implement a lightweight decision record workflow.</li>
+    </ul>
+  </li>
+  <li>General
+    <ul>
+      <li>Fix general styling and layout inconsistencies. </li>
+    </ul>
+  </li>
+</ul>
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+## Main Site Pages
+
+Feel free to create an account and trial the site. If you want to follow the suggested workflow, click on the blue Info icons and follow the instructions.
+Black Info icons explain more about the section they're associated with.
+
+### Login Page
+
+Login with an email and password or using a Google account.
+
+![Login page screenshot](assets/readme/loginPage.PNG)
+
+### Home Page
+
+The home page displays a dashboard showing the most recent projects the user has worked on, along with releases and open issues which are relevant to them.
+
+![Mobile home page screenshot](assets/readme/homePageMobile.PNG)
+
+![Home Page screenshot](assets/readme/homePage.PNG)
+
+### Projects Page
+
+This page displays the current projects within the company. Clicking on the project number takes the user to the specific project area.
+![Projects page screenshot](assets/readme/projectsPage.PNG)
+
+### Parts Page
+
+This provides a list of parts associated to the company, providing a quick way of filtering. Clicking on the part number takes you a page specific to the part.
+![Parts Page screenshot](assets/readme/partsPage.PNG)
+
+### Supplier Page
+
+A page displaying suppliers who have been used before, what their capabilities are and their internal approval rating. Clicking on the map icon opens Google Maps to their location. </br>
+At the moment the table is generated based on static data. During the engineering work flow, parts are released to different suppliers. With further development, engineers, buyers and PMs will be able to provide ratings against each supplier for each release, creating a dynamic, traceable score and history for the business to view. This aids internal supplier nomination for future projects.
+
+![Supplier Page screenshot](assets/readme/supplierPage.PNG)
+
+## Project Pages
+
+### Dashboard
+
+The project dashboard gives an overview of key metrics. </br>
+The ETRS tracker shows the engineering release cadence based on part lead times, clearly highlighting deadlines and areas where the business will be heavily resourced with part ordering, inspection and stocking ahead of build. </br>
+The Release Overview provides a snapshot of the most time critical releases to draw attention to them.
+![Project Dashboard Page screenshot](assets/readme/projectDashboardPage.PNG)
+
+### Decision Record
+
+As a project progresses, key decisions are discussed and agreed on. At critical points, these decisions can be logged on this page against each project. Implementation for this feature is still required.
+![ADR Page screenshot](assets/readme/ADR.PNG)
+
+### Engineering Release
+
+When component design is complete, an engineering release is required to inform the rest of the business to procure the part and if needed, what to do with previous stock. On this page, new releases can be taken out against the project. Clicking on the release number takes the user to the individual release page.
+![Engineering Releases Page screenshot](assets/readme/engRelPage.PNG)
+
+One of the key features of the release page is the ability to drag and drop CSV files generated by the CAD PDM system. Previously, each release required an engineer to manually re type all of the part information including number, description, quantity etc. If 1000's of parts require release, this is a significant time sink prone to manual error. Exporting a CSV from the software and uploading it takes several seconds in total with no errors. </br>
+Files associated to the release like quotes and invoices can be uploaded and are stored in an S3 bucket. This ensures the history is saved and is accessible in future to anyone in the business rather than being lost in someones inbox.
+
+![Engineering Releases Page screenshot](assets/readme/individualEngRelPage.PNG)
+
+### Parts
+
+Every time a new part is required, the first step is to take out a new, unique part number. Before, this process was controlled by a shared excel file, with one file for each project. An engineer would have to open the sheet and take out the next row, while having to assume the sheet was sync'd and up to date with other users. This page makes assigning new sub categories, assemblies and parts extremely straight forward.
+
+![Parts Page screenshot](assets/readme/projectsPartsPage.PNG)
+
+Once a new part has been created, the user can right click on the table row for the option to quickly copy the new part number pre formatted as required by the CAD PML software.
+![Parts Page Right Click screenshot](assets/readme/partRowCopy.PNG)
