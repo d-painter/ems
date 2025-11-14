@@ -109,5 +109,5 @@ Every time a new part is required, the first step is to take out a new, unique p
 
 ![Parts Page screenshot](assets/readme/projectsPartsPage.PNG)
 
-Once a new part has been created, the user can right click on the table row for the option to quickly copy the new part number pre formatted as required by the CAD PML software.
+Once a new part has been created, the user can right click on the table row for the option to quickly copy the new part number pre formatted as required by the CAD PLM software.
 ![Parts Page Right Click screenshot](assets/readme/partRowCopy.PNG)
