@@ -17,7 +17,6 @@ export const Route = createFileRoute("/(app)")({
 
 function AppRoute() {
   const { session } = UserAuth();
-  console.log(session);
 
   if (!session) {
     return <Navigate to="/login/" />;
