@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { supabase } from "@/services/supabase/supabaseClient";
 import GoogleIcon from "@/components/icons/GoogleIcon";
+import { useIsApiServerRunning } from "@/services/queries/apiQueries";
 
 export const Route = createFileRoute("/(auth)/login")({
   component: LoginPage,
@@ -21,6 +22,9 @@ function LoginPage() {
     password: "",
   });
   const [error, setError] = useState<string | null>(null);
+
+  const { data: isApiServerRunning, isPending: isApiServerRunningLoading } =
+    useIsApiServerRunning();
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -116,6 +120,14 @@ function LoginPage() {
             </form>
           </CardContent>
         </Card>
+      </div>
+      <div className="absolute bottom-5 right-5 border border-gray-300 rounded-md p-2 text-xs">
+        server status:{" "}
+        {isApiServerRunningLoading
+          ? "pending"
+          : isApiServerRunning
+            ? "live"
+            : "offline"}
       </div>
     </div>
   );
