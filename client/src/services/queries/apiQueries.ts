@@ -5,9 +5,7 @@ async function isApiServerRunning() {
   const devUrl = "http://localhost:3010";
   const prodUrl = import.meta.env.VITE_RENDER_API_URL as string;
 
-  const response = await fetch(
-    import.meta.env.NODE_ENV !== "production" ? devUrl : prodUrl
-  );
+  const response = await fetch(import.meta.env.DEV ? devUrl : prodUrl);
   return response.ok;
 }
 
