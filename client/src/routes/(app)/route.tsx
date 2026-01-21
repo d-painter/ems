@@ -2,6 +2,8 @@ import { UserAuth } from "@/components/auth/AuthContext";
 import MobileNavBottom from "@/components/nav/MobileNavBottom";
 import NavContent from "@/components/nav/NavContent";
 import SideNav from "@/components/nav/SideNav";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import { useGetUserOrgUuid } from "@/services/queries/userQueries";
 import {
   createFileRoute,
   Navigate,
@@ -15,10 +17,13 @@ export const Route = createFileRoute("/(app)")({
 
 function AppRoute() {
   const { session } = UserAuth();
+  console.log(session);
 
   if (!session) {
     return <Navigate to="/login/" />;
   }
+  const { data: userOrgUuid, isPending: isUserOrgUuidPending } =
+    useGetUserOrgUuid(session.user.id);
   const matchRoute = useMatchRoute();
   const matchedIndex = matchRoute({ to: "/" });
   const matchedParts = matchRoute({ to: "/parts/" });
@@ -27,7 +32,12 @@ function AppRoute() {
 
   const show =
     matchedIndex || matchedProjects || matchedParts || matchedSuppliers;
-
+  if (isUserOrgUuidPending) {
+    return <LoadingSpinner />;
+  }
+  if (!userOrgUuid) {
+    return <div>No user org uuid found</div>;
+  }
   return (
     <div className="w-full h-full min-h-dvh overflow-hidden flex flex-row md:flex-row">
       {show && (
