@@ -37,7 +37,7 @@ function RouteComponent() {
 
   return (
     <IndexStyling>
-      <div className="flex flex-wrap flex-row w-full h-full gap-4 items-center pb-4">
+      <div className="flex flex-wrap flex-row w-full h-full gap-4 items-start pb-4">
         <div className="w-full h-fit flex flex-wrap gap-2">
           <div className="w-full">
             <ProjectTable data={projectData} error={error} />

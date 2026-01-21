@@ -60,7 +60,7 @@ function RouteComponent() {
           <EngRelPageInfo />
         </InfoDialog>
       </div>
-      <div className="w-full h-full flex gap-2 flex-col items-center overflow-auto  justify-start">
+      <div className="w-full h-full flex gap-2 flex-col items-center overflow-auto justify-start">
         <div className="h-full w-full max-w-5xl space-y-6 pb-10">
           <EngRelHeader engRel={engRel} />
           <EngRelParts engRel={engRel} />

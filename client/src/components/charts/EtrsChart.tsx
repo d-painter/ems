@@ -23,7 +23,6 @@ import {
 import InfoDialog from "../info/InfoDialog";
 import EtrsTrackerInfo from "../info/EtrsTrackerInfo";
 
-
 function dateToNumber(date: string) {
   return new Date(date).getTime();
 }
@@ -127,7 +126,7 @@ const plotData = cumulativeReleasesPerDate.map((item) => {
 
 export default function EtrsChart() {
   return (
-    <Card className="h-fit grow max-w-2xl">
+    <Card className="w-full max-w-3xl">
       <CardHeader>
         <CardTitle>
           <div className="flex flex-row justify-between items-center">

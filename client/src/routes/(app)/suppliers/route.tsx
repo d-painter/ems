@@ -22,7 +22,7 @@ function RouteComponent() {
 
   return (
     <IndexStyling>
-      <Card className="w-full my-auto">
+      <Card className="w-full h-fit">
         <CardTitle className="px-4">
           <div className="flex flex-row justify-between items-center">
             <div className="flex flex-row gap-4 items-center">SUPPLIERS</div>

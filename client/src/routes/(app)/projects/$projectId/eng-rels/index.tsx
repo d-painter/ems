@@ -26,8 +26,8 @@ function RouteComponent() {
           <EngRelsInfo />
         </InfoDialog>
       </div>
-      <div className="h-full w-full flex">
-        <Card className="h-fit max-h-full w-full max-w-2xl m-auto overflow-hidden">
+      <div className="h-full w-full flex justify-center">
+        <Card className="h-fit max-h-full w-full max-w-2xl overflow-hidden">
           <CardContent className="h-full flex flex-col overflow-hidden">
             <AddEngRelDialog projectId={projectId!} />
             <div className="grow h-full overflow-auto">

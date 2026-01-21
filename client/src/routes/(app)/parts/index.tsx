@@ -62,7 +62,7 @@ function RouteComponent() {
 
   return (
     <IndexStyling>
-      <Card className="relative w-full h-fit max-h-full my-auto max-w-lg pb-2">
+      <Card className="relative w-full h-fit max-h-full mx-auto max-w-lg pb-2">
         <div className="w-fit absolute -right-1 -top-1">
           <InfoDialog
             type="info"

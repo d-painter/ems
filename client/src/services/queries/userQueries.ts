@@ -6,10 +6,10 @@ import { Tables } from "../supabase/supabaseTypes";
 async function getUserOrgUuid(
   userId: string
 ): Promise<Tables<"org_associations">["org_uuid"] | null> {
-  console.log("userId", userId);
   const { data, error } = await supabase
     .from("org_associations")
     .select("org_uuid")
+    .eq("user_uuid", userId)
     .single();
   if (error) {
     throw error;

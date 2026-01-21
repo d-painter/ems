@@ -44,7 +44,7 @@ function AppRoute() {
           <NavContent navType="side" />
         </SideNav>
       )}
-      <div className="flex w-full justify-center h-full items-center overflow-auto min-h-dvh">
+      <div className="flex w-full justify-center h-full items-start overflow-auto min-h-dvh">
         <Outlet />
       </div>
       {show && (

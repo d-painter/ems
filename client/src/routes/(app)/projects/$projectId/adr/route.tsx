@@ -20,7 +20,7 @@ function RouteComponent() {
         </InfoDialog>
       </div>
       <div className=" w-full flex flex-col h-full">
-        <div className="w-full my-auto h-full flex flex-col justify-center items-center overflow-auto">
+        <div className="w-full h-full flex flex-col items-center overflow-auto">
           <div className="h-fit w-full max-w-2xl space-y-2">
             <Card className="p-2 md:p-6">
               <h1>TOPIC 1</h1>
