@@ -10,5 +10,5 @@ app.listen(PORT, () => {
 });
 
 app.get('/', (req, res) => {
-    res.send('Hello w');
+    res.send('Hello world');
 });
