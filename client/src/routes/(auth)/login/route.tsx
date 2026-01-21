@@ -25,7 +25,6 @@ function LoginPage() {
 
   const { data: isApiServerRunning, isPending: isApiServerRunningLoading } =
     useIsApiServerRunning();
-  console.log(isApiServerRunningLoading, isApiServerRunning);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -48,9 +47,6 @@ function LoginPage() {
       },
     });
   }
-  // if (isApiServerRunningLoading) {
-  //   return <div>Loading...</div>;
-  // }
 
   return (
     <div className="w-full h-full min-h-dvh flex justify-center items-center md:items-center md:m-auto overflow-auto">
