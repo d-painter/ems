@@ -18,6 +18,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useAdditionalUserContext } from "@/Context/AdditionalUserContext";
 import { releases } from "@/services/data/dashboardData";
 import { useAllProjects } from "@/services/queries/projectQueries";
 import { createFileRoute } from "@tanstack/react-router";
@@ -26,7 +27,8 @@ export const Route = createFileRoute("/(app)/")({
 });
 
 function RouteComponent() {
-  const { error, data: projectData } = useAllProjects();
+  const { org_uuid } = useAdditionalUserContext();
+  const { error, data: projectData } = useAllProjects(org_uuid!);
 
   const useReleases = releases;
   const infoProps = {

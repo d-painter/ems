@@ -7,6 +7,7 @@ import { AuthContext } from "@/components/auth/AuthContext";
 import { Toaster } from "@/components/ui/sonner";
 import TestingNav from "@/components/testing/TestingNav";
 import { QueryClient } from "@tanstack/react-query";
+import { AdditionalUserContextProvider } from "@/Context/AdditionalUserContext";
 
 interface MyRouterContext {
   // The ReturnType of your useAuth hook or the value of your AuthContext
@@ -31,9 +32,11 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
     const showTesting = false;
     return (
       <>
-        {showTesting && <TestingNav />}
-        <Outlet />
-        <Toaster richColors />
+        <AdditionalUserContextProvider>
+          {showTesting && <TestingNav />}
+          <Outlet />
+          <Toaster richColors />
+        </AdditionalUserContextProvider>
       </>
     );
   },

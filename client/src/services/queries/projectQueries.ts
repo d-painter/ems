@@ -5,26 +5,35 @@ import { toast } from "sonner";
 
 const supabase = supabaseClient;
 
+const apiUrl = import.meta.env.DEV
+  ? "http://localhost:3010"
+  : (import.meta.env.VITE_RENDER_API_URL as string);
+
 // Queries
 // Get all projects
-async function fetchProjects(): Promise<Tables<"projects">[] | null> {
-  const { data, error } = await supabase
-    .from("projects")
-    .select()
-    .order("project_id");
+
+type ResponseData = { data: Tables<"projects">[] | [], error: string | null };
+
+async function fetchProjects(
+  org_uuid: string
+): Promise<Tables<"projects">[] | null> {
+  const response = await fetch(`${apiUrl}/api/projects/${org_uuid}`);
+  const {data, error}  = await response.json() as ResponseData;
+
   if (error) {
-    throw error;
+    throw new Error(error);
   } else {
-    return data as Tables<"projects">[] | null;
+    return data;
   }
 }
-export const allProjectsQuery = {
-  queryKey: ["allProjects"],
-  queryFn: fetchProjects,
-};
 
-export function useAllProjects() {
-  return useQuery(allProjectsQuery);
+export const allProjectsQuery = (org_uuid: string) => ({
+  queryKey: ["allProjects", org_uuid],
+  queryFn: () => fetchProjects(org_uuid),
+});
+
+export function useAllProjects(org_uuid: string) {
+  return useQuery(allProjectsQuery(org_uuid));
 }
 
 // Mutations

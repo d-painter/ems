@@ -2,8 +2,7 @@ import { UserAuth } from "@/components/auth/AuthContext";
 import MobileNavBottom from "@/components/nav/MobileNavBottom";
 import NavContent from "@/components/nav/NavContent";
 import SideNav from "@/components/nav/SideNav";
-import LoadingSpinner from "@/components/ui/LoadingSpinner";
-import { useGetUserOrgUuid } from "@/services/queries/userQueries";
+import { useAdditionalUserContext } from "@/Context/AdditionalUserContext";
 import {
   createFileRoute,
   Navigate,
@@ -21,8 +20,8 @@ function AppRoute() {
   if (!session) {
     return <Navigate to="/login/" />;
   }
-  const { data: userOrgUuid, isPending: isUserOrgUuidPending } =
-    useGetUserOrgUuid(session.user.id);
+
+  const { org_uuid: userOrgUuid } = useAdditionalUserContext();
   const matchRoute = useMatchRoute();
   const matchedIndex = matchRoute({ to: "/" });
   const matchedParts = matchRoute({ to: "/parts/" });
@@ -31,9 +30,7 @@ function AppRoute() {
 
   const show =
     matchedIndex || matchedProjects || matchedParts || matchedSuppliers;
-  if (isUserOrgUuidPending) {
-    return <LoadingSpinner />;
-  }
+
   if (!userOrgUuid) {
     return <div>No user org uuid found</div>;
   }
@@ -41,6 +38,7 @@ function AppRoute() {
     <div className="w-full h-full min-h-dvh overflow-hidden flex flex-row md:flex-row">
       {show && (
         <SideNav>
+          <div className="text-sm text-gray-500">{userOrgUuid}</div>
           <NavContent navType="side" />
         </SideNav>
       )}

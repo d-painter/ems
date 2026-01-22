@@ -22,5 +22,6 @@ export function useGetUserOrgUuid(userId: string) {
   return useQuery({
     queryKey: ["userOrgUuid", userId],
     queryFn: () => getUserOrgUuid(userId),
+    staleTime: Infinity,
   });
 }
