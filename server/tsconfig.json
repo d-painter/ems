@@ -44,8 +44,7 @@
     "moduleDetection": "force",
     "skipLibCheck": true,
     "moduleResolution": "node16",
-    "noEmit": true,
-    "allowImportingTsExtensions": true
+    "noEmit": false
   },
   "ts-node": {
     "esm": true
