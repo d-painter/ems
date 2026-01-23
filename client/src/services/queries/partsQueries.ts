@@ -53,7 +53,7 @@ export function useAddNewParts() {
           `${v.project_id}-${v.sub_system}-${v.part_number} - ${v.description} added.`
         )
       );
-      await queryClient.invalidateQueries({ queryKey: ["allProjectParts"] });
+      await queryClient.invalidateQueries({ queryKey: ["All parts"] });
     },
   });
 }
@@ -81,7 +81,7 @@ export function useUpdatePart() {
       throw error;
     },
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["allProjectParts"] });
+      await queryClient.invalidateQueries({ queryKey: ["All parts"] });
     },
   });
 }
