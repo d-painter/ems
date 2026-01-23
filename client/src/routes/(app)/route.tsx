@@ -3,6 +3,7 @@ import MobileNavBottom from "@/components/nav/MobileNavBottom";
 import NavContent from "@/components/nav/NavContent";
 import SideNav from "@/components/nav/SideNav";
 import { useAdditionalUserContext } from "@/Context/AdditionalUserContext";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import {
   createFileRoute,
   Navigate,
@@ -32,13 +33,17 @@ function AppRoute() {
     matchedIndex || matchedProjects || matchedParts || matchedSuppliers;
 
   if (!userOrgUuid) {
-    return <div>No user org uuid found</div>;
+    return (
+      <div className="w-full h-dvh flex justify-center items-center">
+        <LoadingSpinner />
+      </div>
+    );
   }
   return (
     <div className="w-full h-full min-h-dvh overflow-hidden flex flex-row md:flex-row">
       {show && (
         <SideNav>
-            <NavContent navType="side" />
+          <NavContent navType="side" />
         </SideNav>
       )}
       <div className="flex w-full justify-center h-full items-start overflow-auto min-h-dvh">

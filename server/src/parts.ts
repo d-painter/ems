@@ -32,11 +32,7 @@ router.get(
     if (error) {
       res.status(500).json({ error: error.message });
     }
-    if (!data?.length) {
-      res.status(500).json({ error: "No parts found" });
-    } else {
-      res.json({ data });
-    }
+    res.json({ data });
   }
 );
 

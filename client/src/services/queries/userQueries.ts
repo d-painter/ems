@@ -6,6 +6,9 @@ import { Tables } from "../supabase/supabaseTypes";
 async function getUserOrgUuid(
   userId: string
 ): Promise<Tables<"org_associations">["org_uuid"] | null> {
+  if (!userId) {
+    return null;
+  }
   const { data, error } = await supabase
     .from("org_associations")
     .select("org_uuid")

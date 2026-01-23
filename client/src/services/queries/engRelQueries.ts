@@ -13,12 +13,7 @@ async function fetchProjectEngRels(
   projectId: string,
   orgUuid: string
 ): Promise<Tables<"eng_rels">[]> {
-  // const { data } = await supabase
-  //   .from("eng_rels")
-  //   .select("*")
-  //   .eq("project_id", projectId)
-  //   .throwOnError();
-  // return data as Tables<"eng_rels">[];
+
   const response = await fetch(
     `${apiUrl}/api/eng-rels/${orgUuid}/${projectId}`
   );

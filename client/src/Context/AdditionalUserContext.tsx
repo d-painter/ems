@@ -14,7 +14,7 @@ export function AdditionalUserContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const { data } = useGetUserOrgUuid(UserAuth().session?.user.id as string);
+  const { data } = useGetUserOrgUuid(UserAuth().session?.user?.id as string);
 
   return (
     <AdditionalUserContext.Provider value={{ org_uuid: data }}>

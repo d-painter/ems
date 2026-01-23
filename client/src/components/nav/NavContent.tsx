@@ -25,7 +25,7 @@ export default function NavContent({ navType: navType }: NavContentProps) {
             </Link>
           </SheetClose>
           {routes.map((r) => (
-            <SheetClose asChild>
+            <SheetClose asChild key={r.title}>
               <Link
                 key={r.title}
                 to={r.to}
