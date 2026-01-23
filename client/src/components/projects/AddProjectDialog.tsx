@@ -19,6 +19,7 @@ import { DialogDescription } from "@radix-ui/react-dialog";
 import getNextProjectNumber from "@/services/db/projectFunctions";
 import { toast } from "sonner";
 import { useAddNewParts } from "@/services/queries/partsQueries";
+import { useAdditionalUserContext } from "@/Context/AdditionalUserContext";
 
 export type ProjectFormStateProps = {
   projectTitle: string;
@@ -27,7 +28,7 @@ export type ProjectFormStateProps = {
 
 export default function AddProjectDialog() {
   const [open, setOpen] = useState(false);
-
+  const { org_uuid } = useAdditionalUserContext();
   const [formState, setFormState] = useState<ProjectFormStateProps>({
     projectTitle: "",
     projectDescription: "",
@@ -41,7 +42,7 @@ export default function AddProjectDialog() {
 
   const addNewProjectMutation = useAddNewProject();
   const addNewPartsMutation = useAddNewParts();
-  const { refetch } = useAllProjects();
+  const { refetch } = useAllProjects(org_uuid!);
 
   async function createNewProject(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -57,6 +58,7 @@ export default function AddProjectDialog() {
         project_description: formState.projectDescription,
         project_id: newProjectId,
         project_title: formState.projectTitle,
+        org_uuid: org_uuid!,
       });
       await addNewPartsMutation.mutateAsync([
         {
@@ -64,12 +66,14 @@ export default function AddProjectDialog() {
           description: "DESCRIPTION",
           part_number: 9000,
           sub_system: "A",
+          org_uuid: org_uuid!,
         },
         {
           project_id: newProjectId,
           description: "TOOLING, JIGS AND FIXTURES",
           part_number: 9000,
           sub_system: "T",
+          org_uuid: org_uuid!,
         },
       ]);
       setFormState({ projectTitle: "", projectDescription: "" });

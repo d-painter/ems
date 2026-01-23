@@ -2,6 +2,7 @@ import MobileNavBottom from "@/components/nav/MobileNavBottom";
 import NavContentProjects from "@/components/nav/NavContentProjects";
 import SideNav from "@/components/nav/SideNav";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import { useAdditionalUserContext } from "@/Context/AdditionalUserContext";
 import { allProjectPartsQuery } from "@/services/queries/partsQueries";
 import { useAllProjects } from "@/services/queries/projectQueries";
 import {
@@ -23,7 +24,8 @@ export const Route = createFileRoute("/(app)/projects/$projectId")({
 function RouteComponent() {
   const route = useParams({ strict: false });
 
-  const { data, isPending } = useAllProjects();
+  const { org_uuid } = useAdditionalUserContext();
+  const { data, isPending } = useAllProjects(org_uuid!);
   if (isPending) {
     return <LoadingSpinner />;
   }

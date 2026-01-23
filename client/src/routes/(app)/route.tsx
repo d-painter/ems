@@ -38,7 +38,6 @@ function AppRoute() {
     <div className="w-full h-full min-h-dvh overflow-hidden flex flex-row md:flex-row">
       {show && (
         <SideNav>
-          <div className="text-sm text-gray-500">{userOrgUuid}</div>
           <NavContent navType="side" />
         </SideNav>
       )}
