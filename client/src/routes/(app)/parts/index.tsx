@@ -16,17 +16,19 @@ import {
 import { allPartsQuery, useAllParts } from "@/services/queries/partsQueries";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-
+import { useAdditionalUserContext } from "@/Context/AdditionalUserContext";
 export const Route = createFileRoute("/(app)/parts/")({
   component: RouteComponent,
   loader: async ({ context: { queryClient } }) => {
-    await queryClient.prefetchQuery(allPartsQuery());
+    const { org_uuid } = useAdditionalUserContext();
+    await queryClient.prefetchQuery(allPartsQuery(org_uuid!));
   },
 });
 
 function RouteComponent() {
   const [search, setSearch] = useState("");
-  const { data: allPartData, isPending } = useAllParts();
+  const { org_uuid } = useAdditionalUserContext();
+  const { data: allPartData, isPending } = useAllParts(org_uuid!);
   if (isPending) {
     return <LoadingSpinner />;
   }

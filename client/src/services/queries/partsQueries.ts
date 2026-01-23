@@ -4,6 +4,9 @@ import { Tables } from "../supabase/supabaseTypes";
 import { toast } from "sonner";
 
 const supabase = supabaseClient;
+const apiUrl = import.meta.env.DEV
+  ? "http://localhost:3010"
+  : (import.meta.env.VITE_RENDER_API_URL as string);
 
 // Queries
 // Get all parts for a project
@@ -23,6 +26,7 @@ async function fetchProjectParts(
     return data;
   }
 }
+
 export function useProjectParts(projectId: string) {
   return useQuery(allProjectPartsQuery(projectId));
 }
@@ -34,25 +38,31 @@ export function allProjectPartsQuery(projectId: string) {
 }
 
 //Get all parts
-export function allPartsQuery(){
+export function allPartsQuery(org_uuid: string) {
   return {
-    queryKey: ["All parts"],
-    queryFn: fetchAllParts
+    queryKey: ["All parts", org_uuid],
+    queryFn: () => fetchAllParts(org_uuid),
+  };
+}
+
+async function fetchAllParts(
+  org_uuid: string
+): Promise<Tables<"part_numbers">[]> {
+
+  const response = await fetch(`${apiUrl}/api/parts/${org_uuid}`);
+  const { data, error } = (await response.json()) as {
+    data: Tables<"part_numbers">[];
+    error: string | null;
+  };
+  if (error) {
+    throw new Error(error);
+  } else {
+    return data;
   }
 }
 
-async function fetchAllParts():Promise<Tables<"part_numbers">[]>{
-  const { data, error } = await supabase
-    .from("part_numbers")
-    .select()
-  if (error) {
-    throw error;
-  } else {
-    return data as Tables<"part_numbers">[];
-  }
-}
-export function useAllParts(){
-  return useQuery(allPartsQuery())
+export function useAllParts(org_uuid: string) {
+  return useQuery(allPartsQuery(org_uuid));
 }
 
 // Mutations
