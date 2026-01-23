@@ -7,11 +7,12 @@ import {
 import { getNewEngRelNumber } from "@/services/db/engRelFunctions";
 import { toast } from "sonner";
 import { DialogClose } from "@radix-ui/react-dialog";
+import { useAdditionalUserContext } from "@/Context/AdditionalUserContext";
 
 export default function EngRelsInfo() {
   const { projectId } = useParams({ strict: false });
-
-  const { refetch } = useProjectEngRels(projectId!);
+  const { org_uuid } = useAdditionalUserContext();
+  const { refetch } = useProjectEngRels(projectId!, org_uuid!);
   const addNewEngRelMutation = useAddNewEngRel();
   async function createNewRelease() {
     try {
@@ -23,15 +24,8 @@ export default function EngRelsInfo() {
         release_id: newEngRelNum,
         title: "FPR",
         description: "Initial release for the Front Push Rods.",
+        org_uuid: org_uuid!,
       });
-      // await navigate({
-      //   to: "/projects/$projectId/eng-rels/$engRel/",
-      //   params: {
-      //     projectId: projectId,
-      //     engRel: `${projectId}-ER-${String(newRel.release_id).padStart(4, "0")}`,
-      //   },
-      // });
-      // setOpen(false);
       toast.success("New release created.");
     } catch (error) {
       // TODO: individual error handling

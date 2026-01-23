@@ -1,6 +1,7 @@
 import MobileNavBottom from "@/components/nav/MobileNavBottom";
 import NavContentProjects from "@/components/nav/NavContentProjects";
 import SideNav from "@/components/nav/SideNav";
+import { Card } from "@/components/ui/card";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import { useAdditionalUserContext } from "@/Context/AdditionalUserContext";
 import { useAllProjects } from "@/services/queries/projectQueries";
@@ -40,6 +41,12 @@ function RouteComponent() {
         </div>
       </SideNav>
       <div className="w-full h-full p-2 pb-20 max-md:min-h-dvh md:pb-2">
+        <div className="md:hidden">
+          <Card className="w-full p-2 shadow-none">
+            <h1>Project - {route.projectId}</h1>
+          </Card>
+        </div>
+
         <Outlet />
       </div>
       <MobileNavBottom>

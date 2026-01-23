@@ -6,6 +6,7 @@ import EngRelTable from "@/components/projects/EngRelTable";
 import { Card, CardContent } from "@/components/ui/card";
 import { useProjectEngRels } from "@/services/queries/engRelQueries";
 import { createFileRoute, useParams } from "@tanstack/react-router";
+import { useAdditionalUserContext } from "@/Context/AdditionalUserContext";
 
 export const Route = createFileRoute("/(app)/projects/$projectId/eng-rels/")({
   component: RouteComponent,
@@ -13,7 +14,8 @@ export const Route = createFileRoute("/(app)/projects/$projectId/eng-rels/")({
 
 function RouteComponent() {
   const { projectId } = useParams({ strict: false });
-  const { data: engRels } = useProjectEngRels(projectId!);
+  const { org_uuid } = useAdditionalUserContext();
+  const { data: engRels } = useProjectEngRels(projectId!, org_uuid!);
 
   return (
     <div className="w-full h-full overflow-hidden flex flex-col">

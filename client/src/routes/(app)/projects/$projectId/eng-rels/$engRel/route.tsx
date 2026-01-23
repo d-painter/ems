@@ -7,6 +7,7 @@ import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import { useProjectEngRels } from "@/services/queries/engRelQueries";
 import { createFileRoute, Navigate } from "@tanstack/react-router";
 import { toast } from "sonner";
+import { useAdditionalUserContext } from "@/Context/AdditionalUserContext";
 
 export const Route = createFileRoute(
   "/(app)/projects/$projectId/eng-rels/$engRel"
@@ -16,7 +17,8 @@ export const Route = createFileRoute(
 
 function RouteComponent() {
   const { projectId, engRel: engRelParam } = Route.useParams();
-  const { data: engRels, isPending } = useProjectEngRels(projectId);
+  const { org_uuid } = useAdditionalUserContext();
+  const { data: engRels, isPending } = useProjectEngRels(projectId, org_uuid!);
 
   function formatEngRel(rel: number) {
     return String(rel).padStart(4, "0");

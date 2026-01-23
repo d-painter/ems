@@ -38,7 +38,7 @@ function AppRoute() {
     <div className="w-full h-full min-h-dvh overflow-hidden flex flex-row md:flex-row">
       {show && (
         <SideNav>
-          <NavContent navType="side" />
+            <NavContent navType="side" />
         </SideNav>
       )}
       <div className="flex w-full justify-center h-full items-start overflow-auto min-h-dvh">

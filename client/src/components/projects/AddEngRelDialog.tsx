@@ -17,11 +17,12 @@ import {
 } from "@/services/queries/engRelQueries";
 import { getNewEngRelNumber } from "@/services/db/engRelFunctions";
 import { useNavigate } from "@tanstack/react-router";
+import { useAdditionalUserContext } from "@/Context/AdditionalUserContext";
 
 export default function AddEngRelDialog({ projectId }: { projectId: string }) {
   const [open, setOpen] = useState(false);
-
-  const { refetch } = useProjectEngRels(projectId);
+  const { org_uuid } = useAdditionalUserContext();
+  const { refetch } = useProjectEngRels(projectId, org_uuid!);
   const addNewEngRelMutation = useAddNewEngRel();
   const navigate = useNavigate();
   async function createNewRelease() {
@@ -32,6 +33,7 @@ export default function AddEngRelDialog({ projectId }: { projectId: string }) {
       const newRel = await addNewEngRelMutation.mutateAsync({
         project_id: projectId,
         release_id: newEngRelNum,
+        org_uuid: org_uuid!,
       });
       await navigate({
         to: "/projects/$projectId/eng-rels/$engRel/",

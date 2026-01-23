@@ -43,9 +43,7 @@ export default function NavContent({ navType: navType }: NavContentProps) {
           <Link
             to={"/"}
             className="[&.active]:font-bold [&.active]:border-l-primary"
-          >
-            Home
-          </Link>
+          ></Link>
           {routes.map((r) => (
             <Link
               key={r.title}
