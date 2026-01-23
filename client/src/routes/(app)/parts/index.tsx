@@ -13,27 +13,21 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { allPartsQuery, useAllParts } from "@/services/queries/partsQueries";
+import { useAllParts } from "@/services/queries/partsQueries";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useAdditionalUserContext } from "@/Context/AdditionalUserContext";
 export const Route = createFileRoute("/(app)/parts/")({
   component: RouteComponent,
-  loader: async ({ context: { queryClient } }) => {
-    const { org_uuid } = useAdditionalUserContext();
-    await queryClient.prefetchQuery(allPartsQuery(org_uuid!));
-  },
 });
 
 function RouteComponent() {
   const [search, setSearch] = useState("");
   const { org_uuid } = useAdditionalUserContext();
-  const { data: allPartData, isPending } = useAllParts(org_uuid!);
+  const { data: allPartData, isPending } = useAllParts(org_uuid!, "0");
   if (isPending) {
     return <LoadingSpinner />;
   }
-
-  // const allPartData = []
 
   function getFilteredData() {
     const filteredParts = allPartData?.filter((p) => {

@@ -1,4 +1,3 @@
-import { AllProjectPartTableRows } from "@/services/queries/partsQueries";
 import { TableCell, TableRow } from "../ui/table";
 import EditPartDialog from "./EditPartDialog";
 import {
@@ -9,11 +8,12 @@ import {
   ContextMenuTrigger,
 } from "../ui/context-menu";
 import { Link } from "@tanstack/react-router";
+import { Tables } from "@/services/supabase/supabaseTypes";
 
 export default function PartsTableRow({
   part: p,
 }: {
-  part: AllProjectPartTableRows;
+  part: Tables<"part_numbers">;
 }) {
   function formatPartNumber(number: number) {
     return String(number).padStart(4, "0");
@@ -52,7 +52,7 @@ export default function PartsTableRow({
             )
           }
         >
-          {`${p.project_id}-${p.sub_system}-${formatPartNumber(p.part_number)}-01A - ${p.description}`}{" "}
+          {`${p.project_id}-${p.sub_system}-${formatPartNumber(p.part_number)}-01A - ${p.description}`}
         </ContextMenuItem>
       </ContextMenuContent>
     </ContextMenu>

@@ -1,7 +1,7 @@
-import { AllProjectPartTableRows } from "../queries/partsQueries";
+import { Tables } from "../supabase/supabaseTypes";
 
 export function getNextSubCategory(
-  data: AllProjectPartTableRows[] | null | undefined
+  data: Tables<"part_numbers">[] | null | undefined
 ): { status: string; message: string } {
   let res = { status: "", message: "" };
   if (!data?.length) {
@@ -40,19 +40,21 @@ export function getNextSubCategory(
     } else {
       const withoutT = currentCategories.filter((c) => c !== "T");
       const newCat =
-        allowedCategories[allowedCategories.indexOf(withoutT.pop()!) + 1];
+        allowedCategories[
+          allowedCategories.indexOf(withoutT.pop() as string) + 1
+        ];
       res = { status: "success", message: newCat };
     }
   }
   return res;
 }
 
-export function getUniqueCategories(data: AllProjectPartTableRows[]) {
+export function getUniqueCategories(data: Tables<"part_numbers">[]) {
   return [...new Set(data.map((d) => d.sub_system))];
 }
 
 type GetNextPartNumberParams = {
-  data: AllProjectPartTableRows[];
+  data: Tables<"part_numbers">[];
   partType: string;
   subSystem: string;
 };

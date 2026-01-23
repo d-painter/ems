@@ -1,4 +1,3 @@
-import { AllProjectPartTableRows } from "@/services/queries/partsQueries";
 import PartsTableRow from "./PartsTableRow";
 import {
   Table,
@@ -9,11 +8,12 @@ import {
   TableRow,
 } from "../ui/table";
 import AddPartDialog from "./AddPartDialog";
+import { Tables } from "@/services/supabase/supabaseTypes";
 
 type PartsTableProps = {
-  main: AllProjectPartTableRows;
-  assemblies: AllProjectPartTableRows[] | null;
-  parts: AllProjectPartTableRows[] | null;
+  main: Tables<"part_numbers">;
+  assemblies: Tables<"part_numbers">[] | null;
+  parts: Tables<"part_numbers">[] | null;
 };
 
 export default function PartsTable({ ...props }: PartsTableProps) {

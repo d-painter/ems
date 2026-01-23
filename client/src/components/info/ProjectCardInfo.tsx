@@ -7,11 +7,13 @@ import { useAddNewParts } from "@/services/queries/partsQueries";
 import getNextProjectNumber from "@/services/db/projectFunctions";
 import { toast } from "sonner";
 import { DialogClose } from "@radix-ui/react-dialog";
+import { useAdditionalUserContext } from "@/Context/AdditionalUserContext";
 
 export default function ProjectCardInfo() {
   const addNewProjectMutation = useAddNewProject();
   const addNewPartsMutation = useAddNewParts();
-  const { refetch } = useAllProjects();
+  const { org_uuid } = useAdditionalUserContext();
+  const { refetch } = useAllProjects(org_uuid!);
 
   const projects = [
     { projectTitle: "Test Title", projectDescription: "Test Description" },
@@ -40,6 +42,7 @@ export default function ProjectCardInfo() {
         project_description: p.projectDescription,
         project_id: newProjectId,
         project_title: p.projectTitle,
+        org_uuid: org_uuid!,
       });
       await addNewPartsMutation.mutateAsync([
         {
@@ -47,12 +50,14 @@ export default function ProjectCardInfo() {
           description: "DESCRIPTION",
           part_number: 9000,
           sub_system: "A",
+          org_uuid: org_uuid!,
         },
         {
           project_id: newProjectId,
           description: "TOOLING, JIGS AND FIXTURES",
           part_number: 9000,
           sub_system: "T",
+          org_uuid: org_uuid!,
         },
       ]);
     } catch (error) {

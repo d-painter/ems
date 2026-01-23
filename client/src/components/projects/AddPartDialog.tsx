@@ -13,16 +13,14 @@ import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { toast } from "sonner";
 import { Checkbox } from "../ui/checkbox";
-import {
-  AllProjectPartTableRows,
-  useAddNewParts,
-  useProjectParts,
-} from "@/services/queries/partsQueries";
+import { useAddNewParts, useAllParts } from "@/services/queries/partsQueries";
 import { getNextPartNumber } from "@/services/db/partFunctions";
+import { useAdditionalUserContext } from "@/Context/AdditionalUserContext";
+import { Tables } from "@/services/supabase/supabaseTypes";
 
 type AddPartsDialogProps = {
   partType: "assembly" | "part";
-  main: AllProjectPartTableRows;
+  main: Tables<"part_numbers">;
 };
 
 export default function AddPartDialog({ ...props }: AddPartsDialogProps) {
@@ -31,7 +29,8 @@ export default function AddPartDialog({ ...props }: AddPartsDialogProps) {
   const [isHanded, setIsHanded] = useState(false);
 
   const { project_id: projectId, sub_system: subSystem } = { ...main };
-  const { refetch } = useProjectParts(projectId);
+  const { org_uuid } = useAdditionalUserContext();
+  const { refetch } = useAllParts(org_uuid!, projectId);
   const addNewPartsMutation = useAddNewParts();
 
   const [formState, setFormState] = useState({
@@ -46,7 +45,7 @@ export default function AddPartDialog({ ...props }: AddPartsDialogProps) {
       if (!data?.length) {
         throw new Error("no data");
       }
-      const newPartNum = getNextPartNumber({ data, partType, subSystem });      
+      const newPartNum = getNextPartNumber({ data, partType, subSystem });
       if (!isHanded) {
         await addNewPartsMutation.mutateAsync([
           {
@@ -54,6 +53,7 @@ export default function AddPartDialog({ ...props }: AddPartsDialogProps) {
             sub_system: subSystem,
             description: formState.description.toUpperCase(),
             part_number: newPartNum,
+            org_uuid: org_uuid!,
           },
         ]);
       } else {
@@ -63,12 +63,14 @@ export default function AddPartDialog({ ...props }: AddPartsDialogProps) {
             sub_system: subSystem,
             description: `${formState.description.toUpperCase()} - LH`,
             part_number: newPartNum,
+            org_uuid: org_uuid!,
           },
           {
             project_id: projectId,
             sub_system: subSystem,
             description: `${formState.description.toUpperCase()} - RH`,
             part_number: newPartNum + 1,
+            org_uuid: org_uuid!,
           },
         ]);
       }
@@ -77,7 +79,6 @@ export default function AddPartDialog({ ...props }: AddPartsDialogProps) {
       setIsHanded(false);
       setOpen(false);
     } catch (error) {
-     
       // TODO: individual error handling
       if (error instanceof Error) {
         toast.error(error.message);

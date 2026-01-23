@@ -67,13 +67,15 @@ function RouteComponent() {
             <CardContent className="p-2">
               <Table>
                 <TableHeader>
-                  <TableHead>Release Title</TableHead>
-                  <TableHead>Req. Release Date</TableHead>
-                  <TableHead>Status</TableHead>
+                  <TableRow>
+                    <TableHead>Release Title</TableHead>
+                    <TableHead>Req. Release Date</TableHead>
+                    <TableHead>Status</TableHead>
+                  </TableRow>
                 </TableHeader>
                 <TableBody>
                   {useReleases.map((r) => (
-                    <TableRow>
+                    <TableRow key={r.title + r.reqReleaseDate}>
                       <TableCell>{r.title}</TableCell>
                       <TableCell>{r.reqReleaseDate}</TableCell>
                       <TableCell>{r.status}</TableCell>
@@ -106,9 +108,11 @@ function RouteComponent() {
             <CardContent className="p-2">
               <Table>
                 <TableHeader>
-                  <TableHead>Issue Title</TableHead>
-                  <TableHead>Req. Resolution Date</TableHead>
-                  <TableHead>Status</TableHead>
+                  <TableRow>
+                    <TableHead>Issue Title</TableHead>
+                    <TableHead>Req. Resolution Date</TableHead>
+                    <TableHead>Status</TableHead>
+                  </TableRow>
                 </TableHeader>
                 <TableBody>
                   <TableRow>

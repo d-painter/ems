@@ -10,14 +10,14 @@ router.get("/api/projects/:org_uuid", async (req: Request, res: Response) => {
   // Check org exists
   // Check user is associated with org
   // Get projects for org
-  const { data, error } = await supabase.from("projects").select();
+  const { data, error } = await supabase
+    .from("projects")
+    .select()
+    .eq("org_uuid", req.params.org_uuid);
   if (error) {
     res.status(500).json({ error: error.message });
   } else {
-    const filteredData = data.filter(
-      (project) => project.org_uuid === req.params.org_uuid
-    );
-    res.json({ data: filteredData });
+    res.json({ data });
   }
 });
 

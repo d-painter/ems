@@ -1,22 +1,19 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { useAdditionalUserContext } from "@/Context/AdditionalUserContext";
-import { allPartsQuery, useAllParts } from "@/services/queries/partsQueries";
+import { useAllParts } from "@/services/queries/partsQueries";
 import { createFileRoute, useParams } from "@tanstack/react-router";
 import QRCode from "react-qr-code";
 
 export const Route = createFileRoute("/(app)/parts/$partId/")({
   component: RouteComponent,
-  loader: async ({ context: { queryClient } }) => {
-    const { org_uuid } = useAdditionalUserContext();
-    await queryClient.prefetchQuery(allPartsQuery(org_uuid!));
-  },
+
 });
 
 function RouteComponent() {
   const { partId } = useParams({ strict: false });
 
   const { org_uuid } = useAdditionalUserContext();
-  const { data: allPartData } = useAllParts(org_uuid!);
+  const { data: allPartData } = useAllParts(org_uuid!, "0");
   const p = allPartData?.filter(
     (p) =>
       `${p.project_id}-${p.sub_system}-${String(p.part_number).padStart(4, "0")}` ===

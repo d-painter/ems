@@ -50,7 +50,7 @@ export default function ReleaseOverview() {
           </TableHeader>
           <TableBody>
             {projectReleases.map((r) => (
-              <TableRow>
+              <TableRow key={r.title + r.reqReleaseDate}>
                 <TableCell>{r.title}</TableCell>
                 <TableCell>{r.reqReleaseDate}</TableCell>
                 <TableCell>{r.status}</TableCell>
