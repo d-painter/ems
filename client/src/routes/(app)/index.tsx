@@ -1,0 +1,129 @@
+import InfoDialog from "@/components/info/InfoDialog";
+import OpenIssuesCardInfo from "@/components/info/OpenIssuesCardInfo";
+import ReleasesCardInfo from "@/components/info/ReleasesCardInfo";
+import ProjectTable from "@/components/projects/ProjectTable";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import IndexStyling from "@/components/ui/layout/IndexStyling";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { useAdditionalUserContext } from "@/Context/AdditionalUserContext";
+import { releases } from "@/services/data/dashboardData";
+import { useAllProjects } from "@/services/queries/projectQueries";
+import { createFileRoute } from "@tanstack/react-router";
+export const Route = createFileRoute("/(app)/")({
+  component: RouteComponent,
+});
+
+function RouteComponent() {
+  const { org_uuid } = useAdditionalUserContext();
+  const { error, data: projectData } = useAllProjects(org_uuid!);
+
+  const useReleases = releases;
+  const infoProps = {
+    title: "Releases Information",
+    description: "About the Releases card.",
+    content: <div>testing</div>,
+  };
+
+  return (
+    <IndexStyling>
+      <div className="flex flex-wrap flex-row w-full h-full gap-4 items-start pb-4">
+        <div className="w-full h-fit flex flex-wrap gap-2">
+          <div className="w-full">
+            <ProjectTable data={projectData} error={error} />
+          </div>
+          <Card className="grow p-0">
+            <CardHeader className="px-4">
+              <CardTitle>
+                <div className="flex flex-row justify-between items-center">
+                  <div className="flex flex-row gap-4 items-center">
+                    RELEASES
+                  </div>
+                  <InfoDialog
+                    type="info"
+                    title={infoProps.title}
+                    description={infoProps.description}
+                  >
+                    <ReleasesCardInfo />
+                  </InfoDialog>
+                </div>
+              </CardTitle>
+              <CardDescription>
+                Overview of releases owned by you.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="p-2">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Release Title</TableHead>
+                    <TableHead>Req. Release Date</TableHead>
+                    <TableHead>Status</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {useReleases.map((r) => (
+                    <TableRow key={r.title + r.reqReleaseDate}>
+                      <TableCell>{r.title}</TableCell>
+                      <TableCell>{r.reqReleaseDate}</TableCell>
+                      <TableCell>{r.status}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+          <Card className="grow p-0">
+            <CardHeader className="px-4">
+              <CardTitle>
+                <div className="flex flex-row justify-between items-center">
+                  <div className="flex flex-row gap-4 items-center">
+                    OPEN ISSUES
+                  </div>
+                  <InfoDialog
+                    type="info"
+                    title="Open Issues Information"
+                    description="About the Open Issues card."
+                  >
+                    <OpenIssuesCardInfo />
+                  </InfoDialog>
+                </div>
+              </CardTitle>
+              <CardDescription>
+                Overview of issues owned by you.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="p-2">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Issue Title</TableHead>
+                    <TableHead>Req. Resolution Date</TableHead>
+                    <TableHead>Status</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  <TableRow>
+                    <TableCell colSpan={100}>No current issues.</TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </IndexStyling>
+  );
+}
