@@ -1,8 +1,9 @@
 import MobileNavBottom from "@/components/nav/MobileNavBottom";
 import NavContentProjects from "@/components/nav/NavContentProjects";
 import SideNav from "@/components/nav/SideNav";
+import { Card } from "@/components/ui/card";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
-import { allProjectPartsQuery } from "@/services/queries/partsQueries";
+import { useAdditionalUserContext } from "@/Context/AdditionalUserContext";
 import { useAllProjects } from "@/services/queries/projectQueries";
 import {
   createFileRoute,
@@ -14,16 +15,13 @@ import { toast } from "sonner";
 
 export const Route = createFileRoute("/(app)/projects/$projectId")({
   component: RouteComponent,
-  loader: async ({ context: { queryClient }, params }) => {
-    const { projectId } = params;
-    await queryClient.prefetchQuery(allProjectPartsQuery(projectId));
-  },
 });
 
 function RouteComponent() {
   const route = useParams({ strict: false });
 
-  const { data, isPending } = useAllProjects();
+  const { org_uuid } = useAdditionalUserContext();
+  const { data, isPending } = useAllProjects(org_uuid!);
   if (isPending) {
     return <LoadingSpinner />;
   }
@@ -34,6 +32,7 @@ function RouteComponent() {
     toast.error(`${route.projectId} does not exist`);
     return <Navigate to="/projects/" replace={true} />;
   }
+  const project = data?.filter((p) => p.project_id === route.projectId)[0];
 
   return (
     <div className="w-full h-full flex flex-col md:flex-row">
@@ -43,6 +42,13 @@ function RouteComponent() {
         </div>
       </SideNav>
       <div className="w-full h-full p-2 pb-20 max-md:min-h-dvh md:pb-2">
+        <div className="md:hidden">
+          <Card className="w-full p-2 shadow-none">
+            <p className="text-sm">
+              {route.projectId} - {project?.project_description}
+            </p>
+          </Card>
+        </div>
         <Outlet />
       </div>
       <MobileNavBottom>

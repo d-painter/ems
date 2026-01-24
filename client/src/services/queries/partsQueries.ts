@@ -4,55 +4,38 @@ import { Tables } from "../supabase/supabaseTypes";
 import { toast } from "sonner";
 
 const supabase = supabaseClient;
+const apiUrl = import.meta.env.DEV
+  ? "http://localhost:3010"
+  : (import.meta.env.VITE_RENDER_API_URL as string);
 
 // Queries
-// Get all parts for a project
-export type AllProjectPartTableRows = Omit<Tables<"part_numbers">, "owner_id">;
-async function fetchProjectParts(
-  projectId: string
-): Promise<AllProjectPartTableRows[] | null> {
-  const { data, error } = await supabase
-    .from("part_numbers")
-    .select(
-      "project_id, sub_system, part_number, description, id, created_date"
-    )
-    .eq("project_id", projectId);
+
+//Get all parts
+export function allPartsQuery(org_uuid: string, project_id: string) {
+  return {
+    queryKey: ["All parts", org_uuid, project_id],
+    queryFn: () => fetchAllParts(org_uuid, project_id),
+  };
+}
+
+async function fetchAllParts(
+  org_uuid: string,
+  project_id: string
+): Promise<Tables<"part_numbers">[]> {
+  const response = await fetch(`${apiUrl}/api/parts/${org_uuid}/${project_id}`);
+  const { data, error } = (await response.json()) as {
+    data: Tables<"part_numbers">[];
+    error: string | null;
+  };
   if (error) {
-    throw error;
+    throw new Error(error);
   } else {
     return data;
   }
 }
-export function useProjectParts(projectId: string) {
-  return useQuery(allProjectPartsQuery(projectId));
-}
-export function allProjectPartsQuery(projectId: string) {
-  return {
-    queryKey: ["allProjectParts", projectId],
-    queryFn: () => fetchProjectParts(projectId),
-  };
-}
 
-//Get all parts
-export function allPartsQuery(){
-  return {
-    queryKey: ["All parts"],
-    queryFn: fetchAllParts
-  }
-}
-
-async function fetchAllParts():Promise<Tables<"part_numbers">[]>{
-  const { data, error } = await supabase
-    .from("part_numbers")
-    .select()
-  if (error) {
-    throw error;
-  } else {
-    return data as Tables<"part_numbers">[];
-  }
-}
-export function useAllParts(){
-  return useQuery(allPartsQuery())
+export function useAllParts(org_uuid: string, project_id: string) {
+  return useQuery(allPartsQuery(org_uuid, project_id));
 }
 
 // Mutations
@@ -70,13 +53,13 @@ export function useAddNewParts() {
           `${v.project_id}-${v.sub_system}-${v.part_number} - ${v.description} added.`
         )
       );
-      await queryClient.invalidateQueries({ queryKey: ["allProjectParts"] });
+      await queryClient.invalidateQueries({ queryKey: ["All parts"] });
     },
   });
 }
 
 async function addNewParts(
-  parts: Omit<AllProjectPartTableRows, "owner_id" | "id" | "created_date">[]
+  parts: Omit<Tables<"part_numbers">, "id" | "owner_id" | "created_date">[]
 ) {
   const { data, error } = await supabase
     .from("part_numbers")
@@ -98,7 +81,7 @@ export function useUpdatePart() {
       throw error;
     },
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["allProjectParts"] });
+      await queryClient.invalidateQueries({ queryKey: ["All parts"] });
     },
   });
 }

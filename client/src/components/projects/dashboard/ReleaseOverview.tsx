@@ -21,7 +21,7 @@ import { releases } from "@/services/data/dashboardData";
 export default function ReleaseOverview() {
   const projectReleases = releases;
   return (
-    <Card className="max-md:w-full max-w-2xl grow">
+    <Card className="max-w-3xl ">
       <CardHeader>
         <CardTitle>
           <div className="flex flex-row justify-between items-center">
@@ -42,13 +42,15 @@ export default function ReleaseOverview() {
       <CardContent className="px-4">
         <Table>
           <TableHeader>
-            <TableHead>Release Title</TableHead>
-            <TableHead>Req. Release Date</TableHead>
-            <TableHead>Status</TableHead>
+            <TableRow>
+              <TableHead>Release Title</TableHead>
+              <TableHead>Req. Release Date</TableHead>
+              <TableHead>Status</TableHead>
+            </TableRow>
           </TableHeader>
           <TableBody>
             {projectReleases.map((r) => (
-              <TableRow>
+              <TableRow key={r.title + r.reqReleaseDate}>
                 <TableCell>{r.title}</TableCell>
                 <TableCell>{r.reqReleaseDate}</TableCell>
                 <TableCell>{r.status}</TableCell>

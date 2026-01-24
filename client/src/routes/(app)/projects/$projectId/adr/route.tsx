@@ -10,7 +10,7 @@ export const Route = createFileRoute("/(app)/projects/$projectId/adr")({
 function RouteComponent() {
   return (
     <div className="w-full flex flex-col h-full text-sm overflow-hidden">
-      <div>
+      <div className="max-md:absolute w-fit top-2.5 right-3">
         <InfoDialog
           type="info"
           title="Decision Record Information"
@@ -19,8 +19,8 @@ function RouteComponent() {
           <DecisionRecordsInfo />
         </InfoDialog>
       </div>
-      <div className=" w-full flex flex-col h-full">
-        <div className="w-full my-auto h-full flex flex-col justify-center items-center overflow-auto">
+      <div className=" w-full flex flex-col h-full max-md:mt-2">
+        <div className="w-full h-full flex flex-col items-center overflow-auto">
           <div className="h-fit w-full max-w-2xl space-y-2">
             <Card className="p-2 md:p-6">
               <h1>TOPIC 1</h1>

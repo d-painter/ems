@@ -1,6 +1,6 @@
 import {
   useAddNewParts,
-  useProjectParts,
+  useAllParts,
 } from "@/services/queries/partsQueries";
 import { Button } from "../ui/button";
 import { getNextSubCategory } from "@/services/db/partFunctions";
@@ -18,14 +18,18 @@ import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { toast } from "sonner";
 import { useNavigate } from "@tanstack/react-router";
+import { useAdditionalUserContext } from "@/Context/AdditionalUserContext";
 
 export default function AddCategoryDialog({
   projectId,
 }: {
   projectId: string;
 }) {
-  const { refetch } = useProjectParts(projectId);
-  const addNewPartsMutation = useAddNewParts();
+  
+  const { org_uuid } = useAdditionalUserContext();
+  const { refetch } = useAllParts(org_uuid!, projectId);
+
+  const addNewPartsMutation = useAddNewParts(); //update
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
@@ -50,6 +54,7 @@ export default function AddCategoryDialog({
           sub_system: message,
           description: formState.description.toUpperCase(),
           part_number: Number(9000),
+          org_uuid: org_uuid!,
         },
       ]);
 

@@ -10,11 +10,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useAdditionalUserContext } from "@/Context/AdditionalUserContext";
 import { getUniqueCategories } from "@/services/db/partFunctions";
-import {
-  AllProjectPartTableRows,
-  useProjectParts,
-} from "@/services/queries/partsQueries";
+import { useAllParts } from "@/services/queries/partsQueries";
+import { Tables } from "@/services/supabase/supabaseTypes";
 import { createFileRoute, Navigate, useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
 
@@ -29,7 +28,8 @@ const re = /^9(?!0*$)\d+$/;
 
 function RouteComponent() {
   const { projectId, category } = Route.useParams();
-  const { data, error } = useProjectParts(projectId);
+  const { org_uuid } = useAdditionalUserContext();
+  const { data, error } = useAllParts(org_uuid!, projectId);
   const navigate = useNavigate();
   if (error) {
     return (
@@ -43,9 +43,9 @@ function RouteComponent() {
   }
   const uniqueCategories = getUniqueCategories(data);
 
-  let main = {} as AllProjectPartTableRows;
-  const assemblies: AllProjectPartTableRows[] | null = [];
-  const parts: AllProjectPartTableRows[] | null = [];
+  let main = {} as Tables<"part_numbers">;
+  const assemblies: Tables<"part_numbers">[] | null = [];
+  const parts: Tables<"part_numbers">[] | null = [];
   const subSystems: string[] = [];
 
   data.map((d) => {
@@ -90,11 +90,11 @@ function RouteComponent() {
     return subSystems[index];
   };
 
-  function sortedByPartNumber(a: AllProjectPartTableRows[]) {
+  function sortedByPartNumber(a: Tables<"part_numbers">[]) {
     return a.sort((a, b) => a.part_number - b.part_number);
   }
 
-  let result
+  let result;
   if (data && projectId === "P002") {
     result = data.filter(
       (p) =>
@@ -105,7 +105,7 @@ function RouteComponent() {
 
   return (
     <div className="w-full flex flex-col h-full overflow-hidden">
-      <div>
+      <div className="max-md:absolute w-fit top-2.5 right-3">
         <InfoDialog
           title="Parts Information"
           description="About the Parts page."
@@ -114,8 +114,7 @@ function RouteComponent() {
           <PartsPageInfo result={result} />
         </InfoDialog>
       </div>
-      <div className="w-full h-full overflow-hidden">
-
+      <div className="w-full h-full overflow-hidden max-md:mt-2">
         <div className="flex flex-col h-full mx-auto max-w-4xl">
           <div className="flex flex-row items-center gap-2 mb-4 mt-1 relative top-0">
             <Select onValueChange={(e) => void handleCategoryChange(e)}>

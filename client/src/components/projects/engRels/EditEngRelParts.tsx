@@ -10,7 +10,8 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 import { useUpdateEngRel } from "@/services/queries/engRelQueries";
-import { useProjectParts } from "@/services/queries/partsQueries";
+import { useAllParts } from "@/services/queries/partsQueries";
+import { useAdditionalUserContext } from "@/Context/AdditionalUserContext";
 import { Tables } from "@/services/supabase/supabaseTypes";
 import { X } from "lucide-react";
 import { useState } from "react";
@@ -21,7 +22,8 @@ export default function EditEngRelParts({
 }: {
   engRel: Tables<"eng_rels">;
 }) {
-  const { data: allParts } = useProjectParts(engRel.project_id);
+  const { org_uuid } = useAdditionalUserContext();
+  const { data: allParts } = useAllParts(org_uuid!, engRel.project_id);
   let partIdArray: number[] = [];
   if (engRel.part_numbers) {
     partIdArray = engRel.part_numbers.split(";").map((n) => Number(n));
@@ -134,41 +136,4 @@ export default function EditEngRelParts({
       </DialogContent>
     </Dialog>
   );
-}
-{
-  /* <Table>
-              <TableHeader>
-                <TableRow className="text-left">
-                  <TableHead className="text-left">Part Number</TableHead>
-                  <TableHead>Description</TableHead>
-                  <TableHead>Remove</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {updatedPartsList?.map((p, i) => (
-                  <TableRow key={i}>
-                    <TableCell className="pl-4 text-xs">
-                      {p.project_id}-{p.sub_system}-
-                      {String(p.part_number).padStart(4, "0")}
-                    </TableCell>
-                    <TableCell className="min-w-24 !max-w-36 !truncate">
-                      {p.description}
-                    </TableCell>
-                    <TableCell>
-                      <Button
-                        variant={"ghost"}
-                        size={"xs"}
-                        onClick={() =>
-                          setUpdateParts(
-                            updateParts.filter((part) => part !== p.id)
-                          )
-                        }
-                      >
-                        <X />
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table> */
 }

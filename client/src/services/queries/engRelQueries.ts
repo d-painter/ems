@@ -3,24 +3,34 @@ import { supabase as supabaseClient } from "../supabase/supabaseClient";
 import { Tables } from "../supabase/supabaseTypes";
 
 const supabase = supabaseClient;
+const apiUrl = import.meta.env.DEV
+  ? "http://localhost:3010"
+  : (import.meta.env.VITE_RENDER_API_URL as string);
 
 // Queries
 // Get all engineering releases for a project
 async function fetchProjectEngRels(
-  projectId: string
-): Promise<Tables<"eng_rels">[] | null> {
-  const { data } = await supabase
-    .from("eng_rels")
-    .select("*")
-    .eq("project_id", projectId)
-    .throwOnError();
-  return data as Tables<"eng_rels">[];
+  projectId: string,
+  orgUuid: string
+): Promise<Tables<"eng_rels">[]> {
+
+  const response = await fetch(
+    `${apiUrl}/api/eng-rels/${orgUuid}/${projectId}`
+  );
+  const { data, error } = (await response.json()) as {
+    data: Tables<"eng_rels">[];
+    error: string | null;
+  };
+  if (error) {
+    throw new Error(error);
+  }
+  return data;
 }
 
-export function useProjectEngRels(projectId: string) {
+export function useProjectEngRels(projectId: string, orgUuid: string) {
   return useQuery({
-    queryKey: ["allProjectEngRels", projectId],
-    queryFn: () => fetchProjectEngRels(projectId),
+    queryKey: ["allProjectEngRels", projectId, orgUuid],
+    queryFn: () => fetchProjectEngRels(projectId, orgUuid),
   });
 }
 
@@ -83,6 +93,7 @@ async function addNewEngRel(engRel: {
   release_id: number;
   title?: string;
   description?: string;
+  org_uuid: string;
 }) {
   const { data } = await supabase
     .from("eng_rels")

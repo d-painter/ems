@@ -18,6 +18,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useAdditionalUserContext } from "@/Context/AdditionalUserContext";
 import { releases } from "@/services/data/dashboardData";
 import { useAllProjects } from "@/services/queries/projectQueries";
 import { createFileRoute } from "@tanstack/react-router";
@@ -26,7 +27,8 @@ export const Route = createFileRoute("/(app)/")({
 });
 
 function RouteComponent() {
-  const { error, data: projectData } = useAllProjects();
+  const { org_uuid } = useAdditionalUserContext();
+  const { error, data: projectData } = useAllProjects(org_uuid!);
 
   const useReleases = releases;
   const infoProps = {
@@ -37,7 +39,7 @@ function RouteComponent() {
 
   return (
     <IndexStyling>
-      <div className="flex flex-wrap flex-row w-full h-full gap-4 items-center pb-4">
+      <div className="flex flex-wrap flex-row w-full h-full gap-4 items-start pb-4">
         <div className="w-full h-fit flex flex-wrap gap-2">
           <div className="w-full">
             <ProjectTable data={projectData} error={error} />
@@ -65,13 +67,15 @@ function RouteComponent() {
             <CardContent className="p-2">
               <Table>
                 <TableHeader>
-                  <TableHead>Release Title</TableHead>
-                  <TableHead>Req. Release Date</TableHead>
-                  <TableHead>Status</TableHead>
+                  <TableRow>
+                    <TableHead>Release Title</TableHead>
+                    <TableHead>Req. Release Date</TableHead>
+                    <TableHead>Status</TableHead>
+                  </TableRow>
                 </TableHeader>
                 <TableBody>
                   {useReleases.map((r) => (
-                    <TableRow>
+                    <TableRow key={r.title + r.reqReleaseDate}>
                       <TableCell>{r.title}</TableCell>
                       <TableCell>{r.reqReleaseDate}</TableCell>
                       <TableCell>{r.status}</TableCell>
@@ -104,9 +108,11 @@ function RouteComponent() {
             <CardContent className="p-2">
               <Table>
                 <TableHeader>
-                  <TableHead>Issue Title</TableHead>
-                  <TableHead>Req. Resolution Date</TableHead>
-                  <TableHead>Status</TableHead>
+                  <TableRow>
+                    <TableHead>Issue Title</TableHead>
+                    <TableHead>Req. Resolution Date</TableHead>
+                    <TableHead>Status</TableHead>
+                  </TableRow>
                 </TableHeader>
                 <TableBody>
                   <TableRow>

@@ -13,25 +13,21 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { allPartsQuery, useAllParts } from "@/services/queries/partsQueries";
+import { useAllParts } from "@/services/queries/partsQueries";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-
+import { useAdditionalUserContext } from "@/Context/AdditionalUserContext";
 export const Route = createFileRoute("/(app)/parts/")({
   component: RouteComponent,
-  loader: async ({ context: { queryClient } }) => {
-    await queryClient.prefetchQuery(allPartsQuery());
-  },
 });
 
 function RouteComponent() {
   const [search, setSearch] = useState("");
-  const { data: allPartData, isPending } = useAllParts();
+  const { org_uuid } = useAdditionalUserContext();
+  const { data: allPartData, isPending } = useAllParts(org_uuid!, "0");
   if (isPending) {
     return <LoadingSpinner />;
   }
-
-  // const allPartData = []
 
   function getFilteredData() {
     const filteredParts = allPartData?.filter((p) => {
@@ -62,7 +58,7 @@ function RouteComponent() {
 
   return (
     <IndexStyling>
-      <Card className="relative w-full h-fit max-h-full my-auto max-w-lg pb-2">
+      <Card className="relative w-full h-fit max-h-full mx-auto max-w-lg pb-2">
         <div className="w-fit absolute -right-1 -top-1">
           <InfoDialog
             type="info"

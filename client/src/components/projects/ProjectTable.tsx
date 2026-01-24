@@ -15,7 +15,6 @@ import {
 import InfoDialog from "../info/InfoDialog";
 import ProjectCardInfo from "../info/ProjectCardInfo";
 
-
 type ProjectTableProps = {
   data: Tables<"projects">[] | null | undefined;
   error: Error | null;
@@ -31,7 +30,7 @@ export default function ProjectTable({ ...props }: ProjectTableProps) {
   };
 
   return (
-    <Card className="w-full my-auto">
+    <Card className="w-full h-fit">
       <CardTitle className="px-4">
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row gap-4 items-center">
@@ -45,15 +44,16 @@ export default function ProjectTable({ ...props }: ProjectTableProps) {
           >
             <ProjectCardInfo />
           </InfoDialog>
-
         </div>
       </CardTitle>
       <CardContent className="p-2">
         <Table>
           <TableHeader>
-            <TableHead>Project</TableHead>
-            <TableHead>Project Name</TableHead>
-            <TableHead>Project Description</TableHead>
+            <TableRow>
+              <TableHead>Project</TableHead>
+              <TableHead>Project Name</TableHead>
+              <TableHead>Project Description</TableHead>
+            </TableRow>
           </TableHeader>
           <TableBody>
             {error ? (

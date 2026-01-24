@@ -3,6 +3,7 @@ import { Button } from "../ui/button";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { useAddNewParts, useUpdatePart } from "@/services/queries/partsQueries";
 import { toast } from "sonner";
+import { useAdditionalUserContext } from "@/Context/AdditionalUserContext";
 
 export default function PartsPageInfo({
   result,
@@ -10,6 +11,7 @@ export default function PartsPageInfo({
   result: number | undefined;
 }) {
   const { projectId } = useParams({ strict: false });
+  const { org_uuid } = useAdditionalUserContext();
 
   const updatePartMutation = useUpdatePart();
   const addNewPartsMutation = useAddNewParts();
@@ -37,78 +39,78 @@ export default function PartsPageInfo({
       description: "POWERTRAIN",
       part_number: 9000,
       sub_system: "B",
+      org_uuid: org_uuid!,
     },
     {
       project_id: "P002",
       description: "TRANSMISSION",
       part_number: 9000,
       sub_system: "C",
+      org_uuid: org_uuid!,
     },
     {
       project_id: "P002",
       description: "COOLING",
       part_number: 9000,
       sub_system: "D",
+      org_uuid: org_uuid!,
     },
     {
       project_id: "P002",
       description: "FRONT SUSPENSION",
       part_number: 9001,
       sub_system: "A",
+      org_uuid: org_uuid!,
     },
     {
       project_id: "P002",
       description: "FRONT CORNER UNITS",
       part_number: 9003,
       sub_system: "A",
+      org_uuid: org_uuid!,
     },
     {
       project_id: "P002",
       description: "WHEELS AND TYRES",
       part_number: 9005,
       sub_system: "A",
+      org_uuid: org_uuid!,
     },
     {
       project_id: "P002",
       description: "STEERING",
       part_number: 9007,
       sub_system: "A",
+      org_uuid: org_uuid!,
     },
     {
       project_id: "P002",
       description: "FUWB - LH",
       part_number: 9009,
       sub_system: "A",
+      org_uuid: org_uuid!,
     },
     {
       project_id: "P002",
       description: "FUWB - RH",
       part_number: 9010,
       sub_system: "A",
+      org_uuid: org_uuid!,
     },
     {
       project_id: "P002",
       description: "FPR",
       part_number: 9011,
       sub_system: "A",
+      org_uuid: org_uuid!,
     },
-    {
-      project_id: "P002",
-      description: "FPR WELDED ASSY",
-      part_number: 9013,
-      sub_system: "A",
-    },
-    {
-      project_id: "P002",
-      description: "FPR TUBE",
-      part_number: 3,
-      sub_system: "A",
-    },
+
     {
       project_id: "P002",
       description: "BEARING END - IB",
       part_number: 1,
       sub_system: "A",
+      org_uuid: org_uuid!,
     },
   ];
 
