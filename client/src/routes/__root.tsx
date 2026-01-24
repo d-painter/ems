@@ -23,7 +23,19 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
           <h1 className="text-3xl">404 NOT FOUND</h1>
         </div>
         <Link to="/" className="underline">
-          home
+          Home
+        </Link>
+      </div>
+    );
+  },
+  errorComponent: () => {
+    return (
+      <div className="w-full text-center flex flex-col items-center gap-4 justify-center">
+        <div>
+          <h1 className="text-3xl">Error</h1>
+        </div>
+        <Link to="/" className="underline">
+          Home
         </Link>
       </div>
     );

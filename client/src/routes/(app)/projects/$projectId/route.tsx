@@ -32,6 +32,7 @@ function RouteComponent() {
     toast.error(`${route.projectId} does not exist`);
     return <Navigate to="/projects/" replace={true} />;
   }
+  const project = data?.filter((p) => p.project_id === route.projectId)[0];
 
   return (
     <div className="w-full h-full flex flex-col md:flex-row">
@@ -43,10 +44,11 @@ function RouteComponent() {
       <div className="w-full h-full p-2 pb-20 max-md:min-h-dvh md:pb-2">
         <div className="md:hidden">
           <Card className="w-full p-2 shadow-none">
-            <h1>Project - {route.projectId}</h1>
+            <p className="text-sm">
+              {route.projectId} - {project?.project_description}
+            </p>
           </Card>
         </div>
-
         <Outlet />
       </div>
       <MobileNavBottom>

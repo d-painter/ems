@@ -105,7 +105,7 @@ function RouteComponent() {
 
   return (
     <div className="w-full flex flex-col h-full overflow-hidden">
-      <div>
+      <div className="max-md:absolute w-fit top-2.5 right-3">
         <InfoDialog
           title="Parts Information"
           description="About the Parts page."
@@ -114,7 +114,7 @@ function RouteComponent() {
           <PartsPageInfo result={result} />
         </InfoDialog>
       </div>
-      <div className="w-full h-full overflow-hidden">
+      <div className="w-full h-full overflow-hidden max-md:mt-2">
         <div className="flex flex-col h-full mx-auto max-w-4xl">
           <div className="flex flex-row items-center gap-2 mb-4 mt-1 relative top-0">
             <Select onValueChange={(e) => void handleCategoryChange(e)}>
