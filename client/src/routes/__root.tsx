@@ -5,7 +5,6 @@ import {
 } from "@tanstack/react-router";
 import { AuthContext } from "@/components/auth/AuthContext";
 import { Toaster } from "@/components/ui/sonner";
-import TestingNav from "@/components/testing/TestingNav";
 import { QueryClient } from "@tanstack/react-query";
 import { AdditionalUserContextProvider } from "@/Context/AdditionalUserContext";
 
@@ -41,11 +40,9 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
     );
   },
   component: () => {
-    const showTesting = false;
     return (
       <>
         <AdditionalUserContextProvider>
-          {showTesting && <TestingNav />}
           <Outlet />
           <Toaster richColors />
         </AdditionalUserContextProvider>
