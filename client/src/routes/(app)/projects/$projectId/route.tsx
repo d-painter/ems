@@ -4,7 +4,9 @@ import SideNav from "@/components/nav/SideNav";
 import { Card } from "@/components/ui/card";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import { useAdditionalUserContext } from "@/Context/AdditionalUserContext";
+import { allPartsQuery } from "@/services/queries/partsQueries";
 import { useAllProjects } from "@/services/queries/projectQueries";
+import { useQuery } from "@tanstack/react-query";
 import {
   createFileRoute,
   Navigate,
@@ -32,6 +34,7 @@ function RouteComponent() {
     toast.error(`${route.projectId} does not exist`);
     return <Navigate to="/projects/" replace={true} />;
   }
+  useQuery(allPartsQuery(org_uuid!, route.projectId!));
   const project = data?.filter((p) => p.project_id === route.projectId)[0];
 
   return (
