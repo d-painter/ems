@@ -34,7 +34,7 @@ export default function PartsTableRow({
           <TableCell className="min-w-24 !max-w-36 !truncate">
             {p.description}
           </TableCell>
-          <TableCell className="max-sm:hidden">Created By</TableCell>
+          <TableCell className="max-sm:hidden">{p.owner_id}</TableCell>
           <TableCell className="max-sm:hidden">
             {createdDate.toLocaleDateString()}
           </TableCell>
