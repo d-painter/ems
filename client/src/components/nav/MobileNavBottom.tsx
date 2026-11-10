@@ -1,4 +1,4 @@
-import { ReactNode } from "@tanstack/react-router";
+import { ReactNode } from "react";
 import { Menu } from "lucide-react";
 import {
   Sheet,
