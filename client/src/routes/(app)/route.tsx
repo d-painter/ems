@@ -16,12 +16,7 @@ export const Route = createFileRoute("/(app)")({
 });
 
 function AppRoute() {
-  const { session } = UserAuth();
-
-  if (!session) {
-    return <Navigate to="/login/" />;
-  }
-
+  const { session, isLoading } = UserAuth();
   const { org_uuid: userOrgUuid } = useAdditionalUserContext();
   const matchRoute = useMatchRoute();
   const matchedIndex = matchRoute({ to: "/" });
@@ -31,6 +26,18 @@ function AppRoute() {
 
   const show =
     matchedIndex || matchedProjects || matchedParts || matchedSuppliers;
+
+  if (isLoading) {
+    return (
+      <div className="w-full h-dvh flex justify-center items-center">
+        <LoadingSpinner />
+      </div>
+    );
+  }
+
+  if (!session) {
+    return <Navigate to="/login/" replace />;
+  }
 
   if (!userOrgUuid) {
     return (

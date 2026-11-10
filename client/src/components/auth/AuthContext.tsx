@@ -1,9 +1,11 @@
 import { supabase } from "@/services/supabase/supabaseClient";
 import { AuthError, Session, User } from "@supabase/supabase-js";
 import { createContext, useContext, useEffect, useState } from "react";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
 
 export interface AuthContext {
   session: Session | null;
+  isLoading: boolean;
   signUpNewUser: (
     email: string,
     password: string
@@ -30,6 +32,7 @@ export function AuthContextProvider({
   children: React.ReactNode;
 }) {
   const [session, setSession] = useState<null | Session>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const signUpNewUser = async (email: string, password: string) => {
     const { data, error } = await supabase.auth.signUp({
@@ -70,19 +73,44 @@ export function AuthContextProvider({
   };
 
   useEffect(() => {
-    void supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, nextSession) => {
+      setSession(nextSession);
+      setIsLoading(false);
     });
 
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
+    // Returning from Google can restore the login page from cache after the
+    // session has already been written. Re-read storage when that happens.
+    const onPageShow = (event: PageTransitionEvent) => {
+      if (!event.persisted) return;
+      void supabase.auth.getSession().then(({ data: { session: nextSession } }) => {
+        setSession(nextSession);
+        setIsLoading(false);
+      });
+    };
+    window.addEventListener("pageshow", onPageShow);
+
+    return () => {
+      subscription.unsubscribe();
+      window.removeEventListener("pageshow", onPageShow);
+    };
   }, []);
 
+  const value = { session, isLoading, signUpNewUser, signOut, signIn };
+
+  if (isLoading) {
+    return (
+      <AuthContext.Provider value={value}>
+        <div className="w-full h-dvh flex justify-center items-center">
+          <LoadingSpinner />
+        </div>
+      </AuthContext.Provider>
+    );
+  }
+
   return (
-    <AuthContext.Provider value={{ session, signUpNewUser, signOut, signIn }}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
   );
 }
 

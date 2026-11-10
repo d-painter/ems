@@ -1,20 +1,21 @@
 import { UserAuth } from "@/components/auth/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Navigate, useNavigate } from "@tanstack/react-router";
 import { FormEvent, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { supabase } from "@/services/supabase/supabaseClient";
 import GoogleIcon from "@/components/icons/GoogleIcon";
 import { useIsApiServerRunning } from "@/services/queries/apiQueries";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
 
 export const Route = createFileRoute("/(auth)/login")({
   component: LoginPage,
 });
 
 function LoginPage() {
-  const { signIn } = UserAuth();
+  const { signIn, session, isLoading } = UserAuth();
   const navigate = useNavigate();
 
   const [formState, setFormState] = useState({
@@ -38,14 +39,27 @@ function LoginPage() {
   }
 
   async function handleGoogleLogin() {
-    const redirectRoute =
-      process.env.NODE_ENV !== "production" ? "http://localhost:3000" : "";
+    // Must match an entry in the Supabase redirect allow list exactly.
+    // A trailing slash is a different URL and is sent to the Site URL instead.
+    const redirectTo = window.location.origin;
     await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: redirectRoute,
+        redirectTo,
       },
     });
+  }
+
+  if (isLoading) {
+    return (
+      <div className="w-full h-dvh flex justify-center items-center">
+        <LoadingSpinner />
+      </div>
+    );
+  }
+
+  if (session) {
+    return <Navigate to="/" replace />;
   }
 
   return (
